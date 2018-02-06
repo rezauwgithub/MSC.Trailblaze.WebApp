@@ -54,12 +54,9 @@ export const setSelectedOption_CompilerSelect = (selectedOption) => {
 	to delay its evaluation.
 */
 export function fetchOptions_CompilerSelect() {
-	
-	console.log("Getting here!");
 
 	return (dispatch) => {
 		dispatch(loadingOptions_CompilerSelect(true));
-		dispatch(addLog_LogsTextField("Fetching Compiler Names from backend..."));
 
 		fetch('/msc_compilers')
 			.then((response) => {
@@ -68,7 +65,6 @@ export function fetchOptions_CompilerSelect() {
 				}
 
 				dispatch(loadingOptions_CompilerSelect(false));
-				dispatch(addLog_LogsTextField("Fetched Compiler Names successfully!!!"));
 
 				return response;
 			})
