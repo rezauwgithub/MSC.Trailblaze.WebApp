@@ -7,7 +7,8 @@ import { connect } from 'react-redux';
 
 class CompilerSelectField extends Component {
 
-    componentDidMount() {
+    componentWillMount() {
+        console.log('Something is being printed!');
         this.props.fetchOptions();
     }
 
