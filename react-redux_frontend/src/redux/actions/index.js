@@ -1,50 +1,69 @@
-export const addLog_LogsTextField = (log) => {
+import { 
+	LOADING_COMPILERSELECTFIELD, 
+	ERRORED_LOADING_COMPILERSELECTFIELD, 
+	SET_OPTIONS_COMPILERSELECTFIELD,
+	CLEAR_LOGSTEXTFIELD
+} from '../../constants/redux/actionTypes';
+
+
+// Action Creators
+
+export const loading_CompilerSelectField = (bool) => {
 	return {
-		type: 'ADD_LOG_LOGSTEXTFIELD',
-		log
-	};
-}
-
-export const clearLogs_LogsTextField = () => {
-	return {
-		type: 'CLEAR_LOGS_LOGSTEXTFIELD',
-		logs: ''
-	};
-}
-
-
-
-export const loadingOptions_CompilerSelect = (bool) => {
-	return {
-		type: 'LOADING_OPTIONS_COMPILERSELECT',
-		isLoadingOptions: bool
+		type: LOADING_COMPILERSELECTFIELD,
+		loading: bool
 	};
 }
 
 
-export const erroredLoadingOptions_CompilerSelect = (bool) => {
+export const erroredLoading_CompilerSelectField = (bool) => {
 	return {
-		type: 'ERRORED_LOADING_OPTIONS_COMPILERSELECT',
-		hasErroredLoadingOptions: bool
+		type: ERRORED_LOADING_COMPILERSELECTFIELD,
+		hasErroredLoading: bool
 	};
 }
 
 
-export const setOptions_CompilerSelect = (options) => {
+export const setOptions_CompilerSelectField = (options) => {
 	return {
-		type: 'SET_OPTIONS_COMPILERSELECT',
-		options
+		type: SET_OPTIONS_COMPILERSELECTFIELD,
+		options: options
 	};
 }
 
 
-export const setSelectedOption_CompilerSelect = (selectedOption) => {
+
+export const loading_CompilerDetails = (bool) => {
 	return {
-		type: 'SET_SELECTED_OPTION_COMPILERSELECT',
-		selectedOption
+		type: 'LOADING_COMPILERDETAILS',
+		isLoading: bool
 	};
 }
 
+
+export const erroredLoading_CompilerDetails = (bool) => {
+	return {
+		type: 'ERRORED_LOADING_COMPILERDETAILS',
+		hasErroredLoading: bool
+	};
+}
+
+
+export const setDetails_CompilerDetails = (details) => {
+	return {
+		type: 'SET_DATA_COMPILERDETAILS',
+		details: details 
+	};
+}
+
+
+
+export const clear_LogsTextField = () => {
+	return {
+		type: CLEAR_LOGSTEXTFIELD,
+
+	}
+}
 
 
 
@@ -53,35 +72,35 @@ export const setSelectedOption_CompilerSelect = (selectedOption) => {
 	A thunk is a function that wraps an expression 
 	to delay its evaluation.
 */
-export function fetchOptions_CompilerSelect() {
+export function fetchData(url, loadingAction, erroredAction, setDataAction) {
 
 	return (dispatch) => {
-		dispatch(loadingOptions_CompilerSelect(true));
+		dispatch(loadingAction(true));
 
-		fetch('/msc_compilers')
+		fetch(url)
 			.then((response) => {
 				if (!response.ok) {
 					throw Error(response.statusText);
 				}
 
-				dispatch(loadingOptions_CompilerSelect(false));
+				dispatch(loadingAction(false));
 
 				return response;
 			})
 			.then((response) => response.json())
-			.then((options) => dispatch(setOptions_CompilerSelect(options)))
+			.then((data) => dispatch(setDataAction(data)))
 			.catch(() => {
-				dispatch(erroredLoadingOptions_CompilerSelect(true));
-				dispatch(loadingOptions_CompilerSelect(false));
+				dispatch(erroredAction(true));
+				dispatch(loadingAction(false));
 			}
 		);
 	};
 }
 
 /*
-export function fetchDetails() {
+export function fetchDetails(selectedCompiler) {
 	return (dispatch) => {
-		dispatch(itemsIsLoading(true));
+		dispatch(loadingCompilerDetails(true));
 
 		fetch('/compiler_details', {
 			method: "post",
@@ -92,7 +111,7 @@ export function fetchDetails() {
 
 			// Make sure to serialize your JSON body
 			body: JSON.stringify({
-				selectedCompiler: 'BIST180'
+				selectedCompiler: selectedCompiler
 			})
 		})
 		.then((response) => {
@@ -100,14 +119,15 @@ export function fetchDetails() {
 				throw Error(response.statusText);
 			}
 
-			dispatch(itemsIsLoading(false));
+			dispatch(loadingCompilerDetails(false));
 
 			return response;
 		})
 		.then((response) => response.json())
-		.then((items) => dispatch(itemsFetchDataSuccess(items)))
+		.then((compilerDetails) => dispatch(itemsFetchDataSuccess(compilerDetails)))
 		.catch(() => dispatch(itemsHasErrored(true)));
 	}
 }
 */
+
 

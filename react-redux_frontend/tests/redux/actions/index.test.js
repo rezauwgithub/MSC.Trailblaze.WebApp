@@ -1,5 +1,6 @@
 import * as actions from '../../../src/redux/actions/index';
 
+// Note: "it" is short for "test"
 
 describe('actions', () => {
 

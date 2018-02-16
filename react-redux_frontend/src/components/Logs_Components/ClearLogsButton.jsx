@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'react-md';
 
-import { clearLogs_LogsTextField } from '../../redux/actions/index';
+import { clear_LogsTextField } from '../../redux/actions/index';
 import { connect } from 'react-redux';
 
 
@@ -14,7 +14,7 @@ const ClearLogsButton = (props) => (
 
 const mapStateToProps = (state) => {
     return {
-        logs: state.clearLogsReducer.logs
+        logs: state.logsReducer.logs
     };
 };
 
@@ -22,7 +22,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         clearLogs: () => {
-            dispatch(clearLogs_LogsTextField());
+            dispatch(clear_LogsTextField());
         }
     };
 };

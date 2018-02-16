@@ -1,16 +1,10 @@
 import { combineReducers } from 'redux';
+import { optionsReducer } from './options';
+import { logsReducer } from './logs';
 
-import { addLogReducer, clearLogsReducer, loadingOptionsReducer, erroredLoadingOptionsReducer, setOptionsReducer, setSelectedOptionReducer } from './options_CompilerSelect';
 
-
-const reducers = combineReducers({
-	addLogReducer,
-	clearLogsReducer,
-	loadingOptionsReducer,
-	erroredLoadingOptionsReducer,
-	setOptionsReducer,
-	setSelectedOptionReducer,
+export const reducers = combineReducers({
+    optionsReducer,
+    logsReducer
 });
-
-export default reducers;
 

@@ -1,0 +1,105 @@
+-Actions-
+
+Actions are payloads of information that send data from your
+application to your store. They are the only source of information
+for the store. You send them to the store using store.dispatch().
+
+    Here's an example action which represents adding a new todo item:
+
+        const ADD_TODO = 'ADD_TODO'
+
+        {
+            type: ADD_TODO,
+            text: 'Build my first Redux app'
+        }
+
+
+Actions are plain JavaScript objects. Actions must have a type property
+that indicates the type of action being performed. Types should be 
+defined as string constants. Once your app is large enough, you may 
+want to move them into a separate module.
+
+
+Other than "type", the structure of an action object is rally yp to you.
+If you're interested, check out Flux Standard Action for recommendations
+on how actions could be constructed.
+
+
+We'll add one more action type to describe a user ticking off a todo as
+completed. We refer to a particular todo by "index" because we store 
+them in an array. In a real app, it is wiser to generate a unique ID
+every time something new a created.
+
+    {
+        type: TOGGLE_TODO,
+        index: 5
+    }
+
+It's a good idea to pass as little data in each action as possible.
+For example, it's better to pass "index" than the whole todo object.
+
+Finally, we'll add one more action type for changing the current 
+visible todos.
+
+    {
+        type: SET_VISIBILITY_FILTER
+        filter: SHOW_COMPLETED
+    }
+
+
+
+
+
+-Action Creators-
+
+Action creators are exactly that -- functions that create actions.
+It's easy to conflate the terms "action" and "action creator", so do 
+your best to use the proper term.
+
+In Redux, action creators simply return an action.
+
+    function addToDo(text) {
+        return {
+            type: ADD_TODO,
+            text
+        }
+    }
+
+This makes them portable and easy to test.
+
+In traditional Flux, action creators often trigger a dispatch when invoked, 
+like so:
+
+    function addTodoWithDispatch(text) {
+        const action = {
+            type: ADD_TODO,
+            text
+        }
+        dispatch(action)
+    }
+
+In Redux this is not the case.
+Instead, to actually initiate a dispatch, pass the result to the dispatch()
+function:
+
+    dispatch(addTodo(text))
+    dispatch(competeTodo(index))
+
+Alternatively, you can create a "bound action creator" that automatically 
+dispatches:
+
+    const boundAddTodo = text => dispatch(addTodo(text))
+    const boundCompleteTodo = index => dispatch(completeTodo(index))
+
+Now you'll be able to call them directly:
+
+    boundAddTodo(text)
+    boundCompleteTodo(index)
+
+
+The dispatch() function can be accessed direclty from teh store as 
+store.dispatch(), but more likely you'll access it using a helper like 
+react-redux's connect(). You can use bindActionCreators() to automatically 
+bind many action creators to a dispatch() function.
+
+Action creators can also be asynchronous and have side-effects. .....

@@ -13,7 +13,7 @@ const LogsTextField = (props) => (
 
 const mapStateToProps = (state) => {
     return {
-        logs: state.addLogReducer.logs
+        logs: state.logsReducer.logs
     };
 };
 

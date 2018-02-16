@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { SelectField } from 'react-md';
 
-import { fetchOptions_CompilerSelect }  from '../../../redux/actions/index';
+import { fetchData, loading_CompilerSelectField, erroredLoading_CompilerSelectField, setOptions_CompilerSelectField }  from '../../../redux/actions/index';
 import { connect } from 'react-redux';
 
 
 class CompilerSelectField extends Component {
 
     componentWillMount() {
-        console.log('Something is being printed!');
-        this.props.fetchOptions();
+        this.props.fetchOptions('/msc_compilers', loading_CompilerSelectField, erroredLoading_CompilerSelectField, setOptions_CompilerSelectField);
     }
 
 
@@ -34,17 +33,17 @@ class CompilerSelectField extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        options: state.setOptionsReducer.options,
-        isLoadingOptions: state.loadingOptionsReducer.isLoadingOptions,
-        hasErroredLoading: state.erroredLoadingOptionsReducer.hasErroredLoadingOptions
+        options: state.optionsReducer.options,
+        isLoadingOptions: state.optionsReducer.loadingOptions,
+        hasErroredLoading: state.optionsReducer.erroredLoadingOptions
     };
 };
 
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchOptions: () => {
-            dispatch(fetchOptions_CompilerSelect());
+        fetchOptions: (url, loadingOptions_CompilerSelectField, erroredLoadingOptions_CompilerSelectField, setOptions_CompilerSelectField) => {
+            dispatch(fetchData(url, loadingOptions_CompilerSelectField, erroredLoadingOptions_CompilerSelectField, setOptions_CompilerSelectField));
         }
     };
 };

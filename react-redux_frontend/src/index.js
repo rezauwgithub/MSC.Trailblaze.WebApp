@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import store from './redux/store'
+import store from './redux/store/store';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './styles/index.css';
 import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
+
 
 import WebFontLoader from 'webfontloader';
 
@@ -18,6 +19,10 @@ WebFontLoader.load({
 
 window.store = store;
 
+// Log the initial state
+console.log('Store State: ' + store.getState());
+
+
 
 ReactDOM.render(
     <Provider store={store}>
@@ -25,7 +30,7 @@ ReactDOM.render(
             <App />
         </Router>
     </Provider>, 
-    document.getElementById('root'));
-
+    document.getElementById('root')
+);
 
 registerServiceWorker();
