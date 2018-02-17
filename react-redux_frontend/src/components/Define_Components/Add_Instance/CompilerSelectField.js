@@ -21,7 +21,7 @@ class CompilerSelectField extends Component {
 
         return (
             <div className="CompilerSelectField">
-                <SelectField
+                <SelectField id="compilerSelectField"
                     className="md-cell"
                     menuItems={this.props.options}
                 />

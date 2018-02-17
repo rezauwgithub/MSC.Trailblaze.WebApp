@@ -24,7 +24,12 @@ export const logsReducer = (state = initialState, action) => {
                 logs: []
             })
         case ADD_LOG_LOGSTEXTFIELD:
-            return 
+            return [
+                ...state,
+                {
+                    log: action.log
+                }
+            ]
         default:
             return state
     }

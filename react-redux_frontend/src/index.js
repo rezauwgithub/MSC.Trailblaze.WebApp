@@ -19,10 +19,6 @@ WebFontLoader.load({
 
 window.store = store;
 
-// Log the initial state
-console.log('Store State: ' + store.getState());
-
-
 
 ReactDOM.render(
     <Provider store={store}>

@@ -12,6 +12,7 @@ import {
 
 import desserts from '../../../constants/sampleData/desserts';
 
+
 const headers = Object.keys(desserts[0]).map((name, i) => ({
   key: name,
   name: upperFirst(name),

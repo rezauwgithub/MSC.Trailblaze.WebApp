@@ -2,7 +2,16 @@ import {
 	LOADING_COMPILERSELECTFIELD, 
 	ERRORED_LOADING_COMPILERSELECTFIELD, 
 	SET_OPTIONS_COMPILERSELECTFIELD,
-	CLEAR_LOGSTEXTFIELD
+	
+	LOADING_COMPILERDETAILS,
+	ERRORED_LOADING_COMPILERDETAILS,
+	SET_DETAILS_COMPILERDETAILS,
+
+	LOADING_LOGSTEXTFIELD,
+	ERRORED_LOADING_LOGSTEXTFIELD,
+	CLEAR_LOGSTEXTFIELD,
+	SET_LOGS_LOGSTEXTFIELD,
+	ADD_LOG_LOGSTEXTFIELD
 } from '../../constants/redux/actionTypes';
 
 
@@ -11,23 +20,21 @@ import {
 export const loading_CompilerSelectField = (bool) => {
 	return {
 		type: LOADING_COMPILERSELECTFIELD,
-		loading: bool
+		loadingOptions: bool
 	};
 }
-
 
 export const erroredLoading_CompilerSelectField = (bool) => {
 	return {
 		type: ERRORED_LOADING_COMPILERSELECTFIELD,
-		hasErroredLoading: bool
+		erroredLoadingOptions: bool
 	};
 }
-
 
 export const setOptions_CompilerSelectField = (options) => {
 	return {
 		type: SET_OPTIONS_COMPILERSELECTFIELD,
-		options: options
+		options
 	};
 }
 
@@ -35,33 +42,58 @@ export const setOptions_CompilerSelectField = (options) => {
 
 export const loading_CompilerDetails = (bool) => {
 	return {
-		type: 'LOADING_COMPILERDETAILS',
-		isLoading: bool
+		type: LOADING_COMPILERDETAILS,
+		loadingDetails: bool
 	};
 }
-
 
 export const erroredLoading_CompilerDetails = (bool) => {
 	return {
-		type: 'ERRORED_LOADING_COMPILERDETAILS',
-		hasErroredLoading: bool
+		type: ERRORED_LOADING_COMPILERDETAILS,
+		erroredLoadingDetails: bool
 	};
 }
-
 
 export const setDetails_CompilerDetails = (details) => {
 	return {
-		type: 'SET_DATA_COMPILERDETAILS',
-		details: details 
+		type: SET_DETAILS_COMPILERDETAILS,
+		details
 	};
 }
 
 
+export const loading_LogsTextField = (bool) => {
+	return {
+		type: LOADING_LOGSTEXTFIELD,
+		loadingLogs: bool
+	}
+}
+
+export const erroredLoading_LogsTextField = (bool) => {
+	return {
+		type: ERRORED_LOADING_LOGSTEXTFIELD,
+		erroredLoadingLogs: bool
+	}
+}
+
+export const setLogs_LogsTextField = (logs) => {
+	return {
+		type: SET_LOGS_LOGSTEXTFIELD,
+		logs
+	}
+}
 
 export const clear_LogsTextField = () => {
 	return {
 		type: CLEAR_LOGSTEXTFIELD,
+		logs: []
+	}
+}
 
+export const addLog_LogsTextField = (log) => {
+	return {
+		type: ADD_LOG_LOGSTEXTFIELD,
+		log
 	}
 }
 
@@ -75,7 +107,8 @@ export const clear_LogsTextField = () => {
 export function fetchData(url, loadingAction, erroredAction, setDataAction) {
 
 	return (dispatch) => {
-		dispatch(loadingAction(true));
+		dispatch(loading_CompilerSelectField(true));
+		dispatch(addLog_LogsTextField('Loading Compilers...'));
 
 		fetch(url)
 			.then((response) => {
@@ -83,15 +116,16 @@ export function fetchData(url, loadingAction, erroredAction, setDataAction) {
 					throw Error(response.statusText);
 				}
 
-				dispatch(loadingAction(false));
+				dispatch(loading_CompilerSelectField(false));
+				dispatch(addLog_LogsTextField('Loaded Compilers!'));
 
 				return response;
 			})
 			.then((response) => response.json())
-			.then((data) => dispatch(setDataAction(data)))
+			.then((data) => dispatch(setOptions_CompilerSelectField(data)))
 			.catch(() => {
-				dispatch(erroredAction(true));
-				dispatch(loadingAction(false));
+				dispatch(erroredLoading_CompilerSelectField(true));
+				dispatch(loading_CompilerSelectField(false));
 			}
 		);
 	};

@@ -3,7 +3,7 @@ const { exec } = require('child_process');
 const JsonDB = require('node-json-db');
 
 
-var db = new JsonDB('db.json', true, true);
+var db = new JsonDB('dbCompilerNames.json', true, true);
 
 
 module.exports.queryCompilerNames = function(callback) {
