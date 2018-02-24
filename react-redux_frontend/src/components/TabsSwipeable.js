@@ -3,6 +3,11 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 // From https://github.com/oliviertassinari/react-swipeable-views
 import SwipeableViews from 'react-swipeable-views';
 
+import CompilersSelectField from './CompilersSelectField';
+import ExistingInstancesTable from './ExistingInstancesTable';
+
+import RaisedButton from 'material-ui/RaisedButton';
+
 const styles = {
   headline: {
     fontSize: 24,
@@ -46,7 +51,15 @@ export default class TabsSwipeable extends React.Component {
           onChangeIndex={this.handleChange}
         >
           <div>
-            <h2 style={styles.headline}>Define</h2>
+            <table>
+              <tr>
+                <td><CompilersSelectField /></td>
+                <td><RaisedButton label="ADD" /></td>
+                <td><RaisedButton label="REMOVE" primary={true}/></td>
+                <td><RaisedButton label="VALIDATE" secondary={true}/></td>
+              </tr>
+            </table>
+            <ExistingInstancesTable />
           </div>
           <div style={styles.slide}>
             <h2 style={styles.headline}>Generate</h2>

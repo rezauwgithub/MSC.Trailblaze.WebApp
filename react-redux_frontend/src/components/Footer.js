@@ -4,6 +4,8 @@ import LogsTable from './LogsTable';
 const Footer = () => (
   <footer>
     <LogsTable />
+    <br />
+    Current Project
   </footer>
 );
 

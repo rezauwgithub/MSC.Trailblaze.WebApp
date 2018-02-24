@@ -1,5 +1,5 @@
 import React from 'react';
-import TabsSwipeable from '../components/TabsSwipeable';
+import TabsSwipeable from './TabsSwipeable';
 
 const Main = () => (
   <main>

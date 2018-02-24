@@ -19,12 +19,12 @@ body {
   display: flex;
   flex-direction: column;
   margin: 0;
-  background: #f6f6f6;
+  background: white;
 }
 
 .App {
   width: 100%;
-  background: lightgray;
+  background: white;
   padding: 0.25rem;
   font-size: 1rem;
   display: flex;
@@ -48,14 +48,14 @@ body {
 .App > header {
   display: block;
   color: white;
-  background: gray;
+  background: lightsteelblue;
   text-transform: uppercase;
 }
 .App > main {
   flex: 1 1 auto;
   color: white;
-  background: #333;
+  background: lightsteelblue;
 }
 .App > footer {
-  background: white;
+  background: lightsteelblue;
 }

@@ -68,13 +68,13 @@ const tableData = [
   },
 ];
 
-export default class LogsTable extends Component {
+export default class ExistingInstancesTable extends Component {
   render() {
     const tableStyle = { height: "3px", padding: "2px"};
     
     return (
       <div>
-        <Table wrapperStyle={{ maxHeight: 100 }}>
+        <Table wrapperStyle={{ maxHeight: 200 }}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow style={tableStyle}>
               <TableHeaderColumn style={tableStyle}>Log</TableHeaderColumn>
