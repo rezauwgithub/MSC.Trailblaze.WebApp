@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var msc_compilers = require('./routes/msc_compilers');
+var available_compilers = require('./routes/available_compilers');
 var compiler_details = require('./routes/compiler_details');
 
 var app = express();
@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/msc_compilers', msc_compilers);
+app.use('/available_compilers', available_compilers);
 app.use('/compiler_details', compiler_details);
 
 // catch 404 and forward to error handler

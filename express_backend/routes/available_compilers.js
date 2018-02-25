@@ -9,6 +9,10 @@ const {USE_FAKE_COMPILER_DATA} = require('../backend_settings');
 module.exports = router.get('/', function(req, res, next) {
   // res.send('respond with a resource');
   
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+
   if (USE_FAKE_COMPILER_DATA) {
     res.json([{
       id: 1,
