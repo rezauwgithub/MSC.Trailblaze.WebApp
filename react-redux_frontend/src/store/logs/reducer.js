@@ -11,16 +11,19 @@ import * as types from './actionTypes';
 
 
 const initialState = Immutable({
-  logs: []
+  logs: [
+    {
+      log: 'WTF?',
+      dateTime: 'Now'
+    }
+  ]
 });
 
 
 const reduce = (state = initialState, action = {}) => {
   switch (action.type) {
     case types.ADD_LOG:
-    return state.set(state.size, {
-      log: action.log
-    });
+      return state;
     default:
       return state;
   }
