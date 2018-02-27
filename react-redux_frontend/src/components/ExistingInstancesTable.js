@@ -42,30 +42,6 @@ const tableData = [
     name: 'John Smith',
     status: 'Employed',
   },
-  {
-    name: 'John Smith',
-    status: 'Employed',
-  },
-  {
-    name: 'John Smith',
-    status: 'Employed',
-  },
-  {
-    name: 'John Smith',
-    status: 'Employed',
-  },
-  {
-    name: 'John Smith',
-    status: 'Employed',
-  },
-  {
-    name: 'John Smith',
-    status: 'Employed',
-  },
-  {
-    name: 'John Smith',
-    status: 'Employed',
-  },
 ];
 
 export default class ExistingInstancesTable extends Component {
@@ -74,14 +50,14 @@ export default class ExistingInstancesTable extends Component {
     
     return (
       <div>
-        <Table wrapperStyle={{ maxHeight: 200 }}>
+        <Table wrapperStyle={{ maxHeight: 400 }}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow style={tableStyle}>
               <TableHeaderColumn style={tableStyle}>Log</TableHeaderColumn>
               <TableHeaderColumn style={tableStyle}>Date/Time</TableHeaderColumn>
             </TableRow>            
           </TableHeader>
-          <TableBody displayRowCheckbox={false}>
+          <TableBody>
             {tableData.map( (row, index) => (
               <TableRow key={index} style={tableStyle}>
                 <TableRowColumn style={tableStyle}>{row.name}</TableRowColumn>

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {
   Table,
   TableBody,
+  TableFooter,
   TableHeader,
   TableHeaderColumn,
   TableRow,
@@ -9,83 +10,91 @@ import {
 } from 'material-ui/Table';
 
 
+
+
 const tableData = [
   {
-    name: 'John Smith',
-    status: 'Employed',
+    log: 'Fetching data from API...',
+    dateTime: 'Sat Dec 21, 2017 10:32:34 PM',
   },
   {
-    name: 'John Smith',
-    status: 'Employed',
+    log: 'Fetching data from API...',
+    dateTime: 'Sat Dec 21, 2017 10:32:34 PM',
   },
   {
-    name: 'John Smith',
-    status: 'Employed',
+    log: 'Fetching data from API...',
+    dateTime: 'Sat Dec 21, 2017 10:32:34 PM',
   },
   {
-    name: 'John Smith',
-    status: 'Employed',
+    log: 'Fetching data from API...',
+    dateTime: 'Sat Dec 21, 2017 10:32:34 PM',
   },
   {
-    name: 'John Smith',
-    status: 'Employed',
+    log: 'Fetching data from API...',
+    dateTime: 'Sat Dec 21, 2017 10:32:34 PM',
   },
   {
-    name: 'John Smith',
-    status: 'Employed',
+    log: 'Fetching data from API...',
+    dateTime: 'Sat Dec 21, 2017 10:32:34 PM',
   },
   {
-    name: 'John Smith',
-    status: 'Employed',
+    log: 'Fetching data from API...',
+    dateTime: 'Sat Dec 21, 2017 10:32:34 PM',
   },
   {
-    name: 'John Smith',
-    status: 'Employed',
+    log: 'Fetching data from API...',
+    dateTime: 'Sat Dec 21, 2017 10:32:34 PM',
   },
   {
-    name: 'John Smith',
-    status: 'Employed',
+    log: 'Fetching data from API...',
+    dateTime: 'Sat Dec 21, 2017 10:32:34 PM',
   },
   {
-    name: 'John Smith',
-    status: 'Employed',
+    log: 'Fetching data from API...',
+    dateTime: 'Sat Dec 21, 2017 10:32:34 PM',
   },
   {
-    name: 'John Smith',
-    status: 'Employed',
+    log: 'Fetching data from API...',
+    dateTime: 'Sat Dec 21, 2017 10:32:34 PM',
   },
   {
-    name: 'John Smith',
-    status: 'Employed',
+    log: 'Fetching data from API...',
+    dateTime: 'Sat Dec 21, 2017 10:32:34 PM',
   },
   {
-    name: 'John Smith',
-    status: 'Employed',
+    log: 'Fetching data from API...',
+    dateTime: 'Sat Dec 21, 2017 10:32:34 PM',
   },
   {
-    name: 'John Smith',
-    status: 'Employed',
+    log: 'Fetching data from API...',
+    dateTime: 'Sat Dec 21, 2017 10:32:34 PM',
+  },
+  {
+    log: 'Fetching data from API...',
+    dateTime: 'Sat Dec 21, 2017 10:32:34 PM',
   },
 ];
 
-export default class LogsTable extends Component {
+
+
+export default class Example extends Component {
   render() {
-    const tableStyle = { height: "3px", padding: "2px"};
+    const gunnarStyle = { height: "20px", padding: "0px"};
     
     return (
       <div>
-        <Table wrapperStyle={{ maxHeight: 100 }}>
+        <Table height="90px">
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-            <TableRow style={tableStyle}>
-              <TableHeaderColumn style={tableStyle}>Log</TableHeaderColumn>
-              <TableHeaderColumn style={tableStyle}>Date/Time</TableHeaderColumn>
+            <TableRow style={gunnarStyle}>
+              <TableHeaderColumn style={gunnarStyle}>Log</TableHeaderColumn>
+              <TableHeaderColumn style={gunnarStyle}>DateTime</TableHeaderColumn>
             </TableRow>            
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
-            {tableData.map( (row, index) => (
-              <TableRow key={index} style={tableStyle}>
-                <TableRowColumn style={tableStyle}>{row.name}</TableRowColumn>
-                <TableRowColumn style={tableStyle}>{row.status}</TableRowColumn>
+            {tableData.map((row, index) => (
+              <TableRow key={index} style={gunnarStyle}>
+                <TableRowColumn style={gunnarStyle}>{row.log}</TableRowColumn>
+                <TableRowColumn style={gunnarStyle}>{row.dateTime}</TableRowColumn>
               </TableRow>
             ))}
           </TableBody>

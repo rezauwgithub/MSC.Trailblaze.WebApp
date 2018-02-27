@@ -52,12 +52,14 @@ export default class TabsSwipeable extends React.Component {
         >
           <div>
             <table>
-              <tr>
-                <td><CompilersSelectField /></td>
-                <td><RaisedButton label="ADD" /></td>
-                <td><RaisedButton label="REMOVE" primary={true}/></td>
-                <td><RaisedButton label="VALIDATE" secondary={true}/></td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td><CompilersSelectField /></td>
+                  <td><RaisedButton label="ADD" /></td>
+                  <td><RaisedButton label="REMOVE" primary={true}/></td>
+                  <td><RaisedButton label="VALIDATE" secondary={true}/></td>
+                </tr>
+              </tbody>
             </table>
             <ExistingInstancesTable />
           </div>
