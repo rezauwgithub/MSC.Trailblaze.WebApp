@@ -1,6 +1,4 @@
-.App {
 
-}
 
 .header {
   position: fixed;
@@ -21,7 +19,6 @@
   position: fixed;
   top: 136px;
   bottom: 130px;
-  overflow: scroll;
   left: 5px;
   right: 5px;
   width: calc(100vh - left - right);
@@ -44,6 +41,13 @@
   background-color: #CFD8DC;
   padding: 2px;
   text-align: left;
-  box-sizing: border-box;
-  
+  box-sizing: border-box; 
 }
+
+
+/*const gunnarStyle = { height: "20px", padding: "0px"};*/
+.LogsTable_TableHeader_TableRow {
+  height: 20px;
+  padding: 0px;
+}
+    

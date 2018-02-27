@@ -17,7 +17,7 @@ const initialState = Immutable({
 });
 
 
-export const reducer = (state = initialState, action = {}) => {
+export default function reduce(state = initialState, action = {}) {
   switch (action.type) {
     case types.FETCHING_AVAILABLE_COMPILERS:
     return state.merge({
@@ -36,8 +36,6 @@ export const reducer = (state = initialState, action = {}) => {
   }
 }
 
-
-
 // Selectors
 
 export const getIsFetchingAvailableCompilers = (state) => {
@@ -45,11 +43,11 @@ export const getIsFetchingAvailableCompilers = (state) => {
 }
 
 export const getAvailableCompilers = (state) => {
-  return state.available_compilers.available_compilers;
+  return state.available_compilers.availableCompilers;
 }
 
 export const getHasErroedFetchingAvailableCompilers = (state) => {
-  return state.availableCompilers.hasErroredFetchingAvailableCompilers;
+  return state.available_compilers.hasErroredFetchingAvailableCompilers;
 }
 
 

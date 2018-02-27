@@ -15,13 +15,11 @@ module.exports = router.get('/', function(req, res, next) {
 
   if (USE_FAKE_COMPILER_DATA) {
     res.json([{
-      id: 1,
-      value: "compiler93821",
-      label: "COMPILER93821",
+      value: 0,
+      name: "COMPILER93821",
     }, {
-      id: 2,
-      value: "compiler93822",
-      label: "COMPILER93822"
+      value: 1,
+      name: "COMPILER93822"
     }]);
 
 

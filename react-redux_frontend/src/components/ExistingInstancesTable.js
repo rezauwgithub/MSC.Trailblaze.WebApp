@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {
   Table,
   TableBody,
-  TableFooter,
   TableHeader,
   TableHeaderColumn,
   TableRow,
@@ -297,7 +296,7 @@ export default class ExistingInstancesTable extends Component {
           <TableHeader enableSelectAll={true}>
             <TableRow style={gunnarStyle}>
               {tableHeaderColumns.map((col, index) => (
-                <TableHeaderColumn style={gunnarStyle}>{col.title}</TableHeaderColumn>
+                <TableHeaderColumn key={index} style={gunnarStyle}>{col.title}</TableHeaderColumn>
               ))}
             </TableRow>            
           </TableHeader>

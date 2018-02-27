@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
+import autoBind from 'react-autobind';
+import { connect } from 'react-redux';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+
+import * as availableCompilersAction from '../store/available_compilers/actions';
+import * as availableCompilersSelectors from '../store/available_compilers/reducer';
 
 const persons = [
   {value: 0, name: 'Oliver Hansen'},
@@ -18,10 +23,23 @@ const persons = [
 /**
  * The rendering of selected items can be customized by providing a `selectionRenderer`.
  */
-export default class CompilersSelectField extends Component {
+class CompilersSelectField extends Component {
   state = {
     values: [],
   };
+
+  
+  constructor(props) {
+    super(props);
+    autoBind(this);
+  }
+
+
+  componentDidMount() {
+    this.props.dispatch(availableCompilersAction.fetchAvailableCompilers());
+  }
+
+
 
   handleChange = (event, index, values) => this.setState({values});
 
@@ -30,23 +48,25 @@ export default class CompilersSelectField extends Component {
       case 0:
         return '';
       case 1:
-        return persons[values[0]].name;
+        return this.props.availableCompilers[values[0]].name;
       default:
         return `${values.length} compilers selected`;
     }
   }
 
-  menuItems(persons) {
-    return persons.map((person) => (
+  menuItems(availableCompilers) {
+    return availableCompilers.map((availableCompiler) => (
       <MenuItem
-        key={person.value}
+        key={availableCompiler.value}
         insetChildren={true}
-        checked={this.state.values.indexOf(person.value) > -1}
-        value={person.value}
-        primaryText={person.name}
+        checked={this.state.values.indexOf(availableCompiler.value) > -1}
+        value={availableCompiler.value}
+        primaryText={availableCompiler.name}
       />
     ));
   }
+
+
 
   render() {
     return (
@@ -57,9 +77,18 @@ export default class CompilersSelectField extends Component {
         onChange={this.handleChange}
         selectionRenderer={this.selectionRenderer}
       >
-        {this.menuItems(persons)}
+        {this.menuItems(this.props.availableCompilers)}
       </SelectField>
     );
   }
 }
 
+
+const mapStateToProps = (state) => {
+  return {
+    availableCompilers: availableCompilersSelectors.getAvailableCompilers(state)
+  };
+}
+
+
+export default connect(mapStateToProps)(CompilersSelectField);

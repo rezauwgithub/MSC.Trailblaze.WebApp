@@ -20,7 +20,8 @@ class RESTfulAPIService {
     }
 
     const data = await response.json();
-    
+    console.log('We get the data: ' + JSON.stringify(data));
+    return data;
   }
 
 

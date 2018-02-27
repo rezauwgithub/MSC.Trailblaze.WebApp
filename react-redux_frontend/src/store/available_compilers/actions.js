@@ -9,8 +9,7 @@
 
 import * as types from './actionTypes';
 import RESTfulAPIService from '../../services/RESTfulAPI';
-import * as compilersSelectors from './reducer';
-
+import { addLog } from '../logs/actions';
 
 // action creators
 
@@ -41,11 +40,12 @@ const hasErroredFetchingAvailableCompilers = (bool) => {
 
 // async
 
-export const fetchAvailableCompilers = () => {
+export function fetchAvailableCompilers() {
   return async(dispatch, getState) => {
     try {
       dispatch(isFetchingAvailableCompilers(true));
-      const compilerNamesJSONArray = await RESTfulAPIService.getJSONData('http://localhost:3001/msc_compilers');
+      dispatch(addLog({ log: 'Fetching data from API...', dateTime: 'Sat Dec 21, 2017 10:32:34 PM', }));
+      const compilerNamesJSONArray = await RESTfulAPIService.getJSONData('http://localhost:3001/available_compilers');
       dispatch(availableCompilersFetched(compilerNamesJSONArray));
       dispatch(isFetchingAvailableCompilers(false));
 
