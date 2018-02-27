@@ -77,7 +77,7 @@ const tableData = [
 
 
 
-export default class Example extends Component {
+export default class LogsTable extends Component {
   render() {
     const gunnarStyle = { height: "20px", padding: "0px"};
     

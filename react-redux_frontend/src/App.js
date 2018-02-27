@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Helmet } from 'react-helmet';
 import { APP_TITLE } from './app_settings';
 
@@ -14,6 +14,13 @@ import HelpPopoverAnimation from './components/HelpPopoverAnimation';
 import {Tabs, Tab} from 'material-ui/Tabs';
 // From https://github.com/oliviertassinari/react-swipeable-views
 import SwipeableViews from 'react-swipeable-views';
+
+import CompilersSelectField from './components/CompilersSelectField';
+import ExistingInstancesTable from './components/ExistingInstancesTable';
+
+import RaisedButton from 'material-ui/RaisedButton';
+
+
 import LogsTable from './components/LogsTable';
 
 
@@ -30,107 +37,99 @@ const muiTheme = getMuiTheme({
 });
 
 
+const styles = {
+  headline: {
+    fontSize: 24,
+    paddingTop: 16,
+    marginBottom: 12,
+    fontWeight: 400,
+  },
+  slide: {
+    padding: 10,
+  },
+};
+
+
 
 // MuiThemeProvider takes the theme as a property and passed it down the hierarchy.
-const App = () => (
-  <div className="App">
-    <Helmet>
-      <title>{APP_TITLE}</title>
-    </Helmet>
-    <MuiThemeProvider muiTheme={muiTheme}>
-      <div className="container">
-        <div className="header">
-          <AppBar title={APP_TITLE} showMenuIconButton={false} />
-          <table>
-            <tbody>
-              <tr>
-                <td><ProjectPopoverAnimation /></td>
-                <td><HelpPopoverAnimation /></td>
-              </tr>
-            </tbody>
-          </table>
-          <Tabs>
-            <Tab label="Define" value={0} />
-            <Tab label="Generate" value={1} />
-            <Tab label="Results" value={2} />
-          </Tabs>
-        </div>
-        <div className="content">
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-          Testing something there
-          <br />
-        </div>
-        <div className="footer">
-          <LogsTable />
-        </div>
-      </div>  
-    </MuiThemeProvider>
-  </div>
-);
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      slideIndex: 0,
+    };
+  } 
+  
+
+  handleChange = (value) => {
+    this.setState({
+      slideIndex: value,
+    });
+  };
+
+
+  render() {
+    return (
+      <div className="App">
+        <Helmet>
+          <title>{APP_TITLE}</title>
+        </Helmet>
+        <MuiThemeProvider muiTheme={muiTheme}>
+          <div className="container">
+            <div className="header">
+              <AppBar title={APP_TITLE} showMenuIconButton={false} />
+              <table>
+                <tbody>
+                  <tr>
+                    <td><ProjectPopoverAnimation /></td>
+                    <td><HelpPopoverAnimation /></td>
+                  </tr>
+                </tbody>
+              </table>
+              <Tabs
+                onChange={this.handleChange}
+                value={this.state.slideIndex}
+              >
+                <Tab label="Define" value={0} />
+                <Tab label="Generate" value={1} />
+                <Tab label="Results" value={2} />
+              </Tabs>
+            </div>
+            <div className="content">
+              <SwipeableViews
+            index={this.state.slideIndex}
+            onChangeIndex={this.handleChange}
+          >
+            <div>
+              <table>
+                <tbody>
+                  <tr>
+                    <td><CompilersSelectField /></td>
+                    <td><RaisedButton label="ADD" /></td>
+                    <td><RaisedButton label="REMOVE" primary={true}/></td>
+                    <td><RaisedButton label="VALIDATE" secondary={true}/></td>
+                  </tr>
+                </tbody>
+              </table>
+              <ExistingInstancesTable />
+            </div>
+            <div style={styles.slide}>
+              <h2 style={styles.headline}>Generate</h2>
+            </div>
+            <div style={styles.slide}>
+              <h2 style={styles.headline}>Results</h2>
+            </div>
+          </SwipeableViews>             
+            </div>
+            <div className="footer">
+              <LogsTable />
+            </div>
+          </div>  
+        </MuiThemeProvider>
+      </div>
+    )
+  }
+};
 
 export default App;
