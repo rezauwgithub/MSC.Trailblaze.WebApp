@@ -7,18 +7,6 @@ import MenuItem from 'material-ui/MenuItem';
 import * as availableCompilersAction from '../store/available_compilers/actions';
 import * as availableCompilersSelectors from '../store/available_compilers/reducer';
 
-const persons = [
-  {value: 0, name: 'Oliver Hansen'},
-  {value: 1, name: 'Van Henry'},
-  {value: 2, name: 'April Tucker'},
-  {value: 3, name: 'Ralph Hubbard'},
-  {value: 4, name: 'Omar Alexander'},
-  {value: 5, name: 'Carlos Abbott'},
-  {value: 6, name: 'Miriam Wagner'},
-  {value: 7, name: 'Bradley Wilkerson'},
-  {value: 8, name: 'Virginia Andrews'},
-  {value: 9, name: 'Kelly Snyder'},
-];
 
 /**
  * The rendering of selected items can be customized by providing a `selectionRenderer`.

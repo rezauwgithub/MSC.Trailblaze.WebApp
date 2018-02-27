@@ -43,14 +43,16 @@ const hasErroredFetchingAvailableCompilers = (bool) => {
 export function fetchAvailableCompilers() {
   return async(dispatch, getState) => {
     try {
+      dispatch(addLog({ log: 'Fetching available compilers from API backend...', dateTime: Date() }));
       dispatch(isFetchingAvailableCompilers(true));
-      dispatch(addLog({ log: 'Fetching data from API...', dateTime: 'Sat Dec 21, 2017 10:32:34 PM', }));
       const compilerNamesJSONArray = await RESTfulAPIService.getJSONData('http://localhost:3001/available_compilers');
       dispatch(availableCompilersFetched(compilerNamesJSONArray));
       dispatch(isFetchingAvailableCompilers(false));
+      dispatch(addLog({ log: 'Available compilers fetched!', dateTime: Date() }));
 
     } catch (error) {
       dispatch(hasErroredFetchingAvailableCompilers(true));
+      dispatch(addLog({ log: 'Errored Fetching available compilers from API backend...', dateTime: Date() }));
       console.error(error);
     }
   };

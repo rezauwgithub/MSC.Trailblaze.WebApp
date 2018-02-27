@@ -13,7 +13,7 @@ import * as types from './actionTypes';
 
 export const addLog = (log) => {
   return {
-    type: types.ADD_LOG,
-    log
-  };
+      type: types.ADD_LOG,
+      log
+    };
 };
