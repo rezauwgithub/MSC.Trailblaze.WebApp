@@ -24,15 +24,15 @@ module.exports.queryCompilerNames = function(callback) {
         var new_stdout = stdout.split("\t\t");
         var rStrLines = new_stdout[1].split("\n")
         
-        for (let id= 0; id < rStrLines.length; id++) {
-            var compilerName = rStrLines[id].split(" =")[0];
+        for (let value= 0; value < rStrLines.length; value++) {
+            var compilerName = rStrLines[value].split(" =")[0];
             if (compilerName !== "") {
                 console.log('compilerName: ' + compilerName);
 
-                jsonStrArr.push({ id: id, value: compilerName.toLowerCase(), label: compilerName });
+                jsonStrArr.push({ value: value, name: compilerName });
 
-                db.push(`/${id}/id`, id);
-                db.push(`/${id}/name`, compilerName);
+                db.push(`/${value}/value`, value);
+                db.push(`/${value}/name`, compilerName);
             }
         }
 

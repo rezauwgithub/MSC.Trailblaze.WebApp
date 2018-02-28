@@ -29,7 +29,9 @@ class CompilersSelectField extends Component {
 
 
 
-  handleChange = (event, index, values) => this.setState({values});
+  handleChange = (event, index, values) => {
+    this.setState({values});
+  }
 
   selectionRenderer = (values) => {
     switch (values.length) {
