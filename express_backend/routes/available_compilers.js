@@ -24,7 +24,7 @@ module.exports = router.get('/', function(req, res, next) {
 
 
   } else {
-    util.queryCompilerNames(function(msc_compilers) {
+    util.getAvailableCompilers(function(msc_compilers) {
       res.json(msc_compilers);
     });
 

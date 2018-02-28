@@ -1,1 +1,278 @@
-{}
+{
+    "1": {
+        "value": 1,
+        "name": "BIST180"
+    },
+    "2": {
+        "value": 2,
+        "name": "BIST28"
+    },
+    "3": {
+        "value": 3,
+        "name": "BIST65LP"
+    },
+    "4": {
+        "value": 4,
+        "name": "BISTGF130HS"
+    },
+    "5": {
+        "value": 5,
+        "name": "DP-RH-GF130"
+    },
+    "6": {
+        "value": 6,
+        "name": "DPSRAM90"
+    },
+    "7": {
+        "value": 7,
+        "name": "RF1P-LR-AMS180"
+    },
+    "8": {
+        "value": 8,
+        "name": "RF2P-LR-AMS180"
+    },
+    "9": {
+        "value": 9,
+        "name": "ROM-LR-AMS180"
+    },
+    "10": {
+        "value": 10,
+        "name": "ROM-LV-TS65LP"
+    },
+    "11": {
+        "value": 11,
+        "name": "SP-HSLV-TS65LP"
+    },
+    "12": {
+        "value": 12,
+        "name": "RF2P-HS-GF28SLP"
+    },
+    "13": {
+        "value": 13,
+        "name": "SP-LV-GF55LP"
+    },
+    "14": {
+        "value": 14,
+        "name": "ROM-LV-GF55F"
+    },
+    "15": {
+        "value": 15,
+        "name": "BIST40LP"
+    },
+    "16": {
+        "value": 16,
+        "name": "SP-LVR-TS65LP"
+    },
+    "17": {
+        "value": 17,
+        "name": "SP-RH-GF130"
+    },
+    "18": {
+        "value": 18,
+        "name": "SP-UHS-GF28HPP"
+    },
+    "19": {
+        "value": 19,
+        "name": "SPSRAM90"
+    },
+    "20": {
+        "value": 20,
+        "name": "SPSRAMHD90LLFE"
+    },
+    "21": {
+        "value": 21,
+        "name": "SPSRAMHS65LL"
+    },
+    "22": {
+        "value": 22,
+        "name": "SPSRAMHS65LLFE"
+    },
+    "23": {
+        "value": 23,
+        "name": "SPSRAMLF150"
+    },
+    "24": {
+        "value": 24,
+        "name": "SPSRAMLL065"
+    },
+    "25": {
+        "value": 25,
+        "name": "SPSRAMLL_LF150"
+    },
+    "26": {
+        "value": 26,
+        "name": "SPSRAMLVTS40LP"
+    },
+    "27": {
+        "value": 27,
+        "name": "SP-LV-TS65LP"
+    },
+    "28": {
+        "value": 28,
+        "name": "SP-LV-TS55EF"
+    },
+    "29": {
+        "value": 29,
+        "name": "SP-LV-GF55F"
+    },
+    "30": {
+        "value": 30,
+        "name": "ROM-LV-GF28SLP"
+    },
+    "31": {
+        "value": 31,
+        "name": "SP-LVR-GF55F"
+    },
+    "32": {
+        "value": 32,
+        "name": "DP-LV-GF28SLP"
+    },
+    "33": {
+        "value": 33,
+        "name": "ROM-LV-GF55LPX"
+    },
+    "34": {
+        "value": 34,
+        "name": "DP-LV-GF55LPX"
+    },
+    "35": {
+        "value": 35,
+        "name": "ROM-LV-TS28HPCP"
+    },
+    "36": {
+        "value": 36,
+        "name": "SP-LVR-TS55EF"
+    },
+    "37": {
+        "value": 37,
+        "name": "SP-LVLIB-40"
+    },
+    "38": {
+        "value": 38,
+        "name": "SP-LVR-TS55ULP"
+    },
+    "39": {
+        "value": 39,
+        "name": "ROM-LV-TS55ULP"
+    },
+    "40": {
+        "value": 40,
+        "name": "BIST55"
+    },
+    "41": {
+        "value": 41,
+        "name": "SP-LV-GF55LPX"
+    },
+    "42": {
+        "value": 42,
+        "name": "RF2P-LV-GF55LPX"
+    },
+    "43": {
+        "value": 43,
+        "name": "SP-LV-TS55ULPF"
+    },
+    "44": {
+        "value": 44,
+        "name": "SP-HSLV-TS55ULPF"
+    },
+    "45": {
+        "value": 45,
+        "name": "ROM-ULV-TS28HPCP"
+    },
+    "46": {
+        "value": 46,
+        "name": "RF1P-LV-GF28SLP"
+    },
+    "47": {
+        "value": 47,
+        "name": "SP-HSLV-TS55EF"
+    },
+    "48": {
+        "value": 48,
+        "name": "RF2P-LV-GF28SLP"
+    },
+    "49": {
+        "value": 49,
+        "name": "RF1P-LV-GF55LPX"
+    },
+    "50": {
+        "value": 50,
+        "name": "ROM-ULV-GF28SLP"
+    },
+    "51": {
+        "value": 51,
+        "name": "SP-LV-TS40LP"
+    },
+    "52": {
+        "value": 52,
+        "name": "SP-HS-GF28SLP"
+    },
+    "53": {
+        "value": 53,
+        "name": "SP-ULV-TS65LP"
+    },
+    "54": {
+        "value": 54,
+        "name": "SP-LV-GF28SLP"
+    },
+    "55": {
+        "value": 55,
+        "name": "SP-RH-TS130"
+    },
+    "56": {
+        "value": 56,
+        "name": "SP-LV-TS28HPCP"
+    },
+    "57": {
+        "value": 57,
+        "name": "SP-UHS-GF28SLP"
+    },
+    "58": {
+        "value": 58,
+        "name": "RF1P-HS-GF28SLP"
+    },
+    "59": {
+        "value": 59,
+        "name": "SP-UHS-GF22FDX"
+    },
+    "60": {
+        "value": 60,
+        "name": "SP-LV-GF28SLP-ULL"
+    },
+    "61": {
+        "value": 61,
+        "name": "SP-LVR-TS28HPCP"
+    },
+    "62": {
+        "value": 62,
+        "name": "SP-HSLV-TS40ULPF"
+    },
+    "63": {
+        "value": 63,
+        "name": "SP-HSLV-GF55LPX"
+    },
+    "64": {
+        "value": 64,
+        "name": "RF1P-UHS-GF22FDX"
+    },
+    "65": {
+        "value": 65,
+        "name": "RF1P-ULL-GF22FDX"
+    },
+    "66": {
+        "value": 66,
+        "name": "RF1P-LV-TS55ULPF"
+    },
+    "67": {
+        "value": 67,
+        "name": "SP-HSLVR-TS55ULPF"
+    },
+    "68": {
+        "value": 68,
+        "name": "SP-ULL-GF22FDX"
+    },
+    "69": {
+        "value": 69,
+        "name": "SP-MSLV-TS40ULP"
+    }
+}
