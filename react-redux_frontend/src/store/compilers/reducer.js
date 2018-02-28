@@ -39,15 +39,15 @@ export default function reduce(state = initialState, action = {}) {
 // Selectors
 
 export const getIsFetchingAvailableCompilers = (state) => {
-  return state.available_compilers.isFetchingAvailableCompilers;
+  return state.compilers.isFetchingAvailableCompilers;
 }
 
 export const getAvailableCompilers = (state) => {
-  return state.available_compilers.availableCompilers;
+  return state.compilers.availableCompilers;
 }
 
-export const getHasErroedFetchingAvailableCompilers = (state) => {
-  return state.available_compilers.hasErroredFetchingAvailableCompilers;
+export const getHasErroredFetchingAvailableCompilers = (state) => {
+  return state.compilers.hasErroredFetchingAvailableCompilers;
 }
 
 

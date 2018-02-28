@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
-import * as availableCompilersAction from '../store/available_compilers/actions';
-import * as availableCompilersSelectors from '../store/available_compilers/reducer';
+import * as compilersAction from '../store/compilers/actions';
+import * as compilersSelectors from '../store/compilers/reducer';
 
 
 /**
@@ -25,7 +25,7 @@ class CompilersSelectField extends Component {
 
 
   componentDidMount() {
-    this.props.dispatch(availableCompilersAction.fetchAvailableCompilers());
+    this.props.dispatch(compilersAction.fetchAvailableCompilers());
   }
 
 
@@ -62,13 +62,25 @@ class CompilersSelectField extends Component {
   render() {
     return (
       <SelectField
+        disabled={
+          this.props.isFetchingAvailableCompilers ||
+          this.props.hasErroredFetchingAvailableCompilers
+        }
         multiple={true}
-        hintText="Select Compiler(s)"
+        hintText={
+          (this.props.isFetchingAvailableCompilers) ? 
+            "Loading Compiler(s)..." : 
+            (this.props.hasErroredFetchingAvailableCompilers) ?
+              "Errored Fetching Compiler(s)" :
+              "Select Compiler(s)"
+        }
         value={this.state.selectedCompilers}
         onChange={this.handleChange}
         selectionRenderer={this.selectionRenderer}
       >
+
         {this.menuItems(this.props.availableCompilers)}
+
       </SelectField>
     );
   }
@@ -77,7 +89,9 @@ class CompilersSelectField extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    availableCompilers: availableCompilersSelectors.getAvailableCompilers(state)
+    isFetchingAvailableCompilers: compilersSelectors.getIsFetchingAvailableCompilers(state),
+    availableCompilers: compilersSelectors.getAvailableCompilers(state),
+    hasErroredFetchingAvailableCompilers: compilersSelectors.getHasErroredFetchingAvailableCompilers(state)
   };
 }
 

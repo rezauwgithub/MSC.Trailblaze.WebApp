@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import * as compilersSelectors from './store/compilers/reducer';
 import { Helmet } from 'react-helmet';
 import { APP_TITLE } from './app_settings';
 
@@ -7,8 +9,9 @@ import { blueGrey400 } from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-
 import AppBar from 'material-ui/AppBar';
+import RefreshIndicator from 'material-ui/RefreshIndicator';
+
 import ProjectPopoverAnimation from './components/ProjectPopoverAnimation';
 import HelpPopoverAnimation from './components/HelpPopoverAnimation';
 import {Tabs, Tab} from 'material-ui/Tabs';
@@ -105,6 +108,11 @@ class App extends Component {
                   <table>
                     <tbody>
                       <tr>
+                        <td><RefreshIndicator 
+                              size={40} 
+                              left={180} 
+                              top={0} 
+                              status={(this.props.isFetchingAvailableCompilers) ? "loading" : "hide"} /></td>
                         <td><CompilersSelectField /></td>
                         <td><RaisedButton label="ADD" /></td>
                         <td><RaisedButton label="REMOVE" primary={true}/></td>
@@ -132,4 +140,13 @@ class App extends Component {
   }
 };
 
-export default App;
+
+const mapStateToProps = (state) => {
+  return {
+    isFetchingAvailableCompilers: compilersSelectors.getIsFetchingAvailableCompilers(state),
+    hasErroredFetchingAvailableCompilers: compilersSelectors.getHasErroredFetchingAvailableCompilers(state)
+  };
+}
+
+
+export default connect(mapStateToProps)(App);

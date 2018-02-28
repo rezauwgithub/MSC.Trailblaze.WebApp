@@ -53,6 +53,7 @@ export function fetchAvailableCompilers() {
     } catch (error) {
       dispatch(hasErroredFetchingAvailableCompilers(true));
       dispatch(addLog({ log: 'Errored Fetching available compilers from API backend...', dateTime: Date() }));
+      dispatch(isFetchingAvailableCompilers(false));
       console.error(error);
     }
   };
