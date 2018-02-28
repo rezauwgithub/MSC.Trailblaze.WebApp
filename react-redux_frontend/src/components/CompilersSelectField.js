@@ -12,8 +12,9 @@ import * as availableCompilersSelectors from '../store/available_compilers/reduc
  * The rendering of selected items can be customized by providing a `selectionRenderer`.
  */
 class CompilersSelectField extends Component {
+
   state = {
-    values: [],
+    selectedCompilers: [],
   };
 
   
@@ -29,18 +30,18 @@ class CompilersSelectField extends Component {
 
 
 
-  handleChange = (event, index, values) => {
-    this.setState({values});
+  handleChange = (event, index, selectedCompilers) => {
+    this.setState({selectedCompilers});
   }
 
-  selectionRenderer = (values) => {
-    switch (values.length) {
+  selectionRenderer = (selectedCompilers) => {
+    switch (selectedCompilers.length) {
       case 0:
         return '';
       case 1:
-        return this.props.availableCompilers[values[0]].name;
+        return this.props.availableCompilers[selectedCompilers[0]].name;
       default:
-        return `${values.length} compilers selected`;
+        return `${selectedCompilers.length} compilers selected`;
     }
   }
 
@@ -49,7 +50,7 @@ class CompilersSelectField extends Component {
       <MenuItem
         key={availableCompiler.value}
         insetChildren={true}
-        checked={this.state.values.indexOf(availableCompiler.value) > -1}
+        checked={this.state.selectedCompilers.indexOf(availableCompiler.value) > -1}
         value={availableCompiler.value}
         primaryText={availableCompiler.name}
       />
@@ -63,7 +64,7 @@ class CompilersSelectField extends Component {
       <SelectField
         multiple={true}
         hintText="Select Compiler(s)"
-        value={this.state.values}
+        value={this.state.selectedCompilers}
         onChange={this.handleChange}
         selectionRenderer={this.selectionRenderer}
       >

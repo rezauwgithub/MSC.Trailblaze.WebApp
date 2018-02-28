@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var util = require('../utils/util');
+var util = require('../utility');
 
 const {USE_FAKE_COMPILER_DATA} = require('../backend_settings');
 

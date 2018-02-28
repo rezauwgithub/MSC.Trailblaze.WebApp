@@ -1,14 +1,14 @@
 
 const { exec } = require('child_process');
-const JsonDB = require('node-json-db');
+const nodeJSONDB = require('node-json-db');
 
 
-var db = new JsonDB('dbCompilerNames.json', true, true);
+var jsonDB = new nodeJSONDB('dbAvailableCompilerNames.json', true, true);
 
 
-module.exports.queryCompilerNames = function(callback) {
+module.exports.getAvailableCompilers = function(callback) {
     
-    console.log(`queryCompilerNames got called!`);
+    console.log(`queryAvailableCompilerNames got called!`);
 
     const command = `ssh reza@fusion15 mscmc -list`;
 
@@ -31,8 +31,8 @@ module.exports.queryCompilerNames = function(callback) {
 
                 jsonStrArr.push({ value: value, name: compilerName });
 
-                db.push(`/${value}/value`, value);
-                db.push(`/${value}/name`, compilerName);
+                jsonDB.push(`/${value}/value`, value);
+                jsonDB.push(`/${value}/name`, compilerName);
             }
         }
 
@@ -45,7 +45,7 @@ module.exports.queryCompilerNames = function(callback) {
 
 
 
-module.exports.queryCompilerDetails = function(compilerName, callback) {
+module.exports.queryCompilerDetails = function(availableCompilers, callback) {
 
     const command = `ssh reza@fusion15 mscmc -info ${compilerName}`;
 
