@@ -61,9 +61,18 @@ class App extends Component {
     super(props);
     this.state = {
       slideIndex: 0,
+      selectedCompilersNames: []
     };
   } 
   
+
+  setSelectedCompilersNames = (selectedCompilersNames) => {
+    this.setState({
+      selectedCompilersNames: selectedCompilersNames
+    });
+  }
+
+
 
   handleChange = (value) => {
     this.setState({
@@ -113,10 +122,10 @@ class App extends Component {
                               left={180} 
                               top={0} 
                               status={(this.props.isFetchingAvailableCompilers) ? "loading" : "hide"} /></td>
-                        <td><CompilersSelectField /></td>
-                        <td><RaisedButton label="ADD" /></td>
-                        <td><RaisedButton label="REMOVE" primary={true}/></td>
-                        <td><RaisedButton label="VALIDATE" secondary={true}/></td>
+                        <td><CompilersSelectField setSelectedCompilersNames={this.setSelectedCompilersNames} /></td>
+                        <td><RaisedButton label="ADD" onClick={() => alert(this.state.selectedCompilersNames.join())} /></td>
+                        <td><RaisedButton label="REMOVE" onClick={() => alert('REMOVE clicked')} primary={true}/></td>
+                        <td><RaisedButton label="VALIDATE" onClick={() => alert('VALIDATE clicked')} secondary={true}/></td>
                       </tr>
                     </tbody>
                   </table>
