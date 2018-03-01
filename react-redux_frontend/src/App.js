@@ -86,11 +86,11 @@ class App extends Component {
 
 
 
-  addInstancesToExistingInstancesTable = (selectedCompilers) => {
+  addInstancesToExistingInstancesTable = ({selectedCompilers}) => {
 
     selectedCompilers.forEach(selectedCompiler => {
       this.setState(state => ({
-        existingInstancesTableData: [...state.existingInstancesTableData, {compilerName: selectedCompiler}]
+        existingInstancesTableData: [...state.existingInstancesTableData, {compilerName: this.props.availableCompilers[selectedCompiler].name}]
       }))
     });
 
@@ -177,6 +177,7 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     isFetchingAvailableCompilers: compilersSelectors.getIsFetchingAvailableCompilers(state),
+    availableCompilers: compilersSelectors.getAvailableCompilers(state),
     hasErroredFetchingAvailableCompilers: compilersSelectors.getHasErroredFetchingAvailableCompilers(state)
   };
 }
