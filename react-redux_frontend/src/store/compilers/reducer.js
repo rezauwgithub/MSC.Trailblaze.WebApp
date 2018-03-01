@@ -15,6 +15,7 @@ const initialState = Immutable({
   availableCompilers: [],
   hasErroredFetchingAvailableCompilers: false,
 
+
   isFetchingSelectedCompilerDetails: [],
   allSelectedCompilersDetails: [],
   hasErroredFetchingSelectedCompilersDetails: [],
