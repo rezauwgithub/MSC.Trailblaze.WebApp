@@ -90,20 +90,9 @@ class App extends Component {
 
     selectedCompilers.forEach(selectedCompiler => {
       this.setState(state => ({
-        existingInstancesTableData: [...state.existingInstancesTableData, {compilerName: this.props.availableCompilers[selectedCompiler - 1].name}]
+        existingInstancesTableData: [...state.existingInstancesTableData, {compilerName: selectedCompiler}]
       }))
     });
-
-
-
-      /*
-      util.getAvailableCompilers(function(msc_compilers) {
-        res.json(msc_compilers);
-      });
-      */
-      // this.props.dispatch(compilersAction.fetchAvailableCompilers());
-
-      // this.props.dispatch(compilersAction.fetchSelectedCompilerDetails(selectedCompiler));
 
   }
 
@@ -188,7 +177,6 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     isFetchingAvailableCompilers: compilersSelectors.getIsFetchingAvailableCompilers(state),
-    availableCompilers: compilersSelectors.getAvailableCompilers(state),
     hasErroredFetchingAvailableCompilers: compilersSelectors.getHasErroredFetchingAvailableCompilers(state)
   };
 }

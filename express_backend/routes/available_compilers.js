@@ -15,10 +15,10 @@ module.exports = router.get('/', function(req, res, next) {
 
   if (USE_FAKE_COMPILER_DATA) {
     res.json([{
-      id: 0,
+      value: 0,
       name: "COMPILER93821",
     }, {
-      id: 1,
+      value: 1,
       name: "COMPILER93822"
     }]);
 

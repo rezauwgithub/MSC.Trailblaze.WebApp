@@ -36,24 +36,24 @@ const hasErroredFetchingAvailableCompilers = (bool) => {
 
 
 
-const isFetchingSelectedCompilerDetails = (boolArr) => {
+const isFetchingSelectedCompilerDetails = (bool) => {
   return {
     type: types.FETCHING_SELECTED_COMPILER_DETAILS,
-    isFetchingSelectedCompilerDetails: boolArr
+    isFetchingSelectedCompilerDetails: bool
   };
 };
 
-const selectedCompilerDetailsFetched = (selectedCompilerDetailsArr) => {
+const selectedCompilerDetailsFetched = (selectedCompilerDetails) => {
 	return {
 		type: types.SELECTED_COMPILER_DETAILS_FETCHED,
-		selectedCompilerDetailsArr
+		selectedCompilerDetails
 	};
 };
 
-const hasErroredFetchingSelectedCompilerDetails = (boolArr) => {
+const hasErroredFetchingSelectedCompilerDetails = (bool) => {
   return {
     type: types.ERRORED_FETCHING_SELECTED_COMPILER_DETAILS,
-    hasErroredFetchingSelectedCompilerDetails: boolArr
+    hasErroredFetchingSelectedCompilerDetails: bool
   };
 };
 
@@ -75,7 +75,7 @@ export function fetchAvailableCompilers() {
 
     } catch (error) {
       dispatch(hasErroredFetchingAvailableCompilers(true));
-      dispatch(addLog({ log: 'Errored fetching available compilers from API backend...', dateTime: Date() }));
+      dispatch(addLog({ log: 'Errored Fetching available compilers from API backend...', dateTime: Date() }));
       dispatch(isFetchingAvailableCompilers(false));
       console.error(error);
     }
@@ -93,11 +93,9 @@ export function fetchSelectedCompilerDetails(selectedCompiler) {
       dispatch(isFetchingSelectedCompilerDetails(false));
       dispatch(addLog({ log: `Selected compiler (${selectedCompiler}) details fetched!`, dateTime: Date() }));
 
-
-
     } catch (error) {
       dispatch(hasErroredFetchingSelectedCompilerDetails(true));
-      dispatch(addLog({ log: `Errored fetching selected compiler (${selectedCompiler}) details from API backend...`, dateTime: Date() }));
+      dispatch(addLog({ log: `Errored Fetching selected compiler (${selectedCompiler}) details from API backend...`, dateTime: Date() }));
       dispatch(isFetchingSelectedCompilerDetails(false));
       console.error(error);
     }
