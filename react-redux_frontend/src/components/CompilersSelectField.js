@@ -35,10 +35,10 @@ class CompilersSelectField extends Component {
 
     let selectedCompilersNames = [];
     selectedCompilers.forEach((selectedCompiler) => {
-      selectedCompilersNames.push(this.props.availableCompilers[selectedCompiler].name);
+      selectedCompilersNames.push(this.props.availableCompilers[selectedCompiler - 1].name);
     });
 
-    this.props.setSelectedCompilersNames(selectedCompilersNames);
+    this.props.setSelectedCompilers(selectedCompilersNames);
   }
 
   selectionRenderer = (selectedCompilers) => {

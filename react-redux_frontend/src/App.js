@@ -53,6 +53,15 @@ const styles = {
 };
 
 
+const tableData = [
+  {
+    compilerName: 'BIST180',
+  },
+];
+
+
+
+
 
 // MuiThemeProvider takes the theme as a property and passed it down the hierarchy.
 class App extends Component {
@@ -61,15 +70,30 @@ class App extends Component {
     super(props);
     this.state = {
       slideIndex: 0,
-      selectedCompilersNames: []
+      selectedCompilers: [],
+
+      existingInstancesTableHeaderColumns: [],
+      existingInstancesTableData: [],
     };
   } 
   
 
-  setSelectedCompilersNames = (selectedCompilersNames) => {
+  setSelectedCompilers = (selectedCompilers) => {
     this.setState({
-      selectedCompilersNames: selectedCompilersNames
+      selectedCompilers: selectedCompilers
     });
+  }
+
+
+
+  addInstancesToExistingInstancesTable = (selectedCompilers) => {
+
+    selectedCompilers.forEach(selectedCompiler => {
+      this.setState(state => ({
+        existingInstancesTableData: [...state.existingInstancesTableData, {compilerName: selectedCompiler}]
+      }))
+    });
+
   }
 
 
@@ -122,14 +146,14 @@ class App extends Component {
                               left={180} 
                               top={0} 
                               status={(this.props.isFetchingAvailableCompilers) ? "loading" : "hide"} /></td>
-                        <td><CompilersSelectField setSelectedCompilersNames={this.setSelectedCompilersNames} /></td>
-                        <td><RaisedButton label="ADD" onClick={() => alert(this.state.selectedCompilersNames.join())} /></td>
+                        <td><CompilersSelectField setSelectedCompilers={this.setSelectedCompilers} /></td>
+                        <td><RaisedButton label="ADD" onClick={() => this.addInstancesToExistingInstancesTable(this.state.selectedCompilers)} /></td>
                         <td><RaisedButton label="REMOVE" onClick={() => alert('REMOVE clicked')} primary={true}/></td>
                         <td><RaisedButton label="VALIDATE" onClick={() => alert('VALIDATE clicked')} secondary={true}/></td>
                       </tr>
                     </tbody>
                   </table>
-                  <ExistingInstancesTable />
+                  <ExistingInstancesTable existingInstancesTableData={this.state.existingInstancesTableData} />
                 </div>
                 <div style={styles.slide}>
                   <h2 style={styles.headline}>Generate</h2>
