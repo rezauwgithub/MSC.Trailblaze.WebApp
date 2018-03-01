@@ -33,12 +33,14 @@ class CompilersSelectField extends Component {
   handleChange = (event, index, selectedCompilers) => {
     this.setState({selectedCompilers});
 
+    /*
     let selectedCompilersNames = [];
     selectedCompilers.forEach((selectedCompiler) => {
-      selectedCompilersNames.push(this.props.availableCompilers[selectedCompiler - 1].name);
+      selectedCompilersNames.push(this.props.availableCompilers[selectedCompiler - 1]);
     });
+    */
 
-    this.props.setSelectedCompilers(selectedCompilersNames);
+    this.props.setSelectedCompilers(this.state.selectedCompilers);
   }
 
   selectionRenderer = (selectedCompilers) => {
