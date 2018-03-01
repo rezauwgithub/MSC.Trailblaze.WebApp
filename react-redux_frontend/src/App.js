@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import * as compilersSelectors from './store/compilers/reducer';
+import * as compilersActions from './store/compilers/actions';
+
 import { Helmet } from 'react-helmet';
 import { APP_TITLE } from './app_settings';
 
@@ -92,6 +94,10 @@ class App extends Component {
       this.setState(state => ({
         existingInstancesTableData: [...state.existingInstancesTableData, {compilerName: this.props.availableCompilers[selectedCompiler].name}]
       }))
+
+
+      this.props.dispatch(compilersActions.fetchSelectedCompilerDetails(this.props.availableCompilers[selectedCompiler]))
+
     });
 
   }

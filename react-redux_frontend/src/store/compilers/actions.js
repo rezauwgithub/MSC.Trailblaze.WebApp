@@ -86,19 +86,19 @@ export function fetchAvailableCompilers() {
 export function fetchSelectedCompilerDetails(selectedCompiler) {
   return async(dispatch, getState) => {
     try {
-      dispatch(addLog({ log: `Fetching selected compiler (${selectedCompiler}) details from API backend...`, dateTime: Date() }));
-      dispatch(isFetchingSelectedCompilerDetails(true));
-      const selectedCompilerDetails = await RESTfulAPIService.postJSONData('http://localhost:3001/selected_compiler_details', selectedCompiler);
+      dispatch(addLog({ log: `Fetching selected compiler (${selectedCompiler.name}) details from API backend...`, dateTime: Date() }));
+      // dispatch(isFetchingSelectedCompilerDetails(true));
+      const selectedCompilerDetails = await RESTfulAPIService.postJSONData('http://localhost:3001/selected_compiler_details', selectedCompiler.name);
       dispatch(selectedCompilerDetailsFetched(selectedCompilerDetails));
-      dispatch(isFetchingSelectedCompilerDetails(false));
-      dispatch(addLog({ log: `Selected compiler (${selectedCompiler}) details fetched!`, dateTime: Date() }));
+      // dispatch(isFetchingSelectedCompilerDetails(false));
+      dispatch(addLog({ log: `Selected compiler (${selectedCompiler.name}) details fetched!`, dateTime: Date() }));
 
 
 
     } catch (error) {
-      dispatch(hasErroredFetchingSelectedCompilerDetails(true));
-      dispatch(addLog({ log: `Errored fetching selected compiler (${selectedCompiler}) details from API backend...`, dateTime: Date() }));
-      dispatch(isFetchingSelectedCompilerDetails(false));
+      // dispatch(hasErroredFetchingSelectedCompilerDetails(true));
+      dispatch(addLog({ log: `Errored fetching selected compiler (${selectedCompiler.name}) details from API backend...`, dateTime: Date() }));
+      // dispatch(isFetchingSelectedCompilerDetails(false));
       console.error(error);
     }
   };
