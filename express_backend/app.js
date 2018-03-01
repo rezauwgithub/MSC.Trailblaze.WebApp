@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var available_compilers = require('./routes/available_compilers');
-var compiler_details = require('./routes/compiler_details');
+var selected_compiler_details = require('./routes/selected_compiler_details');
 
 var app = express();
 
@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/available_compilers', available_compilers);
-app.use('/compiler_details', compiler_details);
+app.use('/selected_compiler_details', selected_compiler_details);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

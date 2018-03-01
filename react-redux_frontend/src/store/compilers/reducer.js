@@ -13,7 +13,15 @@ import * as types from './actionTypes';
 const initialState = Immutable({
   isFetchingAvailableCompilers: false,
   availableCompilers: [],
-  hasErroredFetchingAvailableCompilers: false
+  hasErroredFetchingAvailableCompilers: false,
+
+  isFetchingSelectedCompilerDetails: [],
+  allSelectedCompilersDetails: [],
+  hasErroredFetchingSelectedCompilersDetails: [],
+
+  isFetchingSelectedCompilerOptions: [],
+  allSelectedCompilersOptions: [],
+  hasErroredFetchingSelectedCompilersOptions: []
 });
 
 
@@ -28,6 +36,30 @@ export default function reduce(state = initialState, action = {}) {
         availableCompilers: action.availableCompilers
       });
     case types.ERRORED_FETCHING_AVAILABLE_COMPILERS:
+      return state.merge({
+        hasErroredFetchingAvailableCompilers: action.hasErroredFetchingAvailableCompilers
+      });
+    case types.FETCHING_SELECTED_COMPILER_DETAILS:
+      return state.merge({
+        isFetchingAvailableCompilers: action.isFetchingAvailableCompilers
+      });
+    case types.SELECTED_COMPILER_DETAILS_FETCHED:
+      return state.merge({
+        availableCompilers: action.availableCompilers
+      });
+    case types.ERRORED_FETCHING_SELECTED_COMPILER_DETAILS:
+      return state.merge({
+        hasErroredFetchingAvailableCompilers: action.hasErroredFetchingAvailableCompilers
+      });
+    case types.FETCHING_SELECTED_COMPILER_OPTIONS:
+      return state.merge({
+        isFetchingAvailableCompilers: action.isFetchingAvailableCompilers
+      });
+    case types.SELECTED_COMPILER_OPTIONS_FETCHED:
+      return state.merge({
+        availableCompilers: action.availableCompilers
+      });
+    case types.ERRORED_FETCHING_SELECTED_COMPILER_OPTIONS:
       return state.merge({
         hasErroredFetchingAvailableCompilers: action.hasErroredFetchingAvailableCompilers
       });
@@ -49,8 +81,3 @@ export const getAvailableCompilers = (state) => {
 export const getHasErroredFetchingAvailableCompilers = (state) => {
   return state.compilers.hasErroredFetchingAvailableCompilers;
 }
-
-
-
-
-

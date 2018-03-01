@@ -3,13 +3,12 @@ const { exec } = require('child_process');
 const nodeJSONDB = require('node-json-db');
 
 
-var jsonDB = new nodeJSONDB('dbAvailableCompilerNames.json', true, true);
-
 
 module.exports.getAvailableCompilers = function(callback) {
     
     console.log(`queryAvailableCompilerNames got called!`);
 
+ 
     const command = `ssh reza@fusion15 mscmc -list`;
 
     exec(command, (err, stdout, stderr) => {
@@ -18,6 +17,7 @@ module.exports.getAvailableCompilers = function(callback) {
             return;
         }
 
+        let jsonDB = new nodeJSONDB('db/dbAvailableCompilers.json', true, true);
 
         var jsonStrArr = [];
 
@@ -45,9 +45,11 @@ module.exports.getAvailableCompilers = function(callback) {
 
 
 
-module.exports.queryCompilerDetails = function(availableCompilers, callback) {
+module.exports.querySelectedCompilerDetails = (selectedCompiler, callback) => {
 
-    const command = `ssh reza@fusion15 mscmc -info ${compilerName}`;
+    console.log(`querySelectedCompilerDetails got called for ${selectedCompiler}!`);
+
+    const command = `ssh reza@fusion15 mscmc -info ${selectedCompiler}`;
 
     exec(command, (err, stdout, stderr) => {
         if (err) {
@@ -55,7 +57,10 @@ module.exports.queryCompilerDetails = function(availableCompilers, callback) {
             return;
         }
     
-        
+        let jsonDB = new nodeJSONDB(`db/db${selectedCompiler}.json`, true, true);
+
+
+
         var jsonStrArr = [];
 
         var rStrArrIFC = stdout.split("INFO FOR COMPILER");

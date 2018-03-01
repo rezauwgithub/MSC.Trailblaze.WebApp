@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var util = require('../utility');
+var util = require('../util');
 
 const {USE_FAKE_COMPILER_DATA} = require('../backend_settings');
 
@@ -24,7 +24,7 @@ module.exports = router.get('/', function(req, res, next) {
 
 
   } else {
-    util.queryCompilerNames(function(msc_compilers) {
+    util.getAvailableCompilers(function(msc_compilers) {
       res.json(msc_compilers);
     });
 
