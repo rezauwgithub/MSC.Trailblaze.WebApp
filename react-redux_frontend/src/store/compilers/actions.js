@@ -36,6 +36,29 @@ const hasErroredFetchingAvailableCompilers = (bool) => {
 
 
 
+const isFetchingSelectedCompilersDetails = (bool) => {
+  return {
+    type: types.FETCHING_SELECTED_COMPILERS_DETAILS,
+    isFetchingSelectedCompilersDetails: bool
+  };
+};
+
+const selectedCompilersDetailsFetched = (selectedCompilersDetails) => {
+	return {
+		type: types.SELECTED_COMPILERS_DETAILS_FETCHED,
+		selectedCompilersDetails
+	};
+};
+
+const hasErroredFetchingSelectedCompilersDetails = (bool) => {
+  return {
+    type: types.ERRORED_FETCHING_SELECTED_COMPILERS_DETAILS,
+    hasErroredFetchingSelectedCompilersDetails: bool
+  };
+};
+
+
+
 
 
 // async
@@ -45,8 +68,8 @@ export function fetchAvailableCompilers() {
     try {
       dispatch(addLog({ log: 'Fetching available compilers from API backend...', dateTime: Date() }));
       dispatch(isFetchingAvailableCompilers(true));
-      const compilerNamesJSONArray = await RESTfulAPIService.getJSONData('http://localhost:3001/available_compilers');
-      dispatch(availableCompilersFetched(compilerNamesJSONArray));
+      const compilersNamesJSONArray = await RESTfulAPIService.getJSONData('http://localhost:3001/available_compilers');
+      dispatch(availableCompilersFetched(compilersNamesJSONArray));
       dispatch(isFetchingAvailableCompilers(false));
       dispatch(addLog({ log: 'Available compilers fetched!', dateTime: Date() }));
 
@@ -54,6 +77,26 @@ export function fetchAvailableCompilers() {
       dispatch(hasErroredFetchingAvailableCompilers(true));
       dispatch(addLog({ log: 'Errored Fetching available compilers from API backend...', dateTime: Date() }));
       dispatch(isFetchingAvailableCompilers(false));
+      console.error(error);
+    }
+  };
+}
+
+
+export function fetchSelectedCompilersDetails(selectedCompilers) {
+  return async(dispatch, getState) => {
+    try {
+      dispatch(addLog({ log: 'Fetching selected compilers details from API backend...', dateTime: Date() }));
+      dispatch(isFetchingSelectedCompilersDetails(true));
+      const selectedCompilersDetailsJSONArray = await RESTfulAPIService.postJSONData('http://localhost:3001/selected_compilers_details', selectedCompilers);
+      dispatch(selectedCompilersDetailsFetched(selectedCompilersDetailsJSONArray));
+      dispatch(isFetchingSelectedCompilersDetails(false));
+      dispatch(addLog({ log: 'Selected compilers details fetched!', dateTime: Date() }));
+
+    } catch (error) {
+      dispatch(hasErroredFetchingSelectedCompilersDetails(true));
+      dispatch(addLog({ log: 'Errored Fetching selected compilers details from API backend...', dateTime: Date() }));
+      dispatch(isFetchingSelectedCompilersDetails(false));
       console.error(error);
     }
   };

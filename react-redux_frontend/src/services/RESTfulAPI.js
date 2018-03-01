@@ -11,7 +11,7 @@ class RESTfulAPIService {
     const response = await fetch(url, {
       method: 'GET',
        headers: {
-         Accept: 'application/json'
+         'Accept': 'application/json',
        }
     });
 
@@ -25,8 +25,25 @@ class RESTfulAPIService {
   }
 
 
-  async postJSONData(url) {
+  async postJSONData(url, jsonData) {
+    
+    const response = await fetch(url, {
+      method: 'POST',
+        headers: {
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({
+          jsonData: jsonData
+        })
+    });
 
+    if (!response.ok) {
+      throw new Error(`RESTfulAPIService postJSONData failed - HTTP status ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('We get the data: ' + JSON.stringify(data));
+    return data;
   }
 
 
