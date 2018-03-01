@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var util = require('../utility');
+var util = require('../util');
 
-const {USE_FAKE_COMPILER_DATA} = require('../backend_settings');
+const { USE_FAKE_COMPILER_DATA } = require('../backend_settings');
 
 
 /* GET COMPILER DETAILS. */
@@ -20,8 +20,8 @@ module.exports = router.all('/', function(req, res, next) {
     }]);
 
   } else {
-    util.queryCompilerDetails(req.body.selectedCompiler, function(compiler_details) {
-      res.json(compiler_details);
+    util.querySelectedCompilerDetails(req.body.selectedCompiler, (selectedCompilerDetails) => {
+      res.json(selectedCompilersDetails);
     });
 
   }

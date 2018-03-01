@@ -13,7 +13,9 @@ import * as types from './actionTypes';
 const initialState = Immutable({
   isFetchingAvailableCompilers: false,
   availableCompilers: [],
-  hasErroredFetchingAvailableCompilers: false
+  hasErroredFetchingAvailableCompilers: false,
+
+  
 });
 
 
