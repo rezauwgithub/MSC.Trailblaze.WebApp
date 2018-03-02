@@ -159,7 +159,7 @@ class App extends Component {
                       </tr>
                     </tbody>
                   </table>
-                  <ExistingInstancesTable existingInstancesTableData={this.state.existingInstancesTableData} />
+                <ExistingInstancesTable existingInstancesTableData={this.state.existingInstancesTableData} />
                 </div>
                 <div style={styles.slide}>
                   <h2 style={styles.headline}>Generate</h2>

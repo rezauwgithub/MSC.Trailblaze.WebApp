@@ -47,9 +47,9 @@ module.exports.getAvailableCompilers = function(callback) {
 
 module.exports.querySelectedCompilerDetails = (selectedCompiler, callback) => {
 
-    console.log(`querySelectedCompilerDetails got called for ${selectedCompiler}!`);
+    console.log(`querySelectedCompilerDetails got called for ${selectedCompiler.name}!`);
 
-    const command = `ssh reza@fusion15 mscmc -info ${selectedCompiler}`;
+    const command = `ssh reza@fusion15 mscmc -info ${selectedCompiler.name}`;
 
     exec(command, (err, stdout, stderr) => {
         if (err) {
@@ -57,7 +57,7 @@ module.exports.querySelectedCompilerDetails = (selectedCompiler, callback) => {
             return;
         }
     
-        let jsonDB = new nodeJSONDB(`db/db${selectedCompiler}.json`, true, true);
+        let jsonDB = new nodeJSONDB(`db/db${selectedCompiler.name}.json`, true, true);
 
 
 

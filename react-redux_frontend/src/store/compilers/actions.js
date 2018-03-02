@@ -88,7 +88,7 @@ export function fetchSelectedCompilerDetails(selectedCompiler) {
     try {
       dispatch(addLog({ log: `Fetching selected compiler (${selectedCompiler.name}) details from API backend...`, dateTime: Date() }));
       // dispatch(isFetchingSelectedCompilerDetails(true));
-      const selectedCompilerDetails = await RESTfulAPIService.postJSONData('http://localhost:3001/selected_compiler_details', selectedCompiler.name);
+      const selectedCompilerDetails = await RESTfulAPIService.postJSONData('http://localhost:3001/selected_compiler_details', selectedCompiler);
       dispatch(selectedCompilerDetailsFetched(selectedCompilerDetails));
       // dispatch(isFetchingSelectedCompilerDetails(false));
       dispatch(addLog({ log: `Selected compiler (${selectedCompiler.name}) details fetched!`, dateTime: Date() }));
