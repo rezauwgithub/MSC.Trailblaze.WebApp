@@ -1,4 +1,4 @@
-const USE_FAKE_COMPILER_DATA = false;
+const USE_FAKE_COMPILER_DATA = true;
 
 
 module.exports = {

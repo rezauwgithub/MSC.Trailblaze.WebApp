@@ -4,7 +4,7 @@ import * as compilersSelectors from './store/compilers/reducer';
 import * as compilersActions from './store/compilers/actions';
 
 import { Helmet } from 'react-helmet';
-import { APP_TITLE } from './app_settings';
+import { APP_TITLE } from './_app_settings';
 
 import './App.css'
 import { blueGrey400 } from 'material-ui/styles/colors';
@@ -153,7 +153,7 @@ class App extends Component {
                               top={0} 
                               status={(this.props.isFetchingAvailableCompilers) ? "loading" : "hide"} /></td>
                         <td><CompilersSelectField setSelectedCompilers={this.setSelectedCompilers} /></td>
-                        <td><RaisedButton label="ADD" onClick={() => this.addInstancesToExistingInstancesTable(this.state.selectedCompilers)} /></td>
+                        <td><RaisedButton label="ADD" onClick={() => this.addInstancesToExistingInstancesTable(this.state.selectedCompilers)} disabled={this.state.selectedCompilers.length < 1} /></td>
                         <td><RaisedButton label="REMOVE" onClick={() => alert('REMOVE clicked')} primary={true}/></td>
                         <td><RaisedButton label="VALIDATE" onClick={() => alert('VALIDATE clicked')} secondary={true}/></td>
                       </tr>

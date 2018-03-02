@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var util = require('../util');
 
-const { USE_FAKE_COMPILER_DATA } = require('../backend_settings');
+const { USE_FAKE_COMPILER_DATA } = require('../_backend_settings');
 
 
 /* GET COMPILER DETAILS. */
