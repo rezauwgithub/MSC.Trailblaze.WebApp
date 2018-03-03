@@ -11,7 +11,7 @@ class RESTfulAPIService {
     const response = await fetch(url, {
       method: 'GET',
        headers: {
-         'Accept': 'application/json',
+         Accept: 'application/json',
        }
     });
 
@@ -27,14 +27,15 @@ class RESTfulAPIService {
 
   async postJSONData(url, data) {
     
+    alert("data: " + JSON.stringify(data));
+
     const response = await fetch(url, {
       method: 'POST',
         headers: {
-          Accept: 'application/json'
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          data: data
-        })
+        body: JSON.stringify(data)
     });
 
     if (!response.ok) {

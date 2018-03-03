@@ -9,7 +9,17 @@ const { USE_FAKE_COMPILER_DATA } = require('../_backend_settings');
 module.exports = router.all('/', function(req, res, next) {
   // res.send('respond with a resource');
 
+  console.log("Cheese, Cheese, chesse");
+
+
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+
   if (USE_FAKE_COMPILER_DATA) {
+
+    console.log("Jesus! We get here." + req.body.value);
+
     res.json([{
       name: "COMPILER93828",
       user_guide: "/home/somewhere/inside/thatfolder/file.pdf",
@@ -20,7 +30,8 @@ module.exports = router.all('/', function(req, res, next) {
     }]);
 
   } else {
-    util.querySelectedCompilerDetails(req.body.selectedCompiler, (selectedCompilerDetails) => {
+
+    util.querySelectedCompilerDetails(req.body.data, (selectedCompilerDetails) => {
       res.json(selectedCompilersDetails);
     });
 
