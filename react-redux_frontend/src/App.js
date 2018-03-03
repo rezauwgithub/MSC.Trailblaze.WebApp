@@ -97,7 +97,6 @@ class App extends Component {
 
 
       this.props.dispatch(compilersActions.fetchSelectedCompilerDetails(this.props.availableCompilers[selectedCompiler]))
-
     });
 
   }

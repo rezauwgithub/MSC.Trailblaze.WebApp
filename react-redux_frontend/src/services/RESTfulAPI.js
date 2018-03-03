@@ -20,14 +20,12 @@ class RESTfulAPIService {
     }
 
     const data = await response.json();
-    console.log('We get the data: ' + JSON.stringify(data));
+
     return data;
   }
 
 
   async postJSONData(url, data) {
-    
-    alert("data: " + JSON.stringify(data));
 
     const response = await fetch(url, {
       method: 'POST',
@@ -43,7 +41,7 @@ class RESTfulAPIService {
     }
 
     const responseJSON = await response.json();
-    console.log('We get the data: ' + JSON.stringify(data));
+
     return responseJSON;
   }
 }
