@@ -16,14 +16,18 @@ const initialState = Immutable({
 
 
 const reduce = (state = initialState, action = {}) => {
+
   switch (action.type) {
+
     case types.ADD_LOG:
       return {
         ...state,
         logs: state.logs.concat(action.log)
       }
+
     default:
       return state;
+      
   }
 }
 

@@ -11,27 +11,32 @@ import * as types from './actionTypes';
 
 
 const initialState = Immutable({
+
   isFetchingAvailableCompilers: false,
   availableCompilers: [],
   hasErroredFetchingAvailableCompilers: false,
 
 
-  isFetchingSelectedCompilerDetails: [],
-  allSelectedCompilersDetails: [],
-  hasErroredFetchingSelectedCompilersDetails: [],
+  isFetchingSelectedCompilerDetailsJSONArr: [],
+  selectedCompilerDetailsJSONArr: [],
+  hasErroredFetchingSelectedCompilerDetailsJSONArr: [],
 
-  isFetchingSelectedCompilerOptions: [],
-  allSelectedCompilersOptions: [],
-  hasErroredFetchingSelectedCompilersOptions: []
+
+  isFetchingSelectedCompilerOptionsJSONArr: [],
+  selectedCompilerOptionsJSONArr: [],
+  hasErroredFetchingSelectedCompilerOptionsJSONArr: [],
+
 });
 
 
 export default function reduce(state = initialState, action = {}) {
+
   switch (action.type) {
+
     case types.FETCHING_AVAILABLE_COMPILERS:
-    return state.merge({
-      isFetchingAvailableCompilers: action.isFetchingAvailableCompilers
-    });
+      return state.merge({
+        isFetchingAvailableCompilers: action.isFetchingAvailableCompilers
+      });
     case types.AVAILABLE_COMPILERS_FETCHED:
       return state.merge({
         availableCompilers: action.availableCompilers
@@ -40,39 +45,43 @@ export default function reduce(state = initialState, action = {}) {
       return state.merge({
         hasErroredFetchingAvailableCompilers: action.hasErroredFetchingAvailableCompilers
       });
+
     case types.FETCHING_SELECTED_COMPILER_DETAILS:
       return state.merge({
-        isFetchingAvailableCompilers: action.isFetchingAvailableCompilers
+        isFetchingSelectedCompilerDetailsJSONArr: action.isFetchingSelectedCompilerDetailsJSONArr
       });
     case types.SELECTED_COMPILER_DETAILS_FETCHED:
       return state.merge({
-        availableCompilers: action.availableCompilers
+        selectedCompilerDetailsJSONArr: action.selectedCompilerDetailsJSONArr
       });
     case types.ERRORED_FETCHING_SELECTED_COMPILER_DETAILS:
       return state.merge({
-        hasErroredFetchingAvailableCompilers: action.hasErroredFetchingAvailableCompilers
+        hasErroredFetchingSelectedCompilerDetailsJSONArr: action.hasErroredFetchingSelectedCompilerDetailsJSONArr
       });
+
     case types.FETCHING_SELECTED_COMPILER_OPTIONS:
       return state.merge({
-        isFetchingAvailableCompilers: action.isFetchingAvailableCompilers
+        isFetchingSelectedCompilerOptionsJSONArr: action.isFetchingSelectedCompilerOptionsJSONArr
       });
     case types.SELECTED_COMPILER_OPTIONS_FETCHED:
       return state.merge({
-        availableCompilers: action.availableCompilers
+        selectedCompilerOptionsJSONArr: action.selectedCompilerOptionsJSONArr
       });
     case types.ERRORED_FETCHING_SELECTED_COMPILER_OPTIONS:
       return state.merge({
-        hasErroredFetchingAvailableCompilers: action.hasErroredFetchingAvailableCompilers
+        hasErroredFetchingSelectedCompilerOptionsJSONArr: action.hasErroredFetchingSelectedCompilerOptionsJSONArr
       });
+
     default:
       return state;
+
   }
 }
 
 // Selectors
 
 export const getIsFetchingAvailableCompilers = (state) => {
-  return state.compilers.isFetchingAvailableCompilers;
+  return state.compilers.isFetchingAvailableCompilersJSONArr;
 }
 
 export const getAvailableCompilers = (state) => {
@@ -80,5 +89,31 @@ export const getAvailableCompilers = (state) => {
 }
 
 export const getHasErroredFetchingAvailableCompilers = (state) => {
-  return state.compilers.hasErroredFetchingAvailableCompilers;
+  return state.compilers.hasErroredFetchingAvailableCompilersJSONArr;
+}
+
+
+export const getIsFetchingCompilerDetailsJSONArr = (state) => {
+  return state.compilers.isFetchingCompilerDetailsJSONArr;
+}
+
+export const getCompilerDetailsJSONArr = (state) => {
+  return state.compilers.compilerDetailsJSONArr;
+}
+
+export const getHasErroredFetchingCompilerDetailsJSONArr = (state) => {
+  return state.compilers.hasErroredFetchingCompilerDetailsJSONArr;
+}
+
+
+export const getIsFetchingCompilerOptionsJSONArr = (state) => {
+  return state.compilers.isFetchingCompilerOptionsJSONArr;
+}
+
+export const getCompilerOptionsJSONArr = (state) => {
+  return state.compilers.compilerOptionsJSONArr;
+}
+
+export const getHasErroredFetchingCompilerOptionsJSONArr = (state) => {
+  return state.compilers.hasErroredFetchingCompilerOptionsJSONArr;
 }
