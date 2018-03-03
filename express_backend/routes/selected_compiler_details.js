@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var util = require('../util');
 
-const { USE_FAKE_COMPILER_DATA } = require('../_backend_settings');
+// const { USE_FAKE_COMPILER_DATA } = require('../_backend_settings');
 
 
 /* GET COMPILER DETAILS. */
@@ -12,8 +12,11 @@ module.exports = router.all('/', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
+  console.log("WTF? " + req.body.name);
+  console.log("Jesus! " + req.body.name);
 
-  if (USE_FAKE_COMPILER_DATA) {
+
+  if (false) {
 
     res.json({
       value: req.body.value,
@@ -27,9 +30,12 @@ module.exports = router.all('/', function(req, res, next) {
 
   } else {
 
-    util.querySelectedCompilerDetails(req.body, (selectedCompilerDetails) => {
-      res.json(selectedCompilersDetails);
+    /*
+    util.querySelectedCompilerDetails(req.body.name, (selectedCompilerDetails) => {
+      res.json(selectedCompilerDetails);
     });
+    */
 
   }
+
 });
