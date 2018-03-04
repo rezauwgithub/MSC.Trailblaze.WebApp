@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var util = require('../util');
 
-// const { USE_FAKE_COMPILER_DATA } = require('../_backend_settings');
+const { USE_FAKE_COMPILER_DATA } = require('../_backend_settings');
 
 
 /* GET MSC-COMPILERS NAME. */
@@ -14,7 +14,6 @@ module.exports = router.get('/', function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
 
-  if (false) {
     res.json([{
       value: 0,
       name: "COMPILER93821",
@@ -23,12 +22,4 @@ module.exports = router.get('/', function(req, res, next) {
       name: "COMPILER93822"
     }]);
 
-
-  } else {
-  
-    util.getAvailableCompilers(function(availableCompilers) {
-      res.json(availableCompilers);
-    });
-
-  }
 });
