@@ -1,14 +1,14 @@
 // server.js
 
 const app = require('express')();
-const getExpeditiousCache = require('express-expeditious');
-
 const editJsonFile = require('edit-json-file');
 const settings = require('./__backend_settings__');
 const util = require('./util');
+const logger = require('morgan');
+const apicache = require('apicache');
 
-const compilers = require('./routes/compilers');
 
+const cache = apicache.middleware;
 
 /*
   if the file doesn't exist, the content will be an empty object by default.
@@ -18,13 +18,6 @@ const projectsjsonfile = editJsonFile(`${__dirname}/jsonDBs/projects.json`, {
 });
 
 
-const cache = getExpeditiousCache({
-  // Namespace used to prevent cache conflicts, must be alphanumeric
-  namespace: 'expresscache',
-
-  // Store cache entries for 1 minute (can also pass milliseconds e.g., 60000)
-  defaultTtl: '1 minute',
-});
 
 
 app.use((req, res, next) => {
@@ -34,22 +27,64 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(logger('dev'));
 
-app.use('/compilers', compilers);
+
+// add route to display cache index
+app.get('/api/cache/index', (req, res) => {
+  console.log('apicache.getIndex(): ' + JSON.stringify(apicache.getIndex()));
+  res.json(apicache.getIndex())
+});
+
+// add route to manually clear target/group
+app.get('/api/cache/clear/:target?', (req, res) => {
+  console.log('apicache.getIndex()');
+  res.json(apicache.clear(req.params.target))
+});
 
 
 /* 
   The initial call to this will take 2 seconds, but any subsequent calls 
   will receive a response instantly from cache for the next hour
 */
-app.get('/ping', cache.withTtl('1 hour'), (req, res) => {
+app.get('/api/ping', cache('2 minutes'), (req, res) => {
   setTimeout(() => {
     res.end('pong');
-  }, 2000);
+  }, 1000);
 });
 
 
 
+app.get('/api/compilers/names', cache('2 minutes'), (req, res) => {
+
+  setTimeout(() => {
+    res.json([
+      {
+        value: 0,
+        name: 'COMPILERTest426723'
+      },
+      {
+        value: 1,
+        name: 'COMPILERTest4223'
+      },
+      {
+        value: 2,
+        name: 'COMPILERTest424323'
+      },
+      {
+        value: 3,
+        name: 'COMPILERTest4243523'
+      }
+    ])
+  }, 5000);
+
+  /*
+  util.getLicensedCompilers((licensedCompilers) => {
+    res.json(licensedCompilers);
+  });
+  */
+
+});
 
 
 
@@ -63,33 +98,15 @@ var fakeproject = {
 }
 // End of Temp hard coded JSON data
 
-app.get('/projects', (req, res) => {
+app.get('/api/projects', (req, res) => {
   res.send(projectsjsonfile.get())
 });
 
 
-app.put('/createNewProject', (req, res) => {
+app.put('/api/createNewProject', (req, res) => {
   projectsjsonfile.set(fakeproject);
   res.send(projectsjsonfile.get());
 });
-
-
-
-app.get('/compilers', cache.withTtl(`${settings.CACHE_TTL} hours`), (req, res) => {
-  util.getLicensedCompilers((licensedCompilers) => {
-    res.json(licensedCompilers);
-  });
-});
-
-
-
-
-// IMPORTANT! Cache everything below this line for 1 minute (defaultTtl)
-app.use(cache);
-
-// CACHE
-
-
 
 
 

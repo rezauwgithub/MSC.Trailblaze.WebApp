@@ -91,7 +91,7 @@ export function fetchAvailableCompilers() {
     try {
       dispatch(addLog({ log: 'Fetching available compilers from API backend...', dateTime: Date() }));
       dispatch(isFetchingAvailableCompilers(true));
-      const compilersNames = await RESTfulAPIService.getJSONData('http://localhost:3001/compilers');
+      const compilersNames = await RESTfulAPIService.getJSONData('http://localhost:3001/api/compilers');
       dispatch(availableCompilersFetched(compilersNames));
       dispatch(isFetchingAvailableCompilers(false));
       dispatch(addLog({ log: 'Available compilers fetched!', dateTime: Date() }));
@@ -112,7 +112,7 @@ export function fetchSelectedCompilerDetails(selectedCompiler) {
     try {
       dispatch(addLog({ log: `Fetching selected compiler (${selectedCompiler.name}) details from API backend...`, dateTime: Date() }));
       dispatch(isFetchingSelectedCompilerDetails(`{ ${selectedCompiler.value}: { name: ${selectedCompiler.name}, isFetchingSelectedCompilerDetailsJSONArr: ${true} } }`));
-      const selectedCompilerDetails = await RESTfulAPIService.postJSONData('http://localhost:3001/selected_compiler_details', selectedCompiler);  
+      const selectedCompilerDetails = await RESTfulAPIService.postJSONData('http://localhost:3001/api/selected_compiler_details', selectedCompiler);  
       dispatch(selectedCompilerDetailsFetched(`{ ${selectedCompiler.value}: { name: ${selectedCompiler.name}, selectedCompilerDetailsJSONArr: ${selectedCompilerDetails} } }`))
       dispatch(isFetchingSelectedCompilerDetails(`{ ${selectedCompiler.value}: { name: ${selectedCompiler.name}, isFetchingSelectedCompilerDetailsJSONArr: ${false} } }`));
       dispatch(addLog({ log: `Selected compiler (${selectedCompiler.name}) details fetched!`, dateTime: Date() }));
@@ -133,7 +133,7 @@ export function fetchSelectedCompilerOptions(selectedCompiler) {
     try {
       dispatch(addLog({ log: `Fetching selected compiler (${selectedCompiler.name}) options from API backend...`, dateTime: Date() }));
       dispatch(isFetchingSelectedCompilerOptions(`{ ${selectedCompiler.value}: { name: ${selectedCompiler.name}, isFetchingSelectedCompilerOptionsJSONArr: ${true} } }`));
-      const selectedCompilerOptions = await RESTfulAPIService.postJSONData('http://localhost:3001/selected_compiler_options', selectedCompiler);  
+      const selectedCompilerOptions = await RESTfulAPIService.postJSONData('http://localhost:3001/api/selected_compiler_options', selectedCompiler);  
       dispatch(selectedCompilerOptionsFetched(`{ ${selectedCompiler.value}: { name: ${selectedCompiler.name}, selectedCompilerOptionsJSONArr: ${selectedCompilerOptions} } }`))
       dispatch(isFetchingSelectedCompilerOptions(`{ ${selectedCompiler.value}: { name: ${selectedCompiler.name}, isFetchingSelectedCompilerOptionsJSONArr: ${false} } }`));
       dispatch(addLog({ log: `Selected compiler (${selectedCompiler.name}) options fetched!`, dateTime: Date() }));

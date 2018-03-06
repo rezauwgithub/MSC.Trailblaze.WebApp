@@ -31,6 +31,7 @@ class CompilersSelectField extends Component {
 
 
   handleChange = (event, index, selectedCompilers) => {
+    
     this.setState({selectedCompilers});
 
     this.props.setSelectedCompilers({selectedCompilers});
