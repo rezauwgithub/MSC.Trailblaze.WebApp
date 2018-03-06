@@ -91,7 +91,7 @@ export function fetchAvailableCompilers() {
     try {
       dispatch(addLog({ log: 'Fetching available compilers from API backend...', dateTime: Date() }));
       dispatch(isFetchingAvailableCompilers(true));
-      const compilersNames = await RESTfulAPIService.getJSONData('http://localhost:3001/api/compilers');
+      const compilersNames = await RESTfulAPIService.getJSONData('http://localhost:3001/api/compilers.names');
       dispatch(availableCompilersFetched(compilersNames));
       dispatch(isFetchingAvailableCompilers(false));
       dispatch(addLog({ log: 'Available compilers fetched!', dateTime: Date() }));

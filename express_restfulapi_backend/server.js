@@ -41,7 +41,7 @@ app.get('/api/cache', (req, res) => {
 });
 
 // add route to manually clear target/group
-app.get('/api/cache/clear/:target?', (req, res) => {
+app.get('/api/cache.clear/:target?', (req, res) => {
   console.log('apicache.getIndex()');
   res.json(apicache.clear(req.params.target))
 });
@@ -63,7 +63,9 @@ app.get('/api/examples.ping', cache('2 minutes'), (req, res) => {
 
 app.get('/api/compilers.names', cache(`${settings.CACHE_TTL} minutes`), (req, res) => {
 
+
   setTimeout(() => {
+    console.log(`Querying "fake" compilers for...`);
     res.json([
       {
         value: 0,
@@ -82,7 +84,7 @@ app.get('/api/compilers.names', cache(`${settings.CACHE_TTL} minutes`), (req, re
         name: 'COMPILERTest4243523'
       }
     ])
-  }, 5000);
+  }, 20000);
 
   /*
   util.getLicensedCompilers((licensedCompilers) => {
