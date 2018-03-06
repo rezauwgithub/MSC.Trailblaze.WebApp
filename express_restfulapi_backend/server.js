@@ -8,7 +8,11 @@ const logger = require('morgan');
 const apicache = require('apicache');
 
 
-const cache = apicache.middleware;
+const cache = apicache.options({
+  
+  debug: true
+
+}).middleware;
 
 /*
   if the file doesn't exist, the content will be an empty object by default.
@@ -31,7 +35,7 @@ app.use(logger('dev'));
 
 
 // add route to display cache index
-app.get('/api/cache/index', (req, res) => {
+app.get('/api/cache', (req, res) => {
   console.log('apicache.getIndex(): ' + JSON.stringify(apicache.getIndex()));
   res.json(apicache.getIndex())
 });
@@ -47,15 +51,17 @@ app.get('/api/cache/clear/:target?', (req, res) => {
   The initial call to this will take 2 seconds, but any subsequent calls 
   will receive a response instantly from cache for the next hour
 */
-app.get('/api/ping', cache('2 minutes'), (req, res) => {
+app.get('/api/examples.ping', cache('2 minutes'), (req, res) => {
+
   setTimeout(() => {
-    res.end('pong');
+    res.end('pong, ping, pong, pong, and cheese, cheese, cheese');
   }, 1000);
+
 });
 
 
 
-app.get('/api/compilers/names', cache('2 minutes'), (req, res) => {
+app.get('/api/compilers.names', cache(`${settings.CACHE_TTL} minutes`), (req, res) => {
 
   setTimeout(() => {
     res.json([
