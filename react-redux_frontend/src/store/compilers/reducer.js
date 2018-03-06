@@ -81,7 +81,7 @@ export default function reduce(state = initialState, action = {}) {
 // Selectors
 
 export const getIsFetchingAvailableCompilers = (state) => {
-  return state.compilers.isFetchingAvailableCompilersJSONArr;
+  return state.compilers.isFetchingAvailableCompilers;
 }
 
 export const getAvailableCompilers = (state) => {
@@ -89,7 +89,7 @@ export const getAvailableCompilers = (state) => {
 }
 
 export const getHasErroredFetchingAvailableCompilers = (state) => {
-  return state.compilers.hasErroredFetchingAvailableCompilersJSONArr;
+  return state.compilers.hasErroredFetchingAvailableCompilers;
 }
 
 
