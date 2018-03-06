@@ -19,7 +19,7 @@ module.exports.getLicensedCompilers = (callback) => {
 
     for (let value = 0; value < rStrLines.length; value++) {
       const compilerName = rStrLines[value].split(" =")[0];
-      if (compilerName !== "") {
+      if (compilerName !== "" || compilerName.startsWith(" ")) {
         console.log('compilerName: ' + compilerName);
         jsonStrArr.push({ value: value, name: compilerName });
       }

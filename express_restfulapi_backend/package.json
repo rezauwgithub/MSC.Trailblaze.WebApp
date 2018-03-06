@@ -9,7 +9,7 @@
     "start:debugapicache": "set DEBUG=apicache && node server.js",
     "start:nodemon:debugapicache": "set DEBUG=apicache && nodemon server.js",
     "start:debugapicache:unix": "DEBUG=apicache node server.js",
-    "start:nodemon:debugapicache:unix": "DEBUG=apicache && nodemon server.js"
+    "start:nodemon:debugapicache:unix": "DEBUG=apicache nodemon server.js"
   },
   "author": "Reza Naeemi",
   "license": "ISC",
