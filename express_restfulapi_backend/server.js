@@ -63,7 +63,6 @@ app.get('/api/examples.ping', cache('2 minutes'), (req, res) => {
 
 app.get('/api/compilers.names', cache(`${settings.CACHE_TTL} minutes`), (req, res) => {
 
-
   setTimeout(() => {
     console.log(`Querying "fake" compilers for...`);
     res.json([
@@ -93,6 +92,31 @@ app.get('/api/compilers.names', cache(`${settings.CACHE_TTL} minutes`), (req, re
   */
 
 });
+
+
+app.post('/api/compiler.details', cache(`${settings.CACHE_TTL} minutes`), (req, res) => {
+
+  console.log('req.body: ' + req.body);
+
+
+  setTimeout(() => {
+    console.log(`Querying "fake" compilers details for...`);
+    res.json([
+      {
+        value: 42,
+        name: 'DETAILSTest426723'
+      },
+    ])
+  }, 2000);
+
+  /*
+  util.getCompilersDetails((compiler) => {
+    res.json(compiler);
+  });
+  */
+
+});
+
 
 
 
