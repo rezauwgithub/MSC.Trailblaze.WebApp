@@ -2,7 +2,7 @@
 
 const app = require('express')();
 const editJsonFile = require('edit-json-file');
-const settings = require('./__backend_settings__');
+const settings = require('./__backend_app_settings__');
 const util = require('./util');
 const logger = require('morgan');
 const apicache = require('apicache');

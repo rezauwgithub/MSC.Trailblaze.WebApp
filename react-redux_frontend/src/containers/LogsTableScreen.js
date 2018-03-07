@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import * as logsSelectors from '../redux/logs/reducer';
+import * as logsSelectors from '../store/logs/reducer';
 
 import {
   Table,
