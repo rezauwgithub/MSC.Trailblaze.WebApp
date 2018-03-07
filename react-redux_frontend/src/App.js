@@ -92,11 +92,12 @@ class App extends Component {
 
     selectedCompilers.forEach(selectedCompiler => {
       this.setState(state => ({
-        existingInstancesTableData: [...state.existingInstancesTableData, {compilerName: this.props.availableCompilers[selectedCompiler].name}]
+        existingInstancesTableData: [...state.existingInstancesTableData, {compilerName: this.props.licensedCompilers[selectedCompiler].name}]
       }))
 
+      
+      // this.props.fetchSelectedCompilerDetails(selectedCompiler);
 
-      this.props.dispatch(compilersActions.fetchSelectedCompilerDetails(this.props.availableCompilers[selectedCompiler]))
     });
 
   }
@@ -150,7 +151,7 @@ class App extends Component {
                               size={40} 
                               left={180} 
                               top={0} 
-                              status={(this.props.isFetchingAvailableCompilers) ? "loading" : "hide"} /></td>
+                              status={(this.props.isFetchingLicensedCompilers) ? "loading" : "hide"} /></td>
                         <td><CompilersSelectField setSelectedCompilers={this.setSelectedCompilers} /></td>
                         <td><RaisedButton label="ADD" onClick={() => this.addInstancesToExistingInstancesTable(this.state.selectedCompilers)} disabled={this.state.selectedCompilers.length < 1} /></td>
                         <td><RaisedButton label="REMOVE" onClick={() => alert('REMOVE clicked')} primary={true}/></td>
@@ -179,13 +180,23 @@ class App extends Component {
 };
 
 
+// Map state to pros
 const mapStateToProps = (state) => {
   return {
-    isFetchingAvailableCompilers: compilersSelectors.getIsFetchingAvailableCompilers(state),
-    availableCompilers: compilersSelectors.getAvailableCompilers(state),
-    hasErroredFetchingAvailableCompilers: compilersSelectors.getHasErroredFetchingAvailableCompilers(state)
+    isFetchingLicensedCompilers: compilersSelectors.getIsFetchingLicensedCompilers(state),
+    licensedCompilers: compilersSelectors.getLicensedCompilers(state),
+    hasErroredFetchingLicensedCompilers: compilersSelectors.getHasErroredFetchingLicensedCompilers(state)
   };
 }
 
 
-export default connect(mapStateToProps)(App);
+// Map dispatch to props
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // This dispatch will trigger the Ajax request we setup in our actions
+    // fetchAddedCompilerDetails: addedCompiler => dispatch(compilersActions.fetchAddedCompilerDetails(this.props.licensedCompilers[addedCompiler]))
+  }
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -25,7 +25,7 @@ class CompilersSelectField extends Component {
 
 
   componentDidMount() {
-    this.props.dispatch(compilersAction.fetchAvailableCompilers());
+    this.props.fetchLicensedCompilers();
   }
 
 
@@ -42,20 +42,20 @@ class CompilersSelectField extends Component {
       case 0:
         return '';
       case 1:
-        return this.props.availableCompilers[selectedCompilers[0]].name;
+        return this.props.licensedCompilers[selectedCompilers[0]].name;
       default:
         return `${selectedCompilers.length} compilers selected`;
     }
   }
 
-  menuItems(availableCompilers) {
-    return availableCompilers.map((availableCompiler) => (
+  menuItems(licensedCompilers) {
+    return licensedCompilers.map((licensedCompiler) => (
       <MenuItem
-        key={availableCompiler.value}
+        key={licensedCompiler.value}
         insetChildren={true}
-        checked={this.state.selectedCompilers.indexOf(availableCompiler.value) > -1}
-        value={availableCompiler.value}
-        primaryText={availableCompiler.name}
+        checked={this.state.selectedCompilers.indexOf(licensedCompiler.value) > -1}
+        value={licensedCompiler.value}
+        primaryText={licensedCompiler.name}
       />
     ));
   }
@@ -66,14 +66,14 @@ class CompilersSelectField extends Component {
     return (
       <SelectField
         disabled={
-          this.props.isFetchingAvailableCompilers ||
-          this.props.hasErroredFetchingAvailableCompilers
+          this.props.isFetchingLicensedCompilers ||
+          this.props.hasErroredFetchingLicensedCompilers
         }
         multiple={true}
         hintText={
-          (this.props.isFetchingAvailableCompilers) ? 
+          (this.props.isFetchingLicensedCompilers) ? 
             "Loading Compiler(s)..." : 
-            (this.props.hasErroredFetchingAvailableCompilers) ?
+            (this.props.hasErroredFetchingLicensedCompilers) ?
               "Errored Fetching Compiler(s)" :
               "Select Compiler(s)"
         }
@@ -82,7 +82,7 @@ class CompilersSelectField extends Component {
         selectionRenderer={this.selectionRenderer}
       >
 
-        {this.menuItems(this.props.availableCompilers)}
+        {this.menuItems(this.props.licensedCompilers)}
 
       </SelectField>
     );
@@ -90,13 +90,23 @@ class CompilersSelectField extends Component {
 }
 
 
+// Map state to props
 const mapStateToProps = (state) => {
   return {
-    isFetchingAvailableCompilers: compilersSelectors.getIsFetchingAvailableCompilers(state),
-    availableCompilers: compilersSelectors.getAvailableCompilers(state),
-    hasErroredFetchingAvailableCompilers: compilersSelectors.getHasErroredFetchingAvailableCompilers(state)
+    isFetchingLicensedCompilers: compilersSelectors.getIsFetchingLicensedCompilers(state),
+    licensedCompilers: compilersSelectors.getLicensedCompilers(state),
+    hasErroredFetchingLicensedCompilers: compilersSelectors.getHasErroredFetchingLicensedCompilers(state)
   };
 }
 
 
-export default connect(mapStateToProps)(CompilersSelectField);
+// Map dispatch to props
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // This dispatch will trigger the Ajax request we setup in our actions
+    fetchLicensedCompilers: () => dispatch(compilersAction.fetchLicensedCompilers())
+  }
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(CompilersSelectField);
