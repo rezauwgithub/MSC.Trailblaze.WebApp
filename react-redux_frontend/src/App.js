@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import * as compilersSelectors from './store/compilers/reducer';
-import * as compilersActions from './store/compilers/actions';
+import * as compilersSelectors from './redux/compilers/reducer';
+import * as compilersActions from './redux/compilers/actions';
 
 import { Helmet } from 'react-helmet';
 import { APP_TITLE } from './_app_settings';
