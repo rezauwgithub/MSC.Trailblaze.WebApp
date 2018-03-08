@@ -114,28 +114,30 @@ export const fetchLicensedCompilers = () => {
 };
 
 
-export const fetchAddedCompilerDetails = (data) => {
+export const fetchAddedCompilerDetails = (addedCompiler) => {
 
   // Returns a dispatcher function that dispatches an action at a later time.
   return (dispatch) => {
 
     dispatch(isFetchingAddedCompilerDetails(true));
+    dispatch(addLog({ log: `Fetching added compiler (${addedCompiler.name}) details from API backend...!`, dateTime: Date() }));
     // Return a promise
     return axios.post(`http://${window.location.hostname}:${settings.BACKEND_API_PORT_NUMBER}/api/compiler.details`, {
-      addedCompiler: data
+      addedCompiler: addedCompiler
     })
     .then(res => {
       // Dispatch another action to consume data
+      console.log("Dimpsey! Options: " + JSON.stringify(res.data));
       dispatch(addedCompilerDetailsFetched(res.data));
       dispatch(isFetchingAddedCompilerDetails(false));
-      dispatch(addLog({ log: 'Added compiler details fetched!', dateTime: Date() }));
+      dispatch(addLog({ log: `Added compiler (${addedCompiler.name}) details fetched!`, dateTime: Date() }));
     })
     .catch(err => {
       dispatch(hasErroredFetchingAddedCompilerDetails(true));
       dispatch(isFetchingAddedCompilerDetails(false));
-      dispatch(addLog({ log: 'Errored fetching added compiler details from API backend...', dateTime: Date() }));
+      dispatch(addLog({ log: `Errored fetching added compiler (${addedCompiler.name}) details from API backend...`, dateTime: Date() }));
       throw(err);
-    })
+    });
 
   };
 
@@ -143,4 +145,32 @@ export const fetchAddedCompilerDetails = (data) => {
 
 
 
+
+export const fetchAddedCompilerOptions = (addedCompiler) => {
+
+  // Returns a dispatcher function that dispatches an action at a later time.
+  return (dispatch) => {
+
+    dispatch(isFetchingAddedCompilerOptions(true));
+    dispatch(addLog({ log: `Fetching added compiler (${addedCompiler.name}) options from API backend...!`, dateTime: Date() }));
+    // Return a promise
+    return axios.post(`http://${window.location.hostname}:${settings.BACKEND_API_PORT_NUMBER}/api/compiler.options`, {
+      addedCompiler: addedCompiler
+    })
+    .then(res => {
+      // Dispatch another action to consume data
+      console.log("Dimpsey! Options: " + JSON.stringify(res.data));
+      dispatch(addedCompilerOptionsFetched(res.data));
+      dispatch(isFetchingAddedCompilerOptions(false));
+      dispatch(addLog({ log: `Added compiler (${addedCompiler.name}) options fetched!`, dateTime: Date() }));
+    })
+    .catch(err => {
+      dispatch(hasErroredFetchingAddedCompilerOptions(true));
+      dispatch(isFetchingAddedCompilerOptions(false));
+      dispatch(addLog({ log: `Errored fetching added compiler (${addedCompiler.name}) options from API backend...`, dateTime: Date() }));
+      throw(err);
+    });
+
+  };
+};
 

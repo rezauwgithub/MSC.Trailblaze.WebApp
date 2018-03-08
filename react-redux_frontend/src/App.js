@@ -55,15 +55,6 @@ const styles = {
 };
 
 
-const tableData = [
-  {
-    compilerName: 'BIST180',
-  },
-];
-
-
-
-
 
 // MuiThemeProvider takes the theme as a property and passed it down the hierarchy.
 class App extends Component {
@@ -97,6 +88,7 @@ class App extends Component {
 
       
       this.props.dispatch(compilersActions.fetchAddedCompilerDetails(this.props.licensedCompilers[selectedCompiler]));
+      this.props.dispatch(compilersActions.fetchAddedCompilerOptions(this.props.licensedCompilers[selectedCompiler]));
 
     });
 

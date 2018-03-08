@@ -69,6 +69,7 @@ app.get('/api/examples.ping', cache('2 minutes'), (req, res) => {
 
 app.get('/api/compilers.names', cache(`${settings.CACHE_TTL} minutes`), (req, res) => {
 
+  /*
   setTimeout(() => {
     console.log(`Querying "fake" compilers for...`);
     res.send([
@@ -90,22 +91,23 @@ app.get('/api/compilers.names', cache(`${settings.CACHE_TTL} minutes`), (req, re
       }
     ])
   }, 2000);
+  */
 
-  /*
+  
   util.getLicensedCompilers((licensedCompilers) => {
     res.json(licensedCompilers);
   });
-  */
+  
 
 });
 
 
-app.post('/api/compiler.details', cache(`${settings.CACHE_TTL} minutes`), (req, res) => {
+app.post('/api/compiler.details', (req, res) => {
 
   // body parser lets us use the req.body
   console.log('req.body.addedCompiler.name: ' + req.body.addedCompiler.name);
 
-
+  /*
   setTimeout(() => {
     console.log(`Querying "fake" compilers details for...`);
     res.send([
@@ -115,12 +117,37 @@ app.post('/api/compiler.details', cache(`${settings.CACHE_TTL} minutes`), (req, 
       },
     ])
   }, 2000);
+  */
+
+  
+  util.getCompilerDetails(req.body.addedCompiler, (compilerDetails) => {
+    res.send(compilerDetails);
+  });
+
+});
+
+
+app.post('/api/compiler.options', (req, res) => {
+
+  // body parser lets us use the req.body
+  console.log('req.body.addedCompiler.name: ' + req.body.addedCompiler.name);
 
   /*
-  util.getCompilersDetails((compiler) => {
-    res.json(compiler);
-  });
+  setTimeout(() => {
+    console.log(`Querying "fake" compilers options for...`);
+    res.send([
+      {
+        value: 42,
+        name: 'OPTIONSTest426723'
+      },
+    ])
+  }, 2000);
   */
+
+  
+  util.getCompilerOptions(req.body.addedCompiler, (compilerOptions) => {
+    res.send(compilerOptions);
+  });
 
 });
 
