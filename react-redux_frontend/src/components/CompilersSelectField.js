@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
-import * as compilersAction from '../redux/compilers/actions';
+import * as compilersActions from '../redux/compilers/actions';
 import * as compilersSelectors from '../redux/compilers/reducer';
 
 
@@ -25,7 +25,7 @@ class CompilersSelectField extends Component {
 
 
   componentDidMount() {
-    this.props.fetchLicensedCompilers();
+    this.props.dispatch(compilersActions.fetchLicensedCompilers());
   }
 
 
@@ -100,13 +100,4 @@ const mapStateToProps = (state) => {
 }
 
 
-// Map dispatch to props
-const mapDispatchToProps = (dispatch) => {
-  return {
-    // This dispatch will trigger the Ajax request we setup in our actions
-    fetchLicensedCompilers: () => dispatch(compilersAction.fetchLicensedCompilers())
-  }
-};
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(CompilersSelectField);
+export default connect(mapStateToProps)(CompilersSelectField);

@@ -87,7 +87,7 @@ const hasErroredFetchingAddedCompilerOptions = (JSONArr) => {
 
 // Async Action
 
-export const fetchLicensedCompilers = (url) => {
+export const fetchLicensedCompilers = () => {
   
   // Returns a dispatcher function that dispatches an action at a later time.
   return (dispatch) => {
@@ -95,23 +95,47 @@ export const fetchLicensedCompilers = (url) => {
     dispatch(isFetchingLicensedCompilers(true));
     dispatch(addLog({ log: 'Fetching licensed compilers from API backend...', dateTime: Date() }));
     // Return a promise
-    return axios.get(`http://${window.location.hostname}:${settings.BACKEND_API_PORT_NUMBER}/api/compilers.names`, {
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    })
+    return axios.get(`http://${window.location.hostname}:${settings.BACKEND_API_PORT_NUMBER}/api/compilers.names`)
       .then(res => {
         // Dispatch another action to consume data
-        dispatch(licensedCompilersFetched(res.data))
+        dispatch(licensedCompilersFetched(res.data));
         dispatch(isFetchingLicensedCompilers(false));
         dispatch(addLog({ log: 'Licensed compilers fetched!', dateTime: Date() }));
       })
       .catch(err => {
         dispatch(hasErroredFetchingLicensedCompilers(true));
-        dispatch(addLog({ log: 'Errored fetching licensed compilers from API backend...', dateTime: Date() }));
         dispatch(isFetchingLicensedCompilers(false));
+        dispatch(addLog({ log: 'Errored fetching licensed compilers from API backend...', dateTime: Date() }));
         throw(err);
-      });
+    });
+
+  };
+
+};
+
+
+export const fetchAddedCompilerDetails = (data) => {
+
+  // Returns a dispatcher function that dispatches an action at a later time.
+  return (dispatch) => {
+
+    dispatch(isFetchingAddedCompilerDetails(true));
+    // Return a promise
+    return axios.post(`http://${window.location.hostname}:${settings.BACKEND_API_PORT_NUMBER}/api/compiler.details`, {
+      addedCompiler: data
+    })
+    .then(res => {
+      // Dispatch another action to consume data
+      dispatch(addedCompilerDetailsFetched(res.data));
+      dispatch(isFetchingAddedCompilerDetails(false));
+      dispatch(addLog({ log: 'Added compiler details fetched!', dateTime: Date() }));
+    })
+    .catch(err => {
+      dispatch(hasErroredFetchingAddedCompilerDetails(true));
+      dispatch(isFetchingAddedCompilerDetails(false));
+      dispatch(addLog({ log: 'Errored fetching added compiler details from API backend...', dateTime: Date() }));
+      throw(err);
+    })
 
   };
 

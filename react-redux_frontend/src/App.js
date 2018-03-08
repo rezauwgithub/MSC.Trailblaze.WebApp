@@ -96,7 +96,7 @@ class App extends Component {
       }))
 
       
-      // this.props.fetchSelectedCompilerDetails(selectedCompiler);
+      this.props.dispatch(compilersActions.fetchAddedCompilerDetails(this.props.licensedCompilers[selectedCompiler]));
 
     });
 
@@ -190,13 +190,5 @@ const mapStateToProps = (state) => {
 }
 
 
-// Map dispatch to props
-const mapDispatchToProps = (dispatch) => {
-  return {
-    // This dispatch will trigger the Ajax request we setup in our actions
-    // fetchAddedCompilerDetails: addedCompiler => dispatch(compilersActions.fetchAddedCompilerDetails(this.props.licensedCompilers[addedCompiler]))
-  }
-};
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

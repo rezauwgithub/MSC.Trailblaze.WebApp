@@ -1,6 +1,7 @@
 // server.js
 
 const app = require('express')();
+const bodyParser = require('body-parser');
 const editJsonFile = require('edit-json-file');
 const settings = require('./__backend_app_settings__');
 const util = require('./util');
@@ -9,9 +10,7 @@ const apicache = require('apicache');
 
 
 const cache = apicache.options({
-  
   debug: true
-
 }).middleware;
 
 /*
@@ -22,14 +21,21 @@ const projectsjsonfile = editJsonFile(`${__dirname}/jsonDBs/projects.json`, {
 });
 
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-
+/*
+  To prevent errors from Cross Origin Resource Sharing, we will set
+  our headers to allow CORS with middleware like so:
+*/
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  
+  res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+
   next();
 });
+
 
 app.use(logger('dev'));
 
@@ -37,13 +43,13 @@ app.use(logger('dev'));
 // add route to display cache index
 app.get('/api/cache', (req, res) => {
   console.log('apicache.getIndex(): ' + JSON.stringify(apicache.getIndex()));
-  res.json(apicache.getIndex())
+  res.send(apicache.getIndex())
 });
 
 // add route to manually clear target/group
 app.get('/api/cache.clear/:target?', (req, res) => {
   console.log('apicache.getIndex()');
-  res.json(apicache.clear(req.params.target))
+  res.send(apicache.clear(req.params.target))
 });
 
 
@@ -65,7 +71,7 @@ app.get('/api/compilers.names', cache(`${settings.CACHE_TTL} minutes`), (req, re
 
   setTimeout(() => {
     console.log(`Querying "fake" compilers for...`);
-    res.json([
+    res.send([
       {
         value: 0,
         name: 'COMPILERTest426723'
@@ -83,7 +89,7 @@ app.get('/api/compilers.names', cache(`${settings.CACHE_TTL} minutes`), (req, re
         name: 'COMPILERTest4243523'
       }
     ])
-  }, 20000);
+  }, 2000);
 
   /*
   util.getLicensedCompilers((licensedCompilers) => {
@@ -96,12 +102,13 @@ app.get('/api/compilers.names', cache(`${settings.CACHE_TTL} minutes`), (req, re
 
 app.post('/api/compiler.details', cache(`${settings.CACHE_TTL} minutes`), (req, res) => {
 
-  console.log('req.body: ' + req.body);
+  // body parser lets us use the req.body
+  console.log('req.body.addedCompiler.name: ' + req.body.addedCompiler.name);
 
 
   setTimeout(() => {
     console.log(`Querying "fake" compilers details for...`);
-    res.json([
+    res.send([
       {
         value: 42,
         name: 'DETAILSTest426723'
