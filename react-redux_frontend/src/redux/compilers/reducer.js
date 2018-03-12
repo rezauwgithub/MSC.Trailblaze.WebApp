@@ -17,16 +17,27 @@ const initialState = Immutable({
   hasErroredFetchingLicensedCompilers: false,
 
 
-  isFetchingAddedCompilerDetailsJSONArr: [],
-  addedCompilerDetailsJSONArr: [],
-  hasErroredFetchingAddedCompilerDetailsJSONArr: [],
+  isFetchingAddedCompilerDetailsjsonObjArr: [],
+  arrIndexIsFetchingAddedCompilerDetailsjsonObjArr: {},
+
+  addedCompilerDetailsjsonObjArr: [],
+  arrIndexAddedCompilerDetailsjsonObjArr: {},
+
+  hasErroredFetchingAddedCompilerDetailsjsonObjArr: [],
+  arrIndexhasErroredFetchingAddedCompilerDetailsjsonObjArr: {},
 
 
-  isFetchingAddedCompilerOptionsJSONArr: [],
-  addedCompilerOptionsJSONArr: [],
-  hasErroredFetchingAddedCompilerOptionsJSONArr: [],
+  isFetchingAddedCompilerOptionsjsonObjArr: [],
+  arrIndexIsFetchingAddedCompilerOptionsjsonObjArr: {},
+
+  addedCompilerOptionsjsonObjArr: [],
+  arrIndexAddedCompilerOptionsjsonObjArr: {},
+
+  hasErroredFetchingAddedCompilerOptionsjsonObjArr: [],
+  arrIndexHasErroredFetchingAddedCompilerOptionsjsonObjArr: {}
 
 });
+
 
 
 export default function reduce(state = initialState, action = {}) {
@@ -47,30 +58,46 @@ export default function reduce(state = initialState, action = {}) {
       });
 
     case types.FETCHING_ADDED_COMPILER_DETAILS:
-      return state.merge({
-        isFetchingAddedCompilerDetailsJSONArr: action.isFetchingAddedCompilerDetailsJSONArr
-      });
-    case types.ADDED_COMPILER_DETAILS_FETCHED:
-      return state.merge({
-        addedCompilerDetailsJSONArr: action.addedCompilerDetailsJSONArr
-      });
-    case types.ERRORED_FETCHING_ADDED_COMPILER_DETAILS:
-      return state.merge({
-        hasErroredFetchingAddedCompilerDetailsJSONArr: action.hasErroredFetchingAddedCompilerDetailsJSONArr
-      });
+      return {
+        ...state,
 
+      };
+    case types.ADDED_COMPILER_DETAILS_FETCHED:
+      return {
+        ...state,
+        addedCompilerDetailsjsonObjArr: state.addedCompilerDetailsjsonObjArr.concat(
+          action.addedCompilerDetailsjsonObj
+        )
+      };
+    case types.ERRORED_FETCHING_ADDED_COMPILER_DETAILS:
+      return {
+        ...state,
+        hasErroredFetchingAddedCompilerDetailsjsonObjArr: state.hasErroredFetchingAddedCompilerDetailsjsonObjArr.concat(
+          action.hasErroredFetchingAddedCompilerDetailsjsonObj
+        )
+      };
+    
     case types.FETCHING_ADDED_COMPILER_OPTIONS:
-      return state.merge({
-        isFetchingAddedCompilerOptionsJSONArr: action.isFetchingAddedCompilerOptionsJSONArr
-      });
+      return {
+        ...state,
+        isFetchingAddedCompilerOptionsjsonObjArr: state.isFetchingAddedCompilerOptionsjsonObjArr.concat(
+          action.isFetchingAddedCompilerOptionsjsonObj
+        )
+      };
     case types.ADDED_COMPILER_OPTIONS_FETCHED:
-      return state.merge({
-        addedCompilerOptionsJSONArr: action.addedCompilerOptionsJSONArr
-      });
+      return {
+        ...state,
+        addedCompilerOptionsjsonObjArr: state.addedCompilerOptionsjsonObjArr.concat(
+          action.addedCompilerOptionsjsonObj
+        )
+      };
     case types.ERRORED_FETCHING_ADDED_COMPILER_OPTIONS:
-      return state.merge({
-        hasErroredFetchingAddedCompilerOptionsJSONArr: action.hasErroredFetchingAddedCompilerOptionsJSONArr
-      });
+      return {
+        ...state,
+        hasErroredFetchingAddedCompilerOptionsjsonObjArr: state.hasErroredFetchingAddedCompilerOptionsjsonObjArr.concat(
+          action.hasErroredFetchingAddedCompilerOptionsjsonObj
+        )
+      };
 
     default:
       return state;
@@ -93,27 +120,27 @@ export const getHasErroredFetchingLicensedCompilers = (state) => {
 }
 
 
-export const getIsFetchingCompilerDetailsJSONArr = (state) => {
-  return state.compilers.isFetchingCompilerDetailsJSONArr;
+export const getIsFetchingCompilerDetailsjsonObjArr = (state) => {
+  return state.compilers.isFetchingAddedCompilerDetailsjsonObjArr;
 }
 
-export const getCompilerDetailsJSONArr = (state) => {
-  return state.compilers.compilerDetailsJSONArr;
+export const getCompilerDetailsjsonObjArr = (state) => {
+  return state.compilers.compilerDetailsjsonObjArr;
 }
 
-export const getHasErroredFetchingCompilerDetailsJSONArr = (state) => {
-  return state.compilers.hasErroredFetchingCompilerDetailsJSONArr;
+export const getHasErroredFetchingCompilerDetailsjsonObjArr = (state) => {
+  return state.compilers.hasErroredFetchingAddedCompilerDetailsjsonObjArr;
 }
 
 
-export const getIsFetchingCompilerOptionsJSONArr = (state) => {
-  return state.compilers.isFetchingCompilerOptionsJSONArr;
+export const getIsFetchingCompilerOptionsjsonObjArr = (state) => {
+  return state.compilers.isFetchingAddedCompilerOptionsjsonObjArr;
 }
 
-export const getCompilerOptionsJSONArr = (state) => {
-  return state.compilers.compilerOptionsJSONArr;
+export const getCompilerOptionsjsonObjArr = (state) => {
+  return state.compilers.addedCompilerOptionsjsonObjArr;
 }
 
-export const getHasErroredFetchingCompilerOptionsJSONArr = (state) => {
-  return state.compilers.hasErroredFetchingCompilerOptionsJSONArr;
+export const getHasErroredFetchingCompilerOptionsjsonObjArr = (state) => {
+  return state.compilers.hasErroredFetchingAddedCompilerOptionsjsonObjArr;
 }

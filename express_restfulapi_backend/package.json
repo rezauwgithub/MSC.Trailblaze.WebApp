@@ -5,11 +5,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "start:nodemon": "nodemon server.js",
-    "start:debugapicache": "set DEBUG=apicache && node server.js",
-    "start:nodemon:debugapicache": "set DEBUG=apicache && nodemon server.js",
-    "start:debugapicache:unix": "DEBUG=apicache node server.js",
-    "start:nodemon:debugapicache:unix": "DEBUG=apicache nodemon server.js"
+    "start:nodemon": "nodemon api.js",
+    "start:debugapicache": "set DEBUG=apicache && node api.js",
+    "start:nodemon:debugapicache": "set DEBUG=apicache && nodemon api.js",
+    "start:debugapicache:unix": "DEBUG=apicache node api.js",
+    "start:nodemon:debugapicache:unix": "DEBUG=apicache nodemon api.js"
   },
   "author": "Reza Naeemi",
   "license": "ISC",
@@ -20,6 +20,7 @@
     "cors": "^2.8.4",
     "edit-json-file": "^1.0.8",
     "express": "^4.16.2",
+    "immutable": "^3.8.2",
     "morgan": "1.9.0"
   },
   "devDependencies": {

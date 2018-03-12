@@ -6,6 +6,7 @@ module.exports.getLicensedCompilers = (callback) => {
   console.log(`Querying mscmc for licensed compilers...`);
 
   const command = `ssh reza@fusion15 mscmc -list;`;
+  console.log('command: ' + command);
 
   exec(command, (err, stdout, stderr) => {
 
@@ -42,6 +43,7 @@ module.exports.getCompilerDetails = (addedCompiler, callback) => {
   console.log(`Querying mscmc for compiler (${addedCompiler.name}) details...`);
 
   const command = `ssh reza@fusion15 mscmc -info ${addedCompiler.name}`;
+  console.log('command: ' + command);
 
   exec(command, (err, stdout, stderr) => {
       if (err) {
@@ -106,6 +108,7 @@ module.exports.getCompilerOptions = (addedCompiler, callback) => {
   console.log(`Querying mscmc for compiler (${addedCompiler.name}) options...`);
 
   const command = `ssh reza@fusion15 mscmc -options all ${addedCompiler.name}`;
+  console.log('command: ' + command);
 
   exec(command, (err, stdout, stderr) => {
       if (err) {
@@ -118,7 +121,7 @@ module.exports.getCompilerOptions = (addedCompiler, callback) => {
       console.log('stdout: ' + stdout)
 
 
-      // callback(jsonStrArr);
+      callback(jsonStrArr);
   });
 }
 
