@@ -1,3 +1,9 @@
+import React from 'react';
+import { connect } from 'react-redux';
+
+
+
+
 /*
   Containers are "smart" React Components that are aware of Redux.
   They are connected to the Redux Store and listen on part of the app state.
@@ -11,6 +17,27 @@ import { connect } from 'react-redux';
 
 import * as availableCompilersActions from '../store/available_compilers/actions';
 import * as availableCompilersSelectors from '../store/available_compilers/reducer';
+
+
+const GenerateScreen = (props) => (
+  <div className="content">
+
+  </div>
+);
+
+
+
+
+
+// Map state to pros
+const mapStateToProps = (state) => {
+  return {
+
+  };
+}
+
+
+export default connect(mapStateToProps)(GenerateScreen);
 
 
 

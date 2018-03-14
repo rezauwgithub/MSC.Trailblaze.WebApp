@@ -6,27 +6,18 @@ import * as compilersActions from './redux/compilers/actions';
 import { Helmet } from 'react-helmet';
 import { APP_TITLE } from './__frontend_app_settings__';
 
-import './App.css'
+
 import { blueGrey400 } from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import AppBar from 'material-ui/AppBar';
-import RefreshIndicator from 'material-ui/RefreshIndicator';
-
-import ProjectPopoverAnimation from './components/ProjectPopoverAnimation';
-import HelpPopoverAnimation from './components/HelpPopoverAnimation';
-import {Tabs, Tab} from 'material-ui/Tabs';
-// From https://github.com/oliviertassinari/react-swipeable-views
-import SwipeableViews from 'react-swipeable-views';
-
-import CompilersSelectField from './components/CompilersSelectField';
-import ExistingInstancesTable from './components/ExistingInstancesTable';
-
-import RaisedButton from 'material-ui/RaisedButton';
+import HeaderScreen from './containers/header/HeaderScreen';
 
 
-import LogsTableScreen from './containers/LogsTableScreen';
+
+
+import ContentScreen from './containers/content/ContentScreen';
+import FooterScreen from './containers/footer/FooterScreen';
 
 
 // This replaces the textColor value on the palette
@@ -42,18 +33,6 @@ const muiTheme = getMuiTheme({
 });
 
 
-const styles = {
-  headline: {
-    fontSize: 24,
-    paddingTop: 16,
-    marginBottom: 12,
-    fontWeight: 400,
-  },
-  slide: {
-    padding: 10,
-  },
-};
-
 
 
 // MuiThemeProvider takes the theme as a property and passed it down the hierarchy.
@@ -62,7 +41,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      slideIndex: 0,
       selectedCompilers: [],
 
       existingInstancesTableHeaderColumns: [],
@@ -88,19 +66,11 @@ class App extends Component {
 
       
       this.props.dispatch(compilersActions.fetchAddedCompilerDetails(this.props.licensedCompilers[selectedCompiler]));
-      this.props.dispatch(compilersActions.fetchAddedCompilerOptions(this.props.licensedCompilers[selectedCompiler]));
+      // this.props.dispatch(compilersActions.fetchAddedCompilerOptions(this.props.licensedCompilers[selectedCompiler]));
 
     });
 
   }
-
-
-
-  handleChange = (value) => {
-    this.setState({
-      slideIndex: value,
-    });
-  };
 
 
   render() {
@@ -110,60 +80,10 @@ class App extends Component {
           <title>{APP_TITLE}</title>
         </Helmet>
         <MuiThemeProvider muiTheme={muiTheme}>
-          <div className="container">
-            <div className="header">
-              <AppBar title={APP_TITLE} showMenuIconButton={false} />
-              <table>
-                <tbody>
-                  <tr>
-                    <td><ProjectPopoverAnimation /></td>
-                    <td><HelpPopoverAnimation /></td>
-                  </tr>
-                </tbody>
-              </table>
-              <Tabs
-                onChange={this.handleChange}
-                value={this.state.slideIndex}
-              >
-                <Tab label="Define" value={0} />
-                <Tab label="Generate" value={1} />
-                <Tab label="Results" value={2} />
-              </Tabs>
-            </div>
-            <div className="content">
-              <SwipeableViews
-                index={this.state.slideIndex}
-                onChangeIndex={this.handleChange}
-              >
-                <div>
-                  <table>
-                    <tbody>
-                      <tr>
-                        <td><RefreshIndicator 
-                              size={40} 
-                              left={180} 
-                              top={0} 
-                              status={(this.props.isFetchingLicensedCompilers) ? "loading" : "hide"} /></td>
-                        <td><CompilersSelectField setSelectedCompilers={this.setSelectedCompilers} /></td>
-                        <td><RaisedButton label="ADD" onClick={() => this.addInstancesToExistingInstancesTable(this.state.selectedCompilers)} disabled={this.state.selectedCompilers.length < 1} /></td>
-                        <td><RaisedButton label="REMOVE" onClick={() => alert('REMOVE clicked')} primary={true}/></td>
-                        <td><RaisedButton label="VALIDATE" onClick={() => alert('VALIDATE clicked')} secondary={true}/></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                <ExistingInstancesTable existingInstancesTableData={this.state.existingInstancesTableData} />
-                </div>
-                <div style={styles.slide}>
-                  <h2 style={styles.headline}>Generate</h2>
-                </div>
-                <div style={styles.slide}>
-                  <h2 style={styles.headline}>Results</h2>
-                </div>
-              </SwipeableViews>             
-            </div>
-            <div className="footer">
-              <LogsTableScreen />
-            </div>
+          <div className="header">
+            <HeaderScreen />
+            <ContentScreen />
+            <FooterScreen />
           </div>  
         </MuiThemeProvider>
       </div>
@@ -177,10 +97,9 @@ const mapStateToProps = (state) => {
   return {
     isFetchingLicensedCompilers: compilersSelectors.getIsFetchingLicensedCompilers(state),
     licensedCompilers: compilersSelectors.getLicensedCompilers(state),
-    hasErroredFetchingLicensedCompilers: compilersSelectors.getHasErroredFetchingLicensedCompilers(state)
+    hasErroredFetchingLicensedCompilers: compilersSelectors.getHasErroredFetchingLicensedCompilers(state),
   };
 }
-
 
 
 export default connect(mapStateToProps)(App);

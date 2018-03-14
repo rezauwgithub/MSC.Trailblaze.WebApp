@@ -11,7 +11,7 @@ import * as types from './actionTypes';
 
 
 const initialState = Immutable({
-  logs: []
+  slideIndex: 0
 });
 
 
@@ -19,11 +19,10 @@ const reduce = (state = initialState, action = {}) => {
 
   switch (action.type) {
 
-    case types.ADD_LOG:
-      return {
-        ...state,
-        logs: state.logs.concat(action.payload)
-      }
+    case types.NAVIGATE_TABS:
+      return state.merge({
+        slideIndex: action.payload
+      });
 
     default:
       return state;
@@ -37,8 +36,8 @@ export default reduce;
 
 // Selectors
 
-export const getLogs = (state) => {
-  return state.logs.logs;
+export const getSlideIndex = (state) => {
+  return state.navigation.slideIndex;
 }
 
 

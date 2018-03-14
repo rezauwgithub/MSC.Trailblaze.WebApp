@@ -16,25 +16,16 @@ const initialState = Immutable({
   licensedCompilers: [],
   hasErroredFetchingLicensedCompilers: false,
 
+  selectedCompilers: [],
 
-  isFetchingAddedCompilerDetailsjsonObjArr: [],
-  arrIndexIsFetchingAddedCompilerDetailsjsonObjArr: {},
+  
+  isFetchingAddedCompilerDetailsjsonObj: {},
+  addedCompilerDetailsjsonObj: {},
+  hasErroredFetchingAddedCompilerDetailsjsonObj: {},
 
-  addedCompilerDetailsjsonObjArr: [],
-  arrIndexAddedCompilerDetailsjsonObjArr: {},
-
-  hasErroredFetchingAddedCompilerDetailsjsonObjArr: [],
-  arrIndexhasErroredFetchingAddedCompilerDetailsjsonObjArr: {},
-
-
-  isFetchingAddedCompilerOptionsjsonObjArr: [],
-  arrIndexIsFetchingAddedCompilerOptionsjsonObjArr: {},
-
-  addedCompilerOptionsjsonObjArr: [],
-  arrIndexAddedCompilerOptionsjsonObjArr: {},
-
-  hasErroredFetchingAddedCompilerOptionsjsonObjArr: [],
-  arrIndexHasErroredFetchingAddedCompilerOptionsjsonObjArr: {}
+  isFetchingAddedCompilerOptionsjsonObj: {},
+  addedCompilerOptionsjsonObj: {},
+  hasErroredFetchingAddedCompilerOptionsjsonObj: {},
 
 });
 
@@ -46,58 +37,187 @@ export default function reduce(state = initialState, action = {}) {
 
     case types.FETCHING_LICENSED_COMPILERS:
       return state.merge({
-        isFetchingLicensedCompilers: action.isFetchingLicensedCompilers
+        isFetchingLicensedCompilers: action.payload
       });
     case types.LICENSED_COMPILERS_FETCHED:
       return state.merge({
-        licensedCompilers: action.licensedCompilers
+        licensedCompilers: action.payload
       });
     case types.ERRORED_FETCHING_LICENSED_COMPILERS:
       return state.merge({
-        hasErroredFetchingLicensedCompilers: action.hasErroredFetchingLicensedCompilers
+        hasErroredFetchingLicensedCompilers: action.payload
       });
 
     case types.FETCHING_ADDED_COMPILER_DETAILS:
-      return {
-        ...state,
+      
+        
+        console.log('WTF? value: ' + action.payload.value);
+        console.log('WTF? value: ' + action.payload.payload)
 
-      };
+
+        if (state.isFetchingAddedCompilerDetailsjsonObj[action.payload.value] === undefined) {
+          alert('Adding - Fetching Added Compiler Details');
+          
+          return {
+            ...state,
+            isFetchingAddedCompilerDetailsjsonObj: {
+              ...state.isFetchingAddedCompilerDetailsjsonObj,
+              [action.payload.value]: action.payload.payload
+            }
+          }
+
+        }
+
+      
+      alert('Updating - Fetching Compiler Details');
+
+      state.isFetchingAddedCompilerDetailsjsonObj[action.payload.value] = {
+        ...state.isFetchingAddedCompilerDetailsjsonObj[action.payload.value],
+        ...action.payload.payload
+      }
+
+      return {
+        ...state
+      }
+
+
     case types.ADDED_COMPILER_DETAILS_FETCHED:
+  
+      if (state.addedCompilerDetailsjsonObj[action.payload.value] === undefined) {
+        alert('Adding - Added Compiler Details');
+
+        return {
+          ...state,
+          addedCompilerDetailsjsonObj: {
+            ...state.addedCompilerDetailsjsonObj,
+            [action.payload.value]: action.payload
+          }
+        }
+      }
+
+
+      alert('Updating - Added Compiler Details');
+
+      state.addedCompilerDetailsjsonObj[action.payload.value] = {
+        ...state.addedCompilerDetailsjsonObj[action.payload.value],
+        ...action.payload
+      }
+
       return {
-        ...state,
-        addedCompilerDetailsjsonObjArr: state.addedCompilerDetailsjsonObjArr.concat(
-          action.addedCompilerDetailsjsonObj
-        )
-      };
+        ...state
+      }
+
+
     case types.ERRORED_FETCHING_ADDED_COMPILER_DETAILS:
+
+      if (state.hasErroredFetchingAddedCompilerDetailsjsonObj[action.payload.value] === undefined) {
+        alert('Adding - Errored Fetching Added Compiler Details');
+
+        return {
+          ...state,
+          hasErroredFetchingAddedCompilerDetailsjsonObj: {
+            ...state.hasErroredFetchingAddedCompilerDetailsjsonObj,
+            [action.payload.value]: action.payload
+          }
+        }
+      }
+
+
+      alert('Updating - Errored Fetching Added Compiler Details');
+
+      state.hasErroredFetchingAddedCompilerDetailsjsonObj[action.payload.value] = {
+        ...state.hasErroredFetchingAddedCompilerDetailsjsonObj[action.payload.value],
+        ...action.payload
+      }
+
       return {
-        ...state,
-        hasErroredFetchingAddedCompilerDetailsjsonObjArr: state.hasErroredFetchingAddedCompilerDetailsjsonObjArr.concat(
-          action.hasErroredFetchingAddedCompilerDetailsjsonObj
-        )
-      };
-    
+        ...state
+      }
+
+
+ 
     case types.FETCHING_ADDED_COMPILER_OPTIONS:
-      return {
-        ...state,
-        isFetchingAddedCompilerOptionsjsonObjArr: state.isFetchingAddedCompilerOptionsjsonObjArr.concat(
-          action.isFetchingAddedCompilerOptionsjsonObj
-        )
-      };
+      
+      if (state.isFetchingAddedCompilerOptionsjsonObj[action.payload.value] === undefined) {
+        alert('Adding - Fetching Added Compiler Options');
+        
+        return {
+          ...state,
+          isFetchingAddedCompilerOptionsjsonObj: {
+            ...state.isFetchingAddedCompilerOptionsjsonObj,
+            [action.payload.value]: action.payload
+          }
+        }
+
+      }
+
+    
+    alert('Updating - Fetching Compiler Options');
+
+    state.isFetchingAddedCompilerOptionsjsonObj[action.payload.value] = {
+      ...state.isFetchingAddedCompilerOptionsjsonObj[action.payload.value],
+      ...action.payload.payload
+    }
+
+    return {
+      ...state
+    }
+
+
     case types.ADDED_COMPILER_OPTIONS_FETCHED:
+
+      if (state.addedCompilerOptionsjsonObj[action.payload.value] === undefined) {
+        alert('Adding - Added Compiler Options');
+
+        return {
+          ...state,
+          addedCompilerOptionsjsonObj: {
+            ...state.addedCompilerOptionsjsonObj,
+            [action.payload.value]: action.payload
+          }
+        }
+      }
+
+
+      alert('Updating - Added Compiler Options');
+
+      state.addedCompilerOptionsjsonObj[action.payload.value] = {
+        ...state.addedCompilerOptionsjsonObj[action.payload.value],
+        ...action.payload
+      }
+
       return {
-        ...state,
-        addedCompilerOptionsjsonObjArr: state.addedCompilerOptionsjsonObjArr.concat(
-          action.addedCompilerOptionsjsonObj
-        )
-      };
+        ...state
+      }
+
+
     case types.ERRORED_FETCHING_ADDED_COMPILER_OPTIONS:
+
+      if (state.hasErroredFetchingAddedCompilerOptionsjsonObj[action.payload.value] === undefined) {
+        alert('Adding - Errored Fetching Added Compiler Options');
+
+        return {
+          ...state,
+          hasErroredFetchingAddedCompilerOptionsjsonObj: {
+            ...state.hasErroredFetchingAddedCompilerOptionsjsonObj,
+            [action.payload.value]: action.payload
+          }
+        }
+      }
+
+
+      alert('Updating - Errored Fetching Added Compiler Options');
+
+      state.hasErroredFetchingAddedCompilerOptionsjsonObj[action.payload.value] = {
+        ...state.hasErroredFetchingAddedCompilerOptionsjsonObj[action.payload.value],
+        ...action.payload
+      }
+
       return {
-        ...state,
-        hasErroredFetchingAddedCompilerOptionsjsonObjArr: state.hasErroredFetchingAddedCompilerOptionsjsonObjArr.concat(
-          action.hasErroredFetchingAddedCompilerOptionsjsonObj
-        )
-      };
+        ...state
+      }
+        
+
 
     default:
       return state;
@@ -120,27 +240,27 @@ export const getHasErroredFetchingLicensedCompilers = (state) => {
 }
 
 
-export const getIsFetchingCompilerDetailsjsonObjArr = (state) => {
-  return state.compilers.isFetchingAddedCompilerDetailsjsonObjArr;
+export const getIsFetchingCompilerDetailsjsonObj = (state) => {
+  return state.compilers.isFetchingAddedCompilerDetailsjsonObj;
 }
 
-export const getCompilerDetailsjsonObjArr = (state) => {
-  return state.compilers.compilerDetailsjsonObjArr;
+export const getCompilerDetailsjsonObj = (state) => {
+  return state.compilers.addedCompilerDetailsjsonObj;
 }
 
-export const getHasErroredFetchingCompilerDetailsjsonObjArr = (state) => {
-  return state.compilers.hasErroredFetchingAddedCompilerDetailsjsonObjArr;
+export const getHasErroredFetchingCompilerDetailsjsonObj = (state) => {
+  return state.compilers.hasErroredFetchingAddedCompilerDetailsjsonObj;
 }
 
 
-export const getIsFetchingCompilerOptionsjsonObjArr = (state) => {
-  return state.compilers.isFetchingAddedCompilerOptionsjsonObjArr;
+export const getIsFetchingCompilerOptionsjsonObj = (state) => {
+  return state.compilers.isFetchingAddedCompilerOptionsjsonObj;
 }
 
-export const getCompilerOptionsjsonObjArr = (state) => {
-  return state.compilers.addedCompilerOptionsjsonObjArr;
+export const getCompilerOptionsjsonObj = (state) => {
+  return state.compilers.addedCompilerOptionsjsonObj;
 }
 
-export const getHasErroredFetchingCompilerOptionsjsonObjArr = (state) => {
-  return state.compilers.hasErroredFetchingAddedCompilerOptionsjsonObjArr;
+export const getHasErroredFetchingCompilerOptionsjsonObj = (state) => {
+  return state.compilers.hasErroredFetchingAddedCompilerOptionsjsonObj;
 }

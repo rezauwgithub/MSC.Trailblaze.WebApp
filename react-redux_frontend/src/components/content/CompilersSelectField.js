@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
-import * as compilersActions from '../redux/compilers/actions';
-import * as compilersSelectors from '../redux/compilers/reducer';
+import * as compilersActions from '../../redux/compilers/actions';
+import * as compilersSelectors from '../../redux/compilers/reducer';
 
 
 /**

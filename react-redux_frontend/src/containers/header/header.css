@@ -1,0 +1,13 @@
+.header {
+  position: fixed;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  width: calc(100vh - left - right);
+  height: 127px;
+  border: solid black 1px;
+  background-color: #ECEFF1;
+  padding: 2px;
+  text-align: center;
+  box-sizing: border-box;
+}

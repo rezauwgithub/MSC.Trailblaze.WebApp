@@ -8,7 +8,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
-
+import CircularProgress from 'material-ui/CircularProgress';
 
 const tableHeaderColumns = [
   {
@@ -42,6 +42,8 @@ export default class ExistingInstancesTable extends Component {
                 <TableRowColumn style={gunnarStyle}>{row.option2}</TableRowColumn>
                 <TableRowColumn style={gunnarStyle}>{row.option3}</TableRowColumn>
                 <TableRowColumn style={gunnarStyle}>{row.option4}</TableRowColumn>
+                <TableRowColumn style={gunnarStyle}><CircularProgress /></TableRowColumn>
+                
               </TableRow>
             ))}
           </TableBody>

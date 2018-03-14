@@ -11,7 +11,8 @@ import * as types from './actionTypes';
 
 
 const initialState = Immutable({
-  logs: []
+  existingInstancesTableHeaderColumns: [],
+  existingInstancesTableData: [],
 });
 
 
@@ -19,10 +20,15 @@ const reduce = (state = initialState, action = {}) => {
 
   switch (action.type) {
 
-    case types.ADD_LOG:
+    case types.ADD_COLUMN_HEADER_TO_EXISTING_INSTANCES_TABLE:
       return {
         ...state,
-        logs: state.logs.concat(action.payload)
+        existingInstancesTableHeaderColumns: state.existingInstancesTableHeaderColumns.concat(action.payload)
+      };
+    case types.ADD_DATA_TO_EXISTING_INSTANCES_TABLE:
+      return {
+        ...state,
+        existingInstancesTableData: state.existingInstancesTableData.concat(action.payload)
       }
 
     default:
@@ -37,8 +43,12 @@ export default reduce;
 
 // Selectors
 
-export const getLogs = (state) => {
-  return state.logs.logs;
+export const getInstancesTableHeaderColumns = (state) => {
+  return state.instances.existingInstancesTableHeaderColumns;
+}
+
+export const getInstancesTableData = (state) => {
+  return state.instances.existingInstancesTableData;
 }
 
 

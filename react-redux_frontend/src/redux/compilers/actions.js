@@ -15,70 +15,70 @@ import * as settings from '../../__frontend_app_settings__';
 
 // action creators
 
-const isFetchingLicensedCompilers = (bool) => {
+const isFetchingLicensedCompilers = (payload) => {
   return {
     type: types.FETCHING_LICENSED_COMPILERS,
-    isFetchingLicensedCompilers: bool
+    payload
   };
 };
 
-const licensedCompilersFetched = (licensedCompilers) => {
+const licensedCompilersFetched = (payload) => {
 	return {
 		type: types.LICENSED_COMPILERS_FETCHED,
-		licensedCompilers
+		payload
 	};
 };
 
-const hasErroredFetchingLicensedCompilers = (bool) => {
+const hasErroredFetchingLicensedCompilers = (payload) => {
   return {
     type: types.ERRORED_FETCHING_LICENSED_COMPILERS,
-    hasErroredFetchingLicensedCompilers: bool
+    payload
   };
 };
 
 
 
-const isFetchingAddedCompilerDetails = (jsonObj) => {
+const isFetchingAddedCompilerDetails = (payload) => {
   return {
     type: types.FETCHING_ADDED_COMPILER_DETAILS,
-    isFetchingAddedCompilerDetailsjsonObj: jsonObj
+    payload
   };
 };
 
-const addedCompilerDetailsFetched = (addedCompilerDetailsjsonObj) => {
+const addedCompilerDetailsFetched = (payload) => {
 	return {
 		type: types.ADDED_COMPILER_DETAILS_FETCHED,
-		addedCompilerDetailsjsonObj
+		payload
 	};
 };
 
-const hasErroredFetchingAddedCompilerDetails = (jsonObj) => {
+const hasErroredFetchingAddedCompilerDetails = (payload) => {
   return {
     type: types.ERRORED_FETCHING_ADDED_COMPILER_DETAILS,
-    hasErroredFetchingAddedCompilerDetailsjsonObj: jsonObj
+    payload
   };
 };
 
 
 
-const isFetchingAddedCompilerOptions = (jsonObj) => {
+const isFetchingAddedCompilerOptions = (payload) => {
   return {
     type: types.FETCHING_ADDED_COMPILER_OPTIONS,
-    isFetchingAddedCompilerOptionsjsonObj: jsonObj
+    payload
   };
 };
 
-const addedCompilerOptionsFetched = (addedCompilerOptionsjsonObj) => {
+const addedCompilerOptionsFetched = (payload) => {
 	return {
 		type: types.ADDED_COMPILER_OPTIONS_FETCHED,
-		addedCompilerOptionsjsonObj
+		payload
 	};
 };
 
-const hasErroredFetchingAddedCompilerOptions = (jsonObj) => {
+const hasErroredFetchingAddedCompilerOptions = (payload) => {
   return {
     type: types.ERRORED_FETCHING_ADDED_COMPILER_OPTIONS,
-    hasErroredFetchingAddedCompilerOptionsjsonObj: jsonObj
+    payload
   };
 };
 
@@ -120,7 +120,7 @@ export const fetchAddedCompilerDetails = (addedCompiler) => {
   // Returns a dispatcher function that dispatches an action at a later time.
   return (dispatch) => {
 
-    dispatch(isFetchingAddedCompilerDetails(`{ ${addedCompiler.value}: { isFetchingAddedCompilerDetails: true } }`));
+    dispatch(isFetchingAddedCompilerDetails(JSON.parse(`{ "value": ${addedCompiler.value}, "payload": true }`)));
     dispatch(addLog({ log: `Fetching added compiler (${addedCompiler.name}) details from API backend...`, dateTime: Date() }));
     // Return a promise
     return axios.post(`http://${window.location.hostname}:${settings.BACKEND_API_PORT_NUMBER}/api/compiler.details`, {
@@ -128,14 +128,13 @@ export const fetchAddedCompilerDetails = (addedCompiler) => {
     })
     .then(res => {
       // Dispatch another action to consume data
-      console.log("Dimpsey! Details: " + JSON.stringify(res.data));
-      dispatch(addedCompilerDetailsFetched(`{ ${addedCompiler.value}: { addedCompilerDetails: ${JSON.stringify(res.data)} }`));
-      dispatch(isFetchingAddedCompilerDetails(`{ ${addedCompiler.value}: { isFetchingAddedCompilerDetails: false } }`));
+      dispatch(addedCompilerDetailsFetched(`{ "value": ${addedCompiler.value}, "addedCompilerDetails": ${JSON.stringify(res.data)} }`));
+      dispatch(isFetchingAddedCompilerDetails(`{ "value": ${addedCompiler.value}, "isFetchingAddedCompilerDetails": false }`));
       dispatch(addLog({ log: `Added compiler (${addedCompiler.name}) details fetched!`, dateTime: Date() }));
     })
     .catch(err => {
-      dispatch(hasErroredFetchingAddedCompilerDetails(`{ ${addedCompiler.value}: { hasErroredFetchingAddedCompilerDetails: true } }`));
-      dispatch(isFetchingAddedCompilerDetails(`{ ${addedCompiler.value}: { isFetchingAddedCompilerDetails: false } }`));
+      dispatch(hasErroredFetchingAddedCompilerDetails(`{ "value": ${addedCompiler.value}, "hasErroredFetchingAddedCompilerDetails": true }`));
+      dispatch(isFetchingAddedCompilerDetails(`{ "value": ${addedCompiler.value}, "isFetchingAddedCompilerDetails": false }`));
       dispatch(addLog({ log: `Errored fetching added compiler (${addedCompiler.name}) details from API backend...`, dateTime: Date() }));
       
       throw(err);
@@ -152,7 +151,7 @@ export const fetchAddedCompilerOptions = (addedCompiler) => {
   // Returns a dispatcher function that dispatches an action at a later time.
   return (dispatch) => {
 
-    dispatch(isFetchingAddedCompilerOptions(`{ value: ${addedCompiler.value}, isFetchingAddedCompilerOptions: true }`));
+    dispatch(isFetchingAddedCompilerOptions(`{ "value": ${addedCompiler.value}, "isFetchingAddedCompilerOptions": true }`));
     dispatch(addLog({ log: `Fetching added compiler (${addedCompiler.name}) options from API backend...`, dateTime: Date() }));
     // Return a promise
     return axios.post(`http://${window.location.hostname}:${settings.BACKEND_API_PORT_NUMBER}/api/compiler.options`, {
@@ -160,14 +159,13 @@ export const fetchAddedCompilerOptions = (addedCompiler) => {
     })
     .then(res => {
       // Dispatch another action to consume data
-      console.log("Dimpsey! Options: " + JSON.stringify(res.data));
-      dispatch(addedCompilerOptionsFetched(`{ ${addedCompiler.value}, addedCompilerOptions: ${res.data} }`));
-      dispatch(isFetchingAddedCompilerOptions(`{ value: ${addedCompiler.value}, isFetchingAddedCompilerOptions: false }`));
+      dispatch(addedCompilerOptionsFetched(`{ "value": ${addedCompiler.value}, "addedCompilerOptions": ${res.data} }`));
+      dispatch(isFetchingAddedCompilerOptions(`{ "value": ${addedCompiler.value}, "isFetchingAddedCompilerOptions": false }`));
       dispatch(addLog({ log: `Added compiler (${addedCompiler.name}) options fetched!`, dateTime: Date() }));
     })
     .catch(err => {
-      dispatch(hasErroredFetchingAddedCompilerOptions(`{ value: ${addedCompiler.value}, hasErroredFetchingAddedCompilerOptions: true }`));
-      dispatch(isFetchingAddedCompilerOptions(`{ value: ${addedCompiler.value}, isFetchingAddedCompilerOptions: false }`));
+      dispatch(hasErroredFetchingAddedCompilerOptions(`{ "value": ${addedCompiler.value}, hasErroredFetchingAddedCompilerOptions: true }`));
+      dispatch(isFetchingAddedCompilerOptions(`{ "value": ${addedCompiler.value}, "isFetchingAddedCompilerOptions": false }`));
       dispatch(addLog({ log: `Errored fetching added compiler (${addedCompiler.name}) options from API backend...`, dateTime: Date() }));
       
       throw(err);
