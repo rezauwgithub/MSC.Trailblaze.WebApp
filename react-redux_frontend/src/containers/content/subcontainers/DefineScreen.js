@@ -16,10 +16,10 @@ import RaisedButton from 'material-ui/RaisedButton';
 import CompilersSelectField from '../../../containers/content/subcontainers/CompilersSelectField';
 import ExistingInstancesTable from '../../../components/content/ExistingInstancesTable';
 
-// import * as compilersActions from '../../../redux/compilers/actions';
+import * as compilersActions from '../../../redux/compilers/actions';
 import * as compilersSelectors from '../../../redux/compilers/reducer';
 
-// import * as navigationActions from '../../../redux/navigation/actions';
+
 import * as navigationSelectors from '../../../redux/navigation/reducer';
 
 import * as instancesActions from '../../../redux/instances/actions';
@@ -53,12 +53,26 @@ class DefineScreen extends Component {
   }
 
 
-  setSelectedCompilers = (selectedCompilers) => {
+  setSelectedCompilers = ({selectedCompilers}) => {
     this.setState({
       selectedCompilers: selectedCompilers
     });
   }
   
+
+  addInstancesToExistingInstancesTable = () => {
+    this.state.selectedCompilers.forEach(selectedCompiler => {
+
+      this.props.dispatch(instancesActions.addDataToExistingInstancesTable(
+        {
+          compilerName: this.props.licensedCompilers[selectedCompiler].name
+        }
+      ));
+
+      this.props.dispatch(compilersActions.fetchAddedCompilerDetails(this.props.licensedCompilers[selectedCompiler]));
+
+    });
+  }
 
 
   render() {
@@ -72,19 +86,21 @@ class DefineScreen extends Component {
             <table>
               <tbody>
                 <tr>
-                  <td><RefreshIndicator 
-                        size={40} 
-                        left={180} 
-                        top={0} 
+                  <td><RefreshIndicator size={40} left={180} top={0} 
                         status={(this.props.isFetchingLicensedCompilers) ? "loading" : "hide"} /></td>
                   <td><CompilersSelectField setSelectedCompilers={this.setSelectedCompilers} /></td>
-                  <td><RaisedButton label="ADD" onClick={() => this.props.dispatch(instancesActions.addDataToExistingInstancesTable)} disabled={this.state.selectedCompilers.length < 1} /></td>
+                  <td><RaisedButton label="ADD" onClick={() => this.addInstancesToExistingInstancesTable()} disabled={this.state.selectedCompilers.length < 1} /></td>
                   <td><RaisedButton label="REMOVE" onClick={() => alert('REMOVE clicked')} primary={true}/></td>
                   <td><RaisedButton label="VALIDATE" onClick={() => alert('VALIDATE clicked')} secondary={true}/></td>
                 </tr>
               </tbody>
             </table>
-          <ExistingInstancesTable existingInstancesTableData={this.props.existingInstancesTableData}  />
+          <ExistingInstancesTable 
+            existingInstancesTableHeaderColumns={this.props.existingInstancesTableHeaderColumns} 
+            existingInstancesTableData={this.props.existingInstancesTableData} 
+            isFetchingAddedCompilerDetailsjsonObj={this.props.isFetchingAddedCompilerDetailsjsonObj} 
+            isFetchingAddedCompilerOptionsjsonObj={this.props.isFetchingAddedCompilerOptionsjsonObj} 
+          />
           </div>
           <div style={styles.slide}>
             <h2 style={styles.headline}>Generate</h2>

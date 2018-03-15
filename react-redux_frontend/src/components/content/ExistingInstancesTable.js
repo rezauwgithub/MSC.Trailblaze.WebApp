@@ -10,12 +10,6 @@ import {
 
 import CircularProgress from 'material-ui/CircularProgress';
 
-const tableHeaderColumns = [
-  {
-    title: 'Compiler Name'
-  },
-];
-
 
 
 export default class ExistingInstancesTable extends Component {
@@ -29,7 +23,7 @@ export default class ExistingInstancesTable extends Component {
         >
           <TableHeader enableSelectAll={true}>
             <TableRow style={gunnarStyle}>
-              {tableHeaderColumns.map((col, index) => (
+              {this.props.existingInstancesTableHeaderColumns.map((col, index) => (
                 <TableHeaderColumn key={index} style={gunnarStyle}>{col.title}</TableHeaderColumn>
               ))}
             </TableRow>            
@@ -38,11 +32,9 @@ export default class ExistingInstancesTable extends Component {
             {this.props.existingInstancesTableData.map((row, index) => (
               <TableRow key={index} style={gunnarStyle}>
                 <TableRowColumn style={gunnarStyle}>{row.compilerName}</TableRowColumn>
-                <TableRowColumn style={gunnarStyle}>{row.option1}</TableRowColumn>
-                <TableRowColumn style={gunnarStyle}>{row.option2}</TableRowColumn>
-                <TableRowColumn style={gunnarStyle}>{row.option3}</TableRowColumn>
-                <TableRowColumn style={gunnarStyle}>{row.option4}</TableRowColumn>
-                <TableRowColumn style={gunnarStyle}><CircularProgress /></TableRowColumn>
+
+                
+                <TableRowColumn style={gunnarStyle}><CircularProgress mode={ (this.props.isFetchingAddedCompilerDetailsjsonObj || this.props.isFetchingAddedCompilerOptionsjsonObj) ? "indeterminate" : "determinate" } /></TableRowColumn>
               </TableRow>
             ))}
           </TableBody>

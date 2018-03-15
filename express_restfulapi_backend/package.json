@@ -21,7 +21,8 @@
     "edit-json-file": "^1.0.8",
     "express": "^4.16.2",
     "immutable": "^3.8.2",
-    "morgan": "1.9.0"
+    "morgan": "1.9.0",
+    "uniqid": "^4.1.1"
   },
   "devDependencies": {
     "nodemon": "^1.17.1"

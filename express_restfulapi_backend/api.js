@@ -111,22 +111,146 @@ app.get('/api/compilers.names', cache(`${settings.CACHE_TTL} minutes`), (req, re
 });
 
 
-app.post('/api/compiler.details', (req, res) => {
+app.post('/api/compiler.details', cache(`${settings.CACHE_TTL} minutes`), (req, res) => {
 
   // body parser lets us use the req.body
   console.log(`/api/compilers.details was called for ${req.body.addedCompiler.name}!`);
 
   
   setTimeout(() => {
+
     console.log(`Querying "fake" compilers details for...`);
-    res.send(
-      {
-        userGuidePDFPath: '/path/to/userGuide/PDF',
-        process: 'exampleProcess3232',
-        compiler: 'exampleCompiler23232',
-        baseFileVersion: 'exampleBaseFileVersion88'
-      },
-    )
+
+    switch (req.body.addedCompiler.name) {
+      case 'COMPILERTest426723':
+        res.send(
+          {
+            userGuidePDFPath: '/path/to/userGuide/COMPILERTest426723PDF',
+            process: 'exampleProcessCOMPILERTest426723',
+            compiler: 'exampleCompilerCOMPILERTest426723',
+            baseFileVersion: 'exampleBaseFileVersionCOMPILERTest426723',
+            columnOptions: [
+              {
+                title: 'rezaMem',
+                dataType: 'int'
+              },
+              {
+                title: 'rezaBytes',
+                dataType: 'int'
+              },
+              {
+                title: 'sli',
+                dataType: 'bool'
+              }
+            ]
+          },
+        )
+
+        break;
+
+      case 'COMPILERTest4223':
+        res.send(
+          {
+            userGuidePDFPath: '/path/to/userGuide/COMPILERTest4223PDF',
+            process: 'exampleProcessCOMPILERTest4223',
+            compiler: 'exampleCompilerCOMPILERTest4223',
+            baseFileVersion: 'exampleBaseFileVersionCOMPILERTest4223',
+            columnOptions: [
+              {  
+                title: 'rezaBits',
+                dataType: 'int'
+              },
+              {
+                title: 'rezaMem',
+                dataType: 'int'
+              },
+              {
+                title: 'sli',
+                dataType: 'bool'
+              }
+            ]
+          },
+        )
+
+        break;
+
+      case 'COMPILERTest424323':
+        res.send(
+          {
+            userGuidePDFPath: '/path/to/userGuide/COMPILERTest424323PDF',
+            process: 'exampleProcessCOMPILERTest424323',
+            compiler: 'exampleCompilerCOMPILERTest424323',
+            baseFileVersion: 'exampleBaseFileVersionCOMPILERTest424323',
+            columnOptions: [
+              {  
+                title: 'rezaLong',
+                dataType: 'int'
+              },
+              {
+                title: 'sli',
+                dataType: 'bool'
+              }
+            ]
+          },
+        )
+
+        break;
+
+
+      case 'COMPILERTest4243523':
+        res.send(
+          {
+            userGuidePDFPath: '/path/to/userGuide/COMPILERTest4243523PDF',
+            process: 'exampleProcessCOMPILERTest4243523',
+            compiler: 'exampleCompilerCOMPILERTest4243523',
+            baseFileVersion: 'exampleBaseFileVersionCOMPILERTest4243523',
+            columnOptions: [
+              {  
+                title: 'rezaBits',
+                dataType: 'int'
+              },
+              {
+                title: 'rezaBytes',
+                dataType: 'int'
+              },
+              {
+                title: 'sli',
+                dataType: 'bool'
+              }
+            ]
+          },
+        )
+
+        break;
+
+      
+      default:
+        res.send(
+          {
+            userGuidePDFPath: '/path/to/userGuide/DEFAULTPDF',
+            process: 'exampleProcessDEFAULT',
+            compiler: 'exampleCompilerDEFAULT',
+            baseFileVersion: 'exampleBaseFileVersionDEFAULT',
+            columnOptions: [
+              {  
+                title: 'rezaBits',
+                dataType: 'int'
+              },
+              {
+                title: 'rezaBytes',
+                dataType: 'int'
+              },
+              {
+                title: 'sli',
+                dataType: 'bool'
+              }
+            ]
+          },
+        )
+
+        break;
+    }
+
   }, 20000);
   
 

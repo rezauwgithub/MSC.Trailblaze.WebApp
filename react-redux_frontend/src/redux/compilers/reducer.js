@@ -15,9 +15,6 @@ const initialState = Immutable({
   isFetchingLicensedCompilers: false,
   licensedCompilers: [],
   hasErroredFetchingLicensedCompilers: false,
-
-  selectedCompilers: [],
-
   
   isFetchingAddedCompilerDetailsjsonObj: {},
   addedCompilerDetailsjsonObj: {},
@@ -49,15 +46,8 @@ export default function reduce(state = initialState, action = {}) {
       });
 
     case types.FETCHING_ADDED_COMPILER_DETAILS:
-      
-        
-        console.log('WTF? value: ' + action.payload.value);
-        console.log('WTF? value: ' + action.payload.payload)
-
 
         if (state.isFetchingAddedCompilerDetailsjsonObj[action.payload.value] === undefined) {
-          alert('Adding - Fetching Added Compiler Details');
-          
           return {
             ...state,
             isFetchingAddedCompilerDetailsjsonObj: {
@@ -67,9 +57,6 @@ export default function reduce(state = initialState, action = {}) {
           }
 
         }
-
-      
-      alert('Updating - Fetching Compiler Details');
 
       state.isFetchingAddedCompilerDetailsjsonObj[action.payload.value] = {
         ...state.isFetchingAddedCompilerDetailsjsonObj[action.payload.value],
@@ -84,8 +71,6 @@ export default function reduce(state = initialState, action = {}) {
     case types.ADDED_COMPILER_DETAILS_FETCHED:
   
       if (state.addedCompilerDetailsjsonObj[action.payload.value] === undefined) {
-        alert('Adding - Added Compiler Details');
-
         return {
           ...state,
           addedCompilerDetailsjsonObj: {
@@ -94,9 +79,6 @@ export default function reduce(state = initialState, action = {}) {
           }
         }
       }
-
-
-      alert('Updating - Added Compiler Details');
 
       state.addedCompilerDetailsjsonObj[action.payload.value] = {
         ...state.addedCompilerDetailsjsonObj[action.payload.value],
@@ -111,8 +93,6 @@ export default function reduce(state = initialState, action = {}) {
     case types.ERRORED_FETCHING_ADDED_COMPILER_DETAILS:
 
       if (state.hasErroredFetchingAddedCompilerDetailsjsonObj[action.payload.value] === undefined) {
-        alert('Adding - Errored Fetching Added Compiler Details');
-
         return {
           ...state,
           hasErroredFetchingAddedCompilerDetailsjsonObj: {
@@ -121,9 +101,6 @@ export default function reduce(state = initialState, action = {}) {
           }
         }
       }
-
-
-      alert('Updating - Errored Fetching Added Compiler Details');
 
       state.hasErroredFetchingAddedCompilerDetailsjsonObj[action.payload.value] = {
         ...state.hasErroredFetchingAddedCompilerDetailsjsonObj[action.payload.value],
@@ -139,8 +116,6 @@ export default function reduce(state = initialState, action = {}) {
     case types.FETCHING_ADDED_COMPILER_OPTIONS:
       
       if (state.isFetchingAddedCompilerOptionsjsonObj[action.payload.value] === undefined) {
-        alert('Adding - Fetching Added Compiler Options');
-        
         return {
           ...state,
           isFetchingAddedCompilerOptionsjsonObj: {
@@ -150,9 +125,6 @@ export default function reduce(state = initialState, action = {}) {
         }
 
       }
-
-    
-    alert('Updating - Fetching Compiler Options');
 
     state.isFetchingAddedCompilerOptionsjsonObj[action.payload.value] = {
       ...state.isFetchingAddedCompilerOptionsjsonObj[action.payload.value],
@@ -167,8 +139,6 @@ export default function reduce(state = initialState, action = {}) {
     case types.ADDED_COMPILER_OPTIONS_FETCHED:
 
       if (state.addedCompilerOptionsjsonObj[action.payload.value] === undefined) {
-        alert('Adding - Added Compiler Options');
-
         return {
           ...state,
           addedCompilerOptionsjsonObj: {
@@ -177,9 +147,6 @@ export default function reduce(state = initialState, action = {}) {
           }
         }
       }
-
-
-      alert('Updating - Added Compiler Options');
 
       state.addedCompilerOptionsjsonObj[action.payload.value] = {
         ...state.addedCompilerOptionsjsonObj[action.payload.value],
@@ -194,8 +161,6 @@ export default function reduce(state = initialState, action = {}) {
     case types.ERRORED_FETCHING_ADDED_COMPILER_OPTIONS:
 
       if (state.hasErroredFetchingAddedCompilerOptionsjsonObj[action.payload.value] === undefined) {
-        alert('Adding - Errored Fetching Added Compiler Options');
-
         return {
           ...state,
           hasErroredFetchingAddedCompilerOptionsjsonObj: {
@@ -204,10 +169,6 @@ export default function reduce(state = initialState, action = {}) {
           }
         }
       }
-
-
-      alert('Updating - Errored Fetching Added Compiler Options');
-
       state.hasErroredFetchingAddedCompilerOptionsjsonObj[action.payload.value] = {
         ...state.hasErroredFetchingAddedCompilerOptionsjsonObj[action.payload.value],
         ...action.payload
@@ -217,7 +178,6 @@ export default function reduce(state = initialState, action = {}) {
         ...state
       }
         
-
 
     default:
       return state;

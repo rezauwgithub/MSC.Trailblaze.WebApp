@@ -20,10 +20,9 @@ export default function reduce(state = initialState, action = {}) {
   switch (action.type) {
 
     case types.ADD_LOG:
-      return {
-        ...state,
+      return state.merge({
         logs: state.logs.concat(action.payload)
-      }
+      })
 
     default:
       return state;
