@@ -11,9 +11,9 @@ import * as types from './actionTypes';
 
 // action creators
 
-export const addColumnToExistingInstancesTable = (payload) => {
+export const addHeaderColumnToExistingInstancesTable = (payload) => {
   return {
-      type: types.ADD_COLUMN_TO_EXISTING_INSTANCES_TABLE,
+      type: types.ADD_COLUMN_HEADER_TO_EXISTING_INSTANCES_TABLE,
       payload
     };
 };

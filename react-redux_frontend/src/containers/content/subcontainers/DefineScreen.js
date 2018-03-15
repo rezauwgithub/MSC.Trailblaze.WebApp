@@ -6,7 +6,6 @@
 */
 
 import React, { Component } from 'react';
-import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 
 // From https://github.com/oliviertassinari/react-swipeable-views
@@ -14,14 +13,17 @@ import SwipeableViews from 'react-swipeable-views';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import CompilersSelectField from '../../../components/content/CompilersSelectField';
+import CompilersSelectField from '../../../containers/content/subcontainers/CompilersSelectField';
 import ExistingInstancesTable from '../../../components/content/ExistingInstancesTable';
 
-import * as compilersActions from '../../../redux/compilers/actions';
+// import * as compilersActions from '../../../redux/compilers/actions';
 import * as compilersSelectors from '../../../redux/compilers/reducer';
 
+// import * as navigationActions from '../../../redux/navigation/actions';
+import * as navigationSelectors from '../../../redux/navigation/reducer';
+
 import * as instancesActions from '../../../redux/instances/actions';
-import * as instancesSectors from '../../../redux/instances/reducer';
+import * as instancesSelectors from '../../../redux/instances/reducer';
 
 
 const styles = {
@@ -37,39 +39,65 @@ const styles = {
 };
 
 
-const DefineScreen = (props) => (
-  <div className="content">
-    <SwipeableViews
-      index={this.state.slideIndex}
-      onChangeIndex={this.handleChange}
-    >
-      <div>
-        <table>
-          <tbody>
-            <tr>
-              <td><RefreshIndicator 
-                    size={40} 
-                    left={180} 
-                    top={0} 
-                    status={(this.props.isFetchingLicensedCompilers) ? "loading" : "hide"} /></td>
-              <td><CompilersSelectField setSelectedCompilers={this.setSelectedCompilers} /></td>
-              <td><RaisedButton label="ADD" onClick={() => this.addInstancesToExistingInstancesTable(this.state.selectedCompilers)} disabled={this.state.selectedCompilers.length < 1} /></td>
-              <td><RaisedButton label="REMOVE" onClick={() => alert('REMOVE clicked')} primary={true}/></td>
-              <td><RaisedButton label="VALIDATE" onClick={() => alert('VALIDATE clicked')} secondary={true}/></td>
-            </tr>
-          </tbody>
-        </table>
-      <ExistingInstancesTable existingInstancesTableData={this.state.existingInstancesTableData}  />
+
+
+
+class DefineScreen extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      selectedCompilers: []
+    };
+  }
+
+
+  setSelectedCompilers = (selectedCompilers) => {
+    this.setState({
+      selectedCompilers: selectedCompilers
+    });
+  }
+  
+
+
+  render() {
+    return (
+      <div className="content">
+        <SwipeableViews
+          index={this.props.slideIndex}
+          onChangeIndex={this.handleChange}
+        >
+          <div>
+            <table>
+              <tbody>
+                <tr>
+                  <td><RefreshIndicator 
+                        size={40} 
+                        left={180} 
+                        top={0} 
+                        status={(this.props.isFetchingLicensedCompilers) ? "loading" : "hide"} /></td>
+                  <td><CompilersSelectField setSelectedCompilers={this.setSelectedCompilers} /></td>
+                  <td><RaisedButton label="ADD" onClick={() => this.props.dispatch(instancesActions.addDataToExistingInstancesTable)} disabled={this.state.selectedCompilers.length < 1} /></td>
+                  <td><RaisedButton label="REMOVE" onClick={() => alert('REMOVE clicked')} primary={true}/></td>
+                  <td><RaisedButton label="VALIDATE" onClick={() => alert('VALIDATE clicked')} secondary={true}/></td>
+                </tr>
+              </tbody>
+            </table>
+          <ExistingInstancesTable existingInstancesTableData={this.props.existingInstancesTableData}  />
+          </div>
+          <div style={styles.slide}>
+            <h2 style={styles.headline}>Generate</h2>
+          </div>
+          <div style={styles.slide}>
+            <h2 style={styles.headline}>Results</h2>
+          </div>
+        </SwipeableViews>             
       </div>
-      <div style={styles.slide}>
-        <h2 style={styles.headline}>Generate</h2>
-      </div>
-      <div style={styles.slide}>
-        <h2 style={styles.headline}>Results</h2>
-      </div>
-    </SwipeableViews>             
-  </div>
-);
+    )
+  };
+  
+};
 
 
 
@@ -78,6 +106,10 @@ const DefineScreen = (props) => (
 // Map state to pros
 const mapStateToProps = (state) => {
   return {
+    isFetchingLicensedCompilers: compilersSelectors.getIsFetchingLicensedCompilers(state),
+    licensedCompilers: compilersSelectors.getLicensedCompilers(state),
+    hasErroredFetchingLicensedCompilers: compilersSelectors.getHasErroredFetchingLicensedCompilers(state),
+
     isFetchingAddedCompilerDetailsjsonObj: compilersSelectors.getIsFetchingCompilerDetailsjsonObj(state),
     addedCompilerDetailsjsonObj: compilersSelectors.getCompilerDetailsjsonObj(state),
     hasErroredFetchingAddedCompilerDetailsjsonObj: compilersSelectors.getHasErroredFetchingCompilerDetailsjsonObj(state),
@@ -87,14 +119,16 @@ const mapStateToProps = (state) => {
     hasErroredFetchingAddedCompilerOptionsjsonObj: compilersSelectors.getHasErroredFetchingCompilerOptionsjsonObj(state),
 
 
-    existingInstancesTableHeaderColumns: instancesSectors.
+    slideIndex: navigationSelectors.getSlideIndex(state),
 
+    existingInstancesTableHeaderColumns: instancesSelectors.getInstancesTableHeaderColumns(state),
+    existingInstancesTableData: instancesSelectors.getInstancesTableData(state)
   };
 }
 
 
 
-export default connect(mapStateToProps)(ExistingInstancesTable);
+export default connect(mapStateToProps)(DefineScreen);
 
 
 

@@ -42,19 +42,9 @@ class App extends Component {
     super(props);
     this.state = {
       selectedCompilers: [],
-
-      existingInstancesTableHeaderColumns: [],
-      existingInstancesTableData: [],
+      
     };
   } 
-  
-
-  setSelectedCompilers = (selectedCompilers) => {
-    this.setState({
-      selectedCompilers: selectedCompilers
-    });
-  }
-
 
 
   addInstancesToExistingInstancesTable = ({selectedCompilers}) => {
@@ -80,7 +70,7 @@ class App extends Component {
           <title>{APP_TITLE}</title>
         </Helmet>
         <MuiThemeProvider muiTheme={muiTheme}>
-          <div className="header">
+          <div className="container">
             <HeaderScreen />
             <ContentScreen />
             <FooterScreen />

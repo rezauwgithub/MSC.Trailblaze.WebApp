@@ -43,7 +43,6 @@ export default class ExistingInstancesTable extends Component {
                 <TableRowColumn style={gunnarStyle}>{row.option3}</TableRowColumn>
                 <TableRowColumn style={gunnarStyle}>{row.option4}</TableRowColumn>
                 <TableRowColumn style={gunnarStyle}><CircularProgress /></TableRowColumn>
-                
               </TableRow>
             ))}
           </TableBody>

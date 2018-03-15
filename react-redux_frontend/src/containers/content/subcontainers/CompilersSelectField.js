@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
-import * as compilersActions from '../../redux/compilers/actions';
-import * as compilersSelectors from '../../redux/compilers/reducer';
+import * as compilersActions from '../../../redux/compilers/actions';
+import * as compilersSelectors from '../../../redux/compilers/reducer';
 
 
 /**
@@ -14,10 +14,10 @@ import * as compilersSelectors from '../../redux/compilers/reducer';
 class CompilersSelectField extends Component {
 
   state = {
-    selectedCompilers: [],
+    selectedCompilers: []
   };
 
-  
+
   constructor(props) {
     super(props);
     autoBind(this);
@@ -29,13 +29,12 @@ class CompilersSelectField extends Component {
   }
 
 
-
   handleChange = (event, index, selectedCompilers) => {
-    
     this.setState({selectedCompilers});
 
     this.props.setSelectedCompilers({selectedCompilers});
   }
+
 
   selectionRenderer = (selectedCompilers) => {
     switch (selectedCompilers.length) {
@@ -90,12 +89,12 @@ class CompilersSelectField extends Component {
 }
 
 
-// Map state to props
+// Map state to pros
 const mapStateToProps = (state) => {
   return {
     isFetchingLicensedCompilers: compilersSelectors.getIsFetchingLicensedCompilers(state),
     licensedCompilers: compilersSelectors.getLicensedCompilers(state),
-    hasErroredFetchingLicensedCompilers: compilersSelectors.getHasErroredFetchingLicensedCompilers(state)
+    hasErroredFetchingLicensedCompilers: compilersSelectors.getHasErroredFetchingLicensedCompilers(state),
   };
 }
 

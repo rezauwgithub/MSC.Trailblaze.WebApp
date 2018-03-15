@@ -5,14 +5,11 @@
   Avoid having view logic & local component state in them. Use "Dumb" Components instead.
 */
 
-import React, { Component } from 'react';
-import autoBind from 'react-autobind';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import './content.css';
 
-import * as availableCompilersActions from '../../redux/compilers/actions';
-import * as availableCompilersSelectors from '../../redux/compilers/reducer';
 import DefineScreen from './subcontainers/DefineScreen';
 
 

@@ -6,7 +6,6 @@
 */
 
 import React, { Component } from 'react';
-import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 
 import AppBar from 'material-ui/AppBar';
@@ -14,11 +13,17 @@ import { APP_TITLE } from '../../__frontend_app_settings__';
 
 import './header.css';
 
-import Menu from './subcontainers/Menu';
-import Navigation from './subcontainers/Navigation';
+import ProjectPopoverAnimation from '../../components/header/ProjectPopoverAnimation';
+import HelpPopoverAnimation from '../../components/header/HelpPopoverAnimation';
+
 import { blueGrey400 } from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {Tabs, Tab} from 'material-ui/Tabs';
+
+import * as navigationActions from '../../redux/navigation/actions';
+import * as navigationSelectors from '../../redux/navigation/reducer';
+
 
 // This replaces the textColor value on the palette
 // and then update the keys for each component that depends on it.
@@ -33,23 +38,47 @@ const muiTheme = getMuiTheme({
 });
 
 
-const HeaderScreen = (props) => (
-  <MuiThemeProvider muiTheme={muiTheme}>
-    <div className="header">
-      <AppBar title={APP_TITLE} showMenuIconButton={false} />
-      <Menu />
-    </div>
-  </MuiThemeProvider>
-);
 
+class HeaderScreen extends Component {
+  
 
+  handleChange = (index) => {
+    this.props.dispatch(navigationActions.navigateTabs(index));
+  }
+  
 
+  render() {
+    return (
+      <MuiThemeProvider muiTheme={muiTheme}>
+        <div className="header">
+          <AppBar title={APP_TITLE} showMenuIconButton={false} />
+          <table>
+            <tbody>
+              <tr>
+                <td><ProjectPopoverAnimation /></td>
+                <td><HelpPopoverAnimation /></td>
+              </tr>
+            </tbody>
+          </table>
+          <Tabs
+            onChange={this.handleChange}
+            value={this.props.slideIndex}
+          >
+            <Tab label="Define" value={0} />
+            <Tab label="Generate" value={1} />
+            <Tab label="Results" value={2} />
+          </Tabs>
+        </div>
+      </MuiThemeProvider>
+    );
+  }
+};
 
 
 // Map state to pros
 const mapStateToProps = (state) => {
   return {
-
+    slideIndex: navigationSelectors.getSlideIndex(state)
   };
 }
 

@@ -15,7 +15,7 @@ const initialState = Immutable({
 });
 
 
-const reduce = (state = initialState, action = {}) => {
+export default function reduce(state = initialState, action = {}) {
 
   switch (action.type) {
 
@@ -30,8 +30,6 @@ const reduce = (state = initialState, action = {}) => {
       
   }
 }
-
-export default reduce;
 
 
 
