@@ -24,6 +24,9 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import * as navigationActions from '../../redux/navigation/actions';
 import * as navigationSelectors from '../../redux/navigation/reducer';
 
+import * as dialogsActions from '../../redux/dialogs/actions';
+import * as dialogsSelectors from '../../redux/dialogs/reducer';
+
 
 // This replaces the textColor value on the palette
 // and then update the keys for each component that depends on it.
@@ -42,6 +45,11 @@ const muiTheme = getMuiTheme({
 class HeaderScreen extends Component {
   
 
+  handleDialogHelpAboutOpen = (bool) => {
+    this.props.dispatch(dialogsActions.isOpenDialogHelpAbout(bool));
+  }
+
+
   handleChange = (index) => {
     this.props.dispatch(navigationActions.navigateTabs(index));
   }
@@ -56,7 +64,12 @@ class HeaderScreen extends Component {
             <tbody>
               <tr>
                 <td><ProjectPopoverAnimation /></td>
-                <td><HelpPopoverAnimation /></td>
+                <td><HelpPopoverAnimation 
+                  isOpenDialogHelpAbout={this.props.isOpenDialogHelpAbout} 
+                  dialogHelpAboutDetails={this.props.dialogHelpAboutDetails} 
+                  handleDialogHelpAboutOpen={this.handleDialogHelpAboutOpen} 
+                />
+                </td>
               </tr>
             </tbody>
           </table>
@@ -78,7 +91,10 @@ class HeaderScreen extends Component {
 // Map state to pros
 const mapStateToProps = (state) => {
   return {
-    slideIndex: navigationSelectors.getSlideIndex(state)
+    slideIndex: navigationSelectors.getSlideIndex(state),
+
+    isOpenDialogHelpAbout: dialogsSelectors.getIsOpenDialogHelpAbout(state),
+    dialogHelpAboutDetails: dialogsSelectors.getDialogHelpAboutDetails(state),
   };
 }
 

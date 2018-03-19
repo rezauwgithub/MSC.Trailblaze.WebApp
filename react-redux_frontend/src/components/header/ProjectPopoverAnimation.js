@@ -48,17 +48,18 @@ export default class ProjectPopoverAnimation extends React.Component {
           animation={PopoverAnimationVertical}
         >
           <Menu>
-            <MenuItem primaryText="New" />
-            <MenuItem primaryText="Open" />
+            <MenuItem primaryText="New" onClick={() => alert('New Clicked!')} />
+            <MenuItem primaryText="Open" onClick={() => alert('Open Clicked!')} />
             <MenuItem 
               primaryText="Recent"
+              onClick={() => alert('Recent Clicked!')}
               rightIcon={<ArrowDropRight />}
               menuItems={[
-                <MenuItem primaryText="ExampleProject" />,
+                <MenuItem primaryText="ExampleProject" onClick={() => alert('ExampleProject Clicked!')} />,
               ]}
             />
             <Divider />
-            <MenuItem primaryText="Close" />
+            <MenuItem primaryText="Close" onClick={() => alert('Close Clicked!')} />
           </Menu>
         </Popover>
       </div>

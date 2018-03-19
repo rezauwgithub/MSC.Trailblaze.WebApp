@@ -29,6 +29,7 @@ app.use(bodyParser.json());
   our headers to allow CORS with middleware like so:
 */
 app.use((req, res, next) => {
+
   res.setHeader('Access-Control-Allow-Origin', "*");
   res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -59,18 +60,6 @@ app.get('/api/cache.clear/:target?', (req, res) => {
 });
 
 
-/* 
-  The initial call to this will take 2 seconds, but any subsequent calls 
-  will receive a response instantly from cache for the next hour
-*/
-app.get('/api/examples.ping', cache('2 minutes'), (req, res) => {
-
-  setTimeout(() => {
-    res.end('pong, ping, pong, pong, and cheese, cheese, cheese');
-  }, 10000);
-
-});
-
 
 
 app.get('/api/compilers.names', cache(`${settings.CACHE_TTL} minutes`), (req, res) => {
@@ -79,7 +68,7 @@ app.get('/api/compilers.names', cache(`${settings.CACHE_TTL} minutes`), (req, re
 
   
   setTimeout(() => {
-    console.log(`Querying "fake" compilers for...`);
+    console.log(`Querying compilers for...`);
     res.send([
       {
         value: 0,
@@ -98,7 +87,7 @@ app.get('/api/compilers.names', cache(`${settings.CACHE_TTL} minutes`), (req, re
         name: 'COMPILERTest4243523'
       }
     ])
-  }, 20000);
+  }, 45441);
   
 
   /*
@@ -119,7 +108,7 @@ app.post('/api/compiler.details', cache(`${settings.CACHE_TTL} minutes`), (req, 
   
   setTimeout(() => {
 
-    console.log(`Querying "fake" compilers details for...`);
+    console.log(`Querying compilers details for...`);
 
     switch (req.body.addedCompiler.name) {
       case 'COMPILERTest426723':
@@ -263,7 +252,7 @@ app.post('/api/compiler.details', cache(`${settings.CACHE_TTL} minutes`), (req, 
 });
 
 
-app.post('/api/compiler.options', (req, res) => {
+app.post('/api/compiler.options', cache(`${settings.CACHE_TTL} minutes`), (req, res) => {
 
   // body parser lets us use the req.body
   console.log(`/api/compilers.options was called for ${req.body.addedCompiler.name}!`);

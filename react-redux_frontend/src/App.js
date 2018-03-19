@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as compilersSelectors from './redux/compilers/reducer';
 
 import { Helmet } from 'react-helmet';
-import { APP_TITLE } from './__frontend_app_settings__';
+import * as settings from './__frontend_app_settings__';
 
 import { blueGrey400 } from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -31,7 +31,7 @@ const muiTheme = getMuiTheme({
 const App = () => (
   <div className="App">
     <Helmet>
-      <title>{APP_TITLE}</title>
+      <title>{settings.APP_TITLE}</title>
     </Helmet>
     <MuiThemeProvider muiTheme={muiTheme}>
       <div className="container">

@@ -4,6 +4,9 @@ import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 
+import DialogHelpAbout from '../dialog/DialogHelpAbout';
+
+
 export default class HelpPopoverAnimation extends React.Component {
 
   constructor(props) {
@@ -37,6 +40,13 @@ export default class HelpPopoverAnimation extends React.Component {
           onClick={this.handleClick}
           label="Help"
         />
+
+        <DialogHelpAbout 
+          isOpenDialogHelpAbout={this.props.isOpenDialogHelpAbout} 
+          dialogHelpAboutDetails={this.props.dialogHelpAboutDetails}
+          handleDialogHelpAboutOpen={this.props.handleDialogHelpAboutOpen}
+        />
+
         <Popover
           open={this.state.open}
           anchorEl={this.state.anchorEl}
@@ -46,8 +56,8 @@ export default class HelpPopoverAnimation extends React.Component {
           animation={PopoverAnimationVertical}
         >
           <Menu>
-            <MenuItem primaryText="Help &amp; Feedback" />
-            <MenuItem primaryText="About" />
+            <MenuItem primaryText="Help &amp; Feedback" onClick={() => alert('Help Feedback Clicked!')} />
+            <MenuItem primaryText="About" onClick={() => this.props.handleDialogHelpAboutOpen(true)} />
           </Menu>
         </Popover>
       </div>
