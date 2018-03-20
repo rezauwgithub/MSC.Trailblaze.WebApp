@@ -3,15 +3,37 @@
 const app = require('express')();
 const bodyParser = require('body-parser');
 const editJsonFile = require('edit-json-file');
-const settings = require('./__backend_app_settings__');
-const util = require('./util');
 const logger = require('morgan');
-const apicache = require('apicache');
+const mcache = require('memory-cache');
+const settings = require('./__backend_app_settings__');
+const util = require('./util'); 
 
 
-const cache = apicache.options({
-  debug: true
-}).middleware;
+let cache = (duration) => {
+  
+  return (req, res, next) => {
+    let key = '__express__' + req.originalUrl || req.url;
+    let cachedBody = mcache.get(key);
+    if (cachedBody) {
+      res.send(cachedBody);
+
+      return;
+
+    } else {
+      res.sendResponse = res.send;
+      res.send = (body) => {
+        mcache.put(key, body, duration * 1000);
+        res.sendResponse(body);
+      }
+
+      next();
+    }
+
+  }
+
+}
+
+
 
 /*
   if the file doesn't exist, the content will be an empty object by default.
@@ -41,30 +63,17 @@ app.use((req, res, next) => {
 app.use(logger('dev' || 'prod'));
 
 
-// add route to display cache index
-app.get('/api/cache', (req, res) => {
-
-  console.log('/api/cache was called!');
-
-  console.log('apicache.getIndex(): ' + JSON.stringify(apicache.getIndex()));
-  res.send(apicache.getIndex())
-});
-
-// add route to manually clear target/group
-app.get('/api/cache.clear/:target?', (req, res) => {
-
-  console.log(`/api/cache.clear/:target? was called for ${req.params.target}!`);
-
-  console.log('apicache.getIndex()');
-  res.send(apicache.clear(req.params.target))
-});
 
 
 
 
-app.get('/api/compilers.names', cache(`${settings.CACHE_TTL} minutes`), (req, res) => {
+app.get('/api/compilers.names', cache(settings.CACHE_TTL), (req, res) => {
 
   console.log('/api/compilers.name was called!');
+
+
+  let testProject = require('./classes/Project')();
+
 
   
   setTimeout(() => {
@@ -100,17 +109,17 @@ app.get('/api/compilers.names', cache(`${settings.CACHE_TTL} minutes`), (req, re
 });
 
 
-app.post('/api/compiler.details', cache(`${settings.CACHE_TTL} minutes`), (req, res) => {
+app.get('/api/compiler.details/:compilervalue', (req, res) => {
 
   // body parser lets us use the req.body
-  console.log(`/api/compilers.details was called for ${req.body.addedCompiler.name}!`);
+  console.log(`/api/compilers.details was called for ${req.params.compilername}!`);
 
   
   setTimeout(() => {
 
     console.log(`Querying compilers details for...`);
 
-    switch (req.body.addedCompiler.name) {
+    switch (req.params.compilername) {
       case 'COMPILERTest426723':
         res.send(
           {
@@ -252,18 +261,18 @@ app.post('/api/compiler.details', cache(`${settings.CACHE_TTL} minutes`), (req, 
 });
 
 
-app.post('/api/compiler.options', cache(`${settings.CACHE_TTL} minutes`), (req, res) => {
+app.get('/api/compiler.options/:compilervalue', (req, res) => {
 
   // body parser lets us use the req.body
-  console.log(`/api/compilers.options was called for ${req.body.addedCompiler.name}!`);
+  console.log(`/api/compilers.options was called for ${req.params.compilername}!`);
 
   
   setTimeout(() => {
-    console.log(`Querying "fake" compilers options for...`);
+    console.log(`Querying so called compilers options for...`);
     res.send(
       {
-        value: req.body.addedCompiler.value,
-        name: req.body.addedCompiler.name
+        value: req.params.compilervalue,
+        name: req.params.compilername
       },
     )
   }, 20000);
@@ -307,7 +316,14 @@ app.put('/api/createNewProject', (req, res) => {
 });
 
 
+app.use((req, res) => {
+  res.status(404).send('Oops. Where did that page go? Hmm...')
+});
+
 
 const server = app.listen(settings.LISTEN_ON_PORT_NUMBER, () => {
   console.log(`MSC Express RESTful API backend listening at http://localhost:${settings.LISTEN_ON_PORT_NUMBER}`);
 });
+
+
+

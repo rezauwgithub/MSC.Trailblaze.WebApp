@@ -124,9 +124,7 @@ export const fetchAddedCompilerDetails = (addedCompiler) => {
     dispatch(isFetchingAddedCompilerDetails(JSON.parse(`{ "value": ${addedCompiler.value}, "payload": true }`)));
     dispatch(addLog({ log: `Fetching added compiler (${addedCompiler.name}) details from API backend...`, dateTime: Date() }));
     // Return a promise
-    return axios.post(`http://${window.location.hostname}:${settings.BACKEND_API_PORT_NUMBER}/api/compiler.details`, {
-      addedCompiler: addedCompiler
-    })
+    return axios.get(`http://${window.location.hostname}:${settings.BACKEND_API_PORT_NUMBER}/api/compiler.details/${addedCompiler.value}/${addedCompiler.name}`)
     .then(res => {
       // Dispatch another action to consume data
       dispatch(addedCompilerDetailsFetched(JSON.parse(`{ "value": ${addedCompiler.value}, "payload": ${JSON.stringify(res.data)} }`)));
@@ -156,9 +154,7 @@ export const fetchAddedCompilerOptions = (addedCompiler) => {
     dispatch(isFetchingAddedCompilerOptions(JSON.parse(`{ "value": ${addedCompiler.value}, "payload": true }`)));
     dispatch(addLog({ log: `Fetching added compiler (${addedCompiler.name}) options from API backend...`, dateTime: Date() }));
     // Return a promise
-    return axios.post(`http://${window.location.hostname}:${settings.BACKEND_API_PORT_NUMBER}/api/compiler.options`, {
-      addedCompiler: addedCompiler
-    })
+    return axios.post(`http://${window.location.hostname}:${settings.BACKEND_API_PORT_NUMBER}/api/compiler.options/${addedCompiler.value}/${addedCompiler.name}`)
     .then(res => {
       // Dispatch another action to consume data
       dispatch(addedCompilerOptionsFetched(JSON.parse(`{ "value": ${addedCompiler.value}, "payload": ${res.data} }`)));
