@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import { HOME_PAGE } from '../../__frontend_app_settings__';
 
 
 export default class DialogHelpAbout extends Component {
@@ -36,11 +37,11 @@ export default class DialogHelpAbout extends Component {
           open={this.props.isOpenDialogHelpAbout}
           onRequestClose={this.handleClose}
         >
-          Front-End interface to Mobile-Semiconductor Trailblaze Memory Generation System <br/>
-          Product Version: (C2018, 03) (Build: Thursday, March 15, 2018 10:04 AM) <br />
-          Vendor: Mobile Semiconductor Corporation <br />
-          Homepage: www.mobile-semi.com <br />
-          All rights reserved (2017-2018)
+          {this.props.dialogHelpAboutDetails.description} <br/>
+          Product Version: {this.props.dialogHelpAboutDetails.productVersion} <br />
+          Vendor: {this.props.dialogHelpAboutDetails.vendor} <br />
+          Homepage: {HOME_PAGE} <br />
+          All rights reserved ({this.props.dialogHelpAboutDetails.copyrightYears})
         </Dialog>
       </div>
     )

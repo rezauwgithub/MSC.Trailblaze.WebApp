@@ -1,12 +1,15 @@
 const { exec } = require('child_process');
 
+
+global.licensedCompilersjsonArr = null;
+
 module.exports.getLicensedCompilers = (callback) => {
 
   console.log(`getLicensedCompilers() got called!`);
   console.log(`Querying mscmc for licensed compilers...`);
 
   const command = `ssh reza@fusion15 mscmc -list;`;
-  console.log('command: ' + command);
+  console.log('Running command ' + command);
 
   exec(command, (err, stdout, stderr) => {
 
@@ -15,21 +18,23 @@ module.exports.getLicensedCompilers = (callback) => {
       return;
     }
 
-    let jsonStrArr = [];
+    
 
     let new_stdout = stdout.split("\t\t");
     let rStrLines = new_stdout[1].split("\n");
 
     let value = 0;
+    licensedCompilersjsonArr = [];
     for (let i = 0; i < rStrLines.length; i++) {
       const compilerName = rStrLines[i].split(" =")[0];
       if (compilerName !== "" || compilerName.startsWith(" ")) {
         console.log('compilerName: ' + compilerName);
-        jsonStrArr.push({ value: value++, name: compilerName });
+        licensedCompilersjsonArr.push({ value: value++, name: compilerName });
       }
     }
+    
 
-    callback(jsonStrArr);
+    callback(licensedCompilersjsonArr);
   });
 
 }
@@ -37,13 +42,13 @@ module.exports.getLicensedCompilers = (callback) => {
 
 
 
-module.exports.getCompilerDetails = (addedCompiler, callback) => {
+module.exports.getCompilerDetails = (compilervalue, callback) => {
 
-  console.log(`getCompilerDetails() got called for ${addedCompiler.name}!`);
-  console.log(`Querying mscmc for compiler (${addedCompiler.name}) details...`);
+  console.log(`getCompilerDetails() got called for ${global.licensedCompilersjsonArr[compilervalue].name}!`);
+  console.log(`Querying mscmc for compiler (${global.licensedCompilersjsonArr[compilervalue].name}) details...`);
 
-  const command = `ssh reza@fusion15 mscmc -info ${addedCompiler.name}`;
-  console.log('command: ' + command);
+  const command = `ssh reza@fusion15 mscmc -info ${global.licensedCompilersjsonArr[compilervalue].name}`;
+  console.log('Running command ' + command);
 
   exec(command, (err, stdout, stderr) => {
       if (err) {
@@ -87,7 +92,7 @@ module.exports.getCompilerDetails = (addedCompiler, callback) => {
 
 
           jsonStrArr.push({
-              name: addedCompiler.name,
+              name: global.licensedCompilersjsonArr[compilervalue].name,
               user_guide: userGuidePDFPath,
               customer: customer,
               process: process,
@@ -102,13 +107,13 @@ module.exports.getCompilerDetails = (addedCompiler, callback) => {
 
 
 
-module.exports.getCompilerOptions = (addedCompiler, callback) => {
+module.exports.getCompilerOptions = (compilervalue, callback) => {
 
-  console.log(`getCompilerOptions() got called for ${addedCompiler.name}!`);
-  console.log(`Querying mscmc for compiler (${addedCompiler.name}) options...`);
+  console.log(`getCompilerOptions() got called for ${global.licensedCompilersjsonArr[compilervalue].name}!`);
+  console.log(`Querying mscmc for compiler (${global.licensedCompilersjsonArr[compilervalue].name}) options...`);
 
-  const command = `ssh reza@fusion15 mscmc -options all ${addedCompiler.name}`;
-  console.log('command: ' + command);
+  const command = `ssh reza@fusion15 mscmc -options all ${licensedCompilersjsonArr[compilervalue].name}`;
+  console.log('Running command ' + command);
 
   exec(command, (err, stdout, stderr) => {
       if (err) {

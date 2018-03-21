@@ -21,7 +21,7 @@ const initialState = Immutable({
       productVersion: settings.PRODUCT_VERSION,
       vendor: settings.VENDOR,
       homepage: settings.HOME_PAGE,
-      copyrightYears: settings.COPY_RIGHT_YEARS
+      copyrightYears: settings.COPYRIGHT_YEARS
     },
 });
 

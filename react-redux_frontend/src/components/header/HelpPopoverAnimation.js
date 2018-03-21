@@ -17,6 +17,7 @@ export default class HelpPopoverAnimation extends React.Component {
     };
   }
 
+
   handleClick = (event) => {
     // This prevents ghost click.
     event.preventDefault();
@@ -28,10 +29,15 @@ export default class HelpPopoverAnimation extends React.Component {
   };
 
   handleRequestClose = () => {
+
+    console.log('handleRequestClose()');
+
     this.setState({
       open: false,
     });
   };
+
+
 
   render() {
     return (
@@ -57,7 +63,7 @@ export default class HelpPopoverAnimation extends React.Component {
         >
           <Menu>
             <MenuItem primaryText="Help &amp; Feedback" onClick={() => alert('Help Feedback Clicked!')} />
-            <MenuItem primaryText="About" onClick={() => this.props.handleDialogHelpAboutOpen(true)} />
+            <MenuItem primaryText="About" onClick={() => this.handleRequestClose() & this.props.handleDialogHelpAboutOpen(true)} />
           </Menu>
         </Popover>
       </div>

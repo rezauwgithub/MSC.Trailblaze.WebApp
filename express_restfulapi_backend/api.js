@@ -63,63 +63,57 @@ app.use((req, res, next) => {
 app.use(logger('dev' || 'prod'));
 
 
-
-
-
-
 app.get('/api/compilers.names', cache(settings.CACHE_TTL), (req, res) => {
 
   console.log('/api/compilers.name was called!');
 
+  if (settings.USE_FAKE_DATE) {
+    setTimeout(() => {
+      console.log(`Querying compilers names from mscmc...`);
+      res.send([
+        {
+          value: 0,
+          name: 'COMPILERTest426723'
+        },
+        {
+          value: 1,
+          name: 'COMPILERTest4223'
+        },
+        {
+          value: 2,
+          name: 'COMPILERTest424323'
+        },
+        {
+          value: 3,
+          name: 'COMPILERTest4243523'
+        }
+      ])
+      
+    }, 45441);
 
-  let testProject = require('./classes/Project')();
-
-
+  } else {
   
-  setTimeout(() => {
-    console.log(`Querying compilers for...`);
-    res.send([
-      {
-        value: 0,
-        name: 'COMPILERTest426723'
-      },
-      {
-        value: 1,
-        name: 'COMPILERTest4223'
-      },
-      {
-        value: 2,
-        name: 'COMPILERTest424323'
-      },
-      {
-        value: 3,
-        name: 'COMPILERTest4243523'
-      }
-    ])
-  }, 45441);
-  
+    util.getLicensedCompilers((licensedCompilers) => {
+      res.json(licensedCompilers);
+    });
 
-  /*
-  util.getLicensedCompilers((licensedCompilers) => {
-    res.json(licensedCompilers);
-  });
-  */
-  
+  }
 
 });
 
 
-app.get('/api/compiler.details/:compilervalue', (req, res) => {
+app.get('/api/compiler.details/:compilervalue', cache(settings.CACHE_TTL), (req, res) => {
 
   // body parser lets us use the req.body
-  console.log(`/api/compilers.details was called for ${req.params.compilername}!`);
+  console.log(`/api/compilers.details was called for ${global.licensedCompilersjsonArr[req.params.compilervalue].name}!`);
 
-  
-  setTimeout(() => {
+  if (settings.USE_FAKE_DATE) {
+
+    setTimeout(() => {
 
     console.log(`Querying compilers details for...`);
 
-    switch (req.params.compilername) {
+    switch (global.licensedCompilersjsonArr[req.params.compilervalue].name) {
       case 'COMPILERTest426723':
         res.send(
           {
@@ -247,42 +241,46 @@ app.get('/api/compiler.details/:compilervalue', (req, res) => {
         )
 
         break;
-    }
 
-  }, 20000);
-  
+      }
 
-  /*
-  util.getCompilerDetails(req.body.addedCompiler, (compilerDetails) => {
-    res.send(compilerDetails);
-  });
-  */
+    }, 20000);
+
+  } else {
+
+    util.getCompilerDetails(req.params.compilervalue, (compilerDetails) => {
+      res.send(compilerDetails);
+    });
+
+  }
 
 });
 
 
-app.get('/api/compiler.options/:compilervalue', (req, res) => {
+app.get('/api/compiler.options/:compilervalue', cache(settings.CACHE_TTL), (req, res) => {
 
   // body parser lets us use the req.body
-  console.log(`/api/compilers.options was called for ${req.params.compilername}!`);
+  console.log(`/api/compilers.options was called for ${global.licensedCompilersjsonArr[req.params.compilervalue].name}!`);
 
-  
-  setTimeout(() => {
-    console.log(`Querying so called compilers options for...`);
-    res.send(
-      {
-        value: req.params.compilervalue,
-        name: req.params.compilername
-      },
-    )
-  }, 20000);
-  
+  if (settings.USE_FAKE_DATE) {
 
-  /*
-  util.getCompilerOptions(req.body.addedCompiler, (compilerOptions) => {
-    res.send(compilerOptions);
-  });
-  */
+    setTimeout(() => {
+      console.log(`Querying so called compilers options for...`);
+      res.send(
+        {
+          value: req.params.compilervalue,
+          name: util.licensedCompilersjsonArr[req.params.compilervalue].name
+        },
+      )
+    }, 20000);
+
+  } else {
+
+    util.getCompilerOptions(req.params.compilervalue, (compilerOptions) => {
+      res.send(compilerOptions);
+    });
+
+  }
 
 });
 
