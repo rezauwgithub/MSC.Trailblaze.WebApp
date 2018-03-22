@@ -9,15 +9,16 @@ const mcache = require('memory-cache');
 const settings = require('./__backend_app_settings__');
 const util = require('./util'); 
 
-
 let cache = (duration) => {
 
   return (req, res, next) => {
+
+
     let key = '__express__' + req.originalUrl || req.url;
     let cachedBody = mcache.get(key);
     if (cachedBody) {
 
-      console.log(chalk.blue('[cache]') + ` sending cached (memory-cache) version of ${req.originalUrl || req.url} ` + chalk.yellow(`- 0ms`));
+      console.log(`${chalk.blue('[cache]')} sending cached (memory-cache) version of ${req.originalUrl || req.url}.`); 
 
       res.send(cachedBody);
 
@@ -28,7 +29,10 @@ let cache = (duration) => {
       res.sendResponse = res.send;
       res.send = (body) => {
 
-        mcache.put(key, body, duration * 1000);
+        console.log(`${chalk.blue('[cache]')} adding cache entry for "${req.originalUrl || req.url}" for TTL of ${settings.CACHE_TTL} seconds.`);
+        mcache.put(key, body, duration * 1000, () => {
+          console.log(`${chalk.red('[cache]')} cache entry "${req.originalUrl || req.url}" has expired!`);
+        });
         res.sendResponse(body);
       }
 
@@ -433,7 +437,7 @@ app.put('/api/createNewProject', (req, res) => {
 
 
 app.use((req, res) => {
-  res.status(404).send('Oops. Where did that page go? Hmm...')
+  res.status(404).send('Oops... Where did that page go? Hmm...')
 });
 
 

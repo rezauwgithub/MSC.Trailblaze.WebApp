@@ -1,20 +1,21 @@
 const { exec } = require('child_process');
+const chalk = require('chalk');
 
 
 global.licensedCompilersjsonArr = null;
 
 module.exports.getLicensedCompilers = (callback) => {
 
-  console.log(`getLicensedCompilers() got called!`);
-  console.log(`Querying mscmc for licensed compilers...`);
+  console.log(chalk.cyan(`getLicensedCompilers() got called!`));
+  console.log(chalk.cyan(`Querying mscmc for licensed compilers...`));
 
   const command = `ssh reza@fusion15 mscmc -list;`;
-  console.log('Running command ' + command);
+  console.log(chalk.cyan('Running command ' + command));
 
   exec(command, (err, stdout, stderr) => {
 
     if (err) {
-      console.error(`exec error: ${err}`);
+      console.error(chalk.red(`exec error: ${err}`));
       return;
     }
 
