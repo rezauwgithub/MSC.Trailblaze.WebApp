@@ -4,24 +4,30 @@ const app = require('express')();
 const bodyParser = require('body-parser');
 const editJsonFile = require('edit-json-file');
 const logger = require('morgan');
+const chalk = require('chalk');
 const mcache = require('memory-cache');
 const settings = require('./__backend_app_settings__');
 const util = require('./util'); 
 
 
 let cache = (duration) => {
-  
+
   return (req, res, next) => {
     let key = '__express__' + req.originalUrl || req.url;
     let cachedBody = mcache.get(key);
     if (cachedBody) {
+
+      console.log(chalk.blue('[cache]') + ` sending cached (memory-cache) version of ${req.originalUrl || req.url} ` + chalk.yellow(`- 0ms`));
+
       res.send(cachedBody);
 
       return;
 
     } else {
+
       res.sendResponse = res.send;
       res.send = (body) => {
+
         mcache.put(key, body, duration * 1000);
         res.sendResponse(body);
       }
@@ -257,10 +263,10 @@ app.get('/api/compiler.details/:compilervalue', cache(settings.CACHE_TTL), (req,
 });
 
 
-app.get('/api/compiler.options/:compilervalue', cache(settings.CACHE_TTL), (req, res) => {
+app.get('/api/compiler.options.user/:compilervalue', cache(settings.CACHE_TTL), (req, res) => {
 
   // body parser lets us use the req.body
-  console.log(`/api/compilers.options was called for ${global.licensedCompilersjsonArr[req.params.compilervalue].name}!`);
+  console.log(`/api/compilers.options.user was called for ${global.licensedCompilersjsonArr[req.params.compilervalue].name}!`);
 
   if (settings.USE_FAKE_DATE) {
 
@@ -276,8 +282,120 @@ app.get('/api/compiler.options/:compilervalue', cache(settings.CACHE_TTL), (req,
 
   } else {
 
-    util.getCompilerOptions(req.params.compilervalue, (compilerOptions) => {
-      res.send(compilerOptions);
+    util.getCompilerUserOptions(req.params.compilervalue, (compilerUserOptions) => {
+      res.send(compilerUserOptions);
+    });
+
+  }
+
+});
+
+
+app.get('/api/compiler.options.project/:compilervalue', cache(settings.CACHE_TTL), (req, res) => {
+
+  // body parser lets us use the req.body
+  console.log(`/api/compilers.options.project was called for ${global.licensedCompilersjsonArr[req.params.compilervalue].name}!`);
+
+  if (settings.USE_FAKE_DATE) {
+
+    setTimeout(() => {
+      console.log(`Querying so called compilers options for...`);
+      res.send(
+        {
+          value: req.params.compilervalue,
+          name: util.licensedCompilersjsonArr[req.params.compilervalue].name
+        },
+      )
+    }, 20000);
+
+  } else {
+
+    util.getCompilerProjectOptions(req.params.compilervalue, (compilerProjectOptions) => {
+      res.send(compilerProjectOptions);
+    });
+
+  }
+
+});
+
+
+app.get('/api/compiler.options.developer/:compilervalue', cache(settings.CACHE_TTL), (req, res) => {
+
+  // body parser lets us use the req.body
+  console.log(`/api/compilers.options.developer was called for ${global.licensedCompilersjsonArr[req.params.compilervalue].name}!`);
+
+  if (settings.USE_FAKE_DATE) {
+
+    setTimeout(() => {
+      console.log(`Querying so called compilers options for...`);
+      res.send(
+        {
+          value: req.params.compilervalue,
+          name: util.licensedCompilersjsonArr[req.params.compilervalue].name
+        },
+      )
+    }, 20000);
+
+  } else {
+
+    util.getCompilerDeveloperOptions(req.params.compilervalue, (compilerDeveloperOptions) => {
+      res.send(compilerDeveloperOptions);
+    });
+
+  }
+
+});
+
+
+app.get('/api/compiler.options.compiler/:compilervalue', cache(settings.CACHE_TTL), (req, res) => {
+
+  // body parser lets us use the req.body
+  console.log(`/api/compilers.options.compiler was called for ${global.licensedCompilersjsonArr[req.params.compilervalue].name}!`);
+
+  if (settings.USE_FAKE_DATE) {
+
+    setTimeout(() => {
+      console.log(`Querying so called compilers options for...`);
+      res.send(
+        {
+          value: req.params.compilervalue,
+          name: util.licensedCompilersjsonArr[req.params.compilervalue].name
+        },
+      )
+    }, 20000);
+
+  } else {
+
+    util.getCompilerCompilerOptions(req.params.compilervalue, (compilerCompilerOptions) => {
+      res.send(compilerCompilerOptions);
+    });
+
+  }
+
+});
+
+
+app.get('/api/compiler.options.all/:compilervalue', cache(settings.CACHE_TTL), (req, res) => {
+
+  // body parser lets us use the req.body
+  console.log(`/api/compilers.options.all was called for ${global.licensedCompilersjsonArr[req.params.compilervalue].name}!`);
+
+  if (settings.USE_FAKE_DATE) {
+
+    setTimeout(() => {
+      console.log(`Querying so called compilers options for...`);
+      res.send(
+        {
+          value: req.params.compilervalue,
+          name: util.licensedCompilersjsonArr[req.params.compilervalue].name
+        },
+      )
+    }, 20000);
+
+  } else {
+
+    util.getCompilerAllOptions(req.params.compilervalue, (compilerAllOptions) => {
+      res.send(compilerAllOptions);
     });
 
   }

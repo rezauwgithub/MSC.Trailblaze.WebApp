@@ -107,10 +107,106 @@ module.exports.getCompilerDetails = (compilervalue, callback) => {
 
 
 
-module.exports.getCompilerOptions = (compilervalue, callback) => {
+module.exports.getCompilerUserOptions = (compilervalue, callback) => {
 
-  console.log(`getCompilerOptions() got called for ${global.licensedCompilersjsonArr[compilervalue].name}!`);
-  console.log(`Querying mscmc for compiler (${global.licensedCompilersjsonArr[compilervalue].name}) options...`);
+  console.log(`getCompilerUserOptions() got called for ${global.licensedCompilersjsonArr[compilervalue].name}!`);
+  console.log(`Querying mscmc for compiler (${global.licensedCompilersjsonArr[compilervalue].name}) user options...`);
+
+  const command = `ssh reza@fusion15 mscmc -options user ${licensedCompilersjsonArr[compilervalue].name}`;
+  console.log('Running command ' + command);
+
+  exec(command, (err, stdout, stderr) => {
+      if (err) {
+          console.error(`exec error: ${err}`);
+          return;
+      }
+
+
+      var jsonStrArr = [];
+      console.log('stdout: ' + stdout)
+
+
+      callback(jsonStrArr);
+  });
+}
+
+
+module.exports.getCompilerProjectOptions = (compilervalue, callback) => {
+
+  console.log(`getCompilerProjectOptions() got called for ${global.licensedCompilersjsonArr[compilervalue].name}!`);
+  console.log(`Querying mscmc for compiler (${global.licensedCompilersjsonArr[compilervalue].name}) project options...`);
+
+  const command = `ssh reza@fusion15 mscmc -options project ${licensedCompilersjsonArr[compilervalue].name}`;
+  console.log('Running command ' + command);
+
+  exec(command, (err, stdout, stderr) => {
+      if (err) {
+          console.error(`exec error: ${err}`);
+          return;
+      }
+
+
+      var jsonStrArr = [];
+      console.log('stdout: ' + stdout)
+
+
+      callback(jsonStrArr);
+  });
+}
+
+
+module.exports.getCompilerDeveloperOptions = (compilervalue, callback) => {
+
+  console.log(`getCompilerDeveloperOptions() got called for ${global.licensedCompilersjsonArr[compilervalue].name}!`);
+  console.log(`Querying mscmc for compiler (${global.licensedCompilersjsonArr[compilervalue].name}) developer options...`);
+
+  const command = `ssh reza@fusion15 mscmc -options developer ${licensedCompilersjsonArr[compilervalue].name}`;
+  console.log('Running command ' + command);
+
+  exec(command, (err, stdout, stderr) => {
+      if (err) {
+          console.error(`exec error: ${err}`);
+          return;
+      }
+
+
+      var jsonStrArr = [];
+      console.log('stdout: ' + stdout)
+
+
+      callback(jsonStrArr);
+  });
+}
+
+
+module.exports.getCompilerCompilerOptions = (compilervalue, callback) => {
+
+  console.log(`getCompilerCompilerOptions() got called for ${global.licensedCompilersjsonArr[compilervalue].name}!`);
+  console.log(`Querying mscmc for compiler (${global.licensedCompilersjsonArr[compilervalue].name}) compiler options...`);
+
+  const command = `ssh reza@fusion15 mscmc -options compiler ${licensedCompilersjsonArr[compilervalue].name}`;
+  console.log('Running command ' + command);
+
+  exec(command, (err, stdout, stderr) => {
+      if (err) {
+          console.error(`exec error: ${err}`);
+          return;
+      }
+
+
+      var jsonStrArr = [];
+      console.log('stdout: ' + stdout)
+
+
+      callback(jsonStrArr);
+  });
+}
+
+
+module.exports.getCompilerAllOptions = (compilervalue, callback) => {
+
+  console.log(`getCompilerAllOptions() got called for ${global.licensedCompilersjsonArr[compilervalue].name}!`);
+  console.log(`Querying mscmc for compiler (${global.licensedCompilersjsonArr[compilervalue].name}) all options...`);
 
   const command = `ssh reza@fusion15 mscmc -options all ${licensedCompilersjsonArr[compilervalue].name}`;
   console.log('Running command ' + command);
@@ -129,5 +225,10 @@ module.exports.getCompilerOptions = (compilervalue, callback) => {
       callback(jsonStrArr);
   });
 }
+
+
+
+
+
 
 
