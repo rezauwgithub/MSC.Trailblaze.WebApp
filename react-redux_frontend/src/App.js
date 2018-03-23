@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as compilersSelectors from './redux/compilers/reducer';
+import * as compilersLicensedSelectors from './redux/compilers/licensed/reducer';
 
 import { Helmet } from 'react-helmet';
 import * as settings from './__frontend_app_settings__';
@@ -47,9 +47,9 @@ const App = () => (
 // Map state to pros
 const mapStateToProps = (state) => {
   return {
-    isFetchingLicensedCompilers: compilersSelectors.getIsFetchingLicensedCompilers(state),
-    licensedCompilers: compilersSelectors.getLicensedCompilers(state),
-    hasErroredFetchingLicensedCompilers: compilersSelectors.getHasErroredFetchingLicensedCompilers(state),
+    isFetchingLicensedCompilers: compilersLicensedSelectors.getIsFetchingLicensedCompilers(state),
+    licensedCompilers: compilersLicensedSelectors.getLicensedCompilers(state),
+    hasErroredFetchingLicensedCompilers: compilersLicensedSelectors.getHasErroredFetchingLicensedCompilers(state),
   };
 }
 

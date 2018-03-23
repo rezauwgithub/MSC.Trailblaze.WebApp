@@ -16,8 +16,22 @@ import RaisedButton from 'material-ui/RaisedButton';
 import CompilersSelectField from '../../../containers/content/subcontainers/CompilersSelectField';
 import ExistingInstancesTable from '../../../components/content/ExistingInstancesTable';
 
-import * as compilersActions from '../../../redux/compilers/actions';
-import * as compilersSelectors from '../../../redux/compilers/reducer';
+import * as compilersDetailsActions from '../../../redux/compilers/details/actions';
+import * as compilersDetailsSelectors from '../../../redux/compilers/details/reducer';
+
+import * as compilersLicensedActions from '../../../redux/compilers/licensed/actions';
+import * as compilersLicensedSelectors from '../../../redux/compilers/licensed/reducer';
+
+import * as compilersAllOptionsActions from '../../../redux/compilers/options/all/actions';
+import * as compilersAllOptionsSelectors from '../../../redux/compilers/options/all/reducer';
+import * as compilersCompilerOptionsActions from '../../../redux/compilers/options/compiler/actions';
+import * as compilersCompilerOptionsSelectors from '../../../redux/compilers/options/compiler/reducer';
+import * as compilersDeveloperOptionsActions from '../../../redux/compilers/options/developer/actions';
+import * as compilersDeveloperOptionsSelectors from '../../../redux/compilers/options/developer/reducer';
+import * as compilersProjectOptionsActions from '../../../redux/compilers/options/project/actions';
+import * as compilersProjectOptionsSelectors from '../../../redux/compilers/options/project/reducer';
+import * as compilersUserOptionsActions from '../../../redux/compilers/options/user/actions';
+import * as compilersUserOptionsSelectors from '../../../redux/compilers/options/user/reducer';
 
 
 import * as navigationSelectors from '../../../redux/navigation/reducer';
@@ -123,17 +137,34 @@ class DefineScreen extends Component {
 // Map state to pros
 const mapStateToProps = (state) => {
   return {
-    isFetchingLicensedCompilers: compilersSelectors.getIsFetchingLicensedCompilers(state),
-    licensedCompilers: compilersSelectors.getLicensedCompilers(state),
-    hasErroredFetchingLicensedCompilers: compilersSelectors.getHasErroredFetchingLicensedCompilers(state),
+    isFetchingLicensedCompilers: compilersLicensedSelectors.getIsFetchingLicensedCompilers(state),
+    licensedCompilers: compilersLicensedSelectors.getLicensedCompilers(state),
+    hasErroredFetchingLicensedCompilers: compilersLicensedSelectors.getHasErroredFetchingLicensedCompilers(state),
 
-    isFetchingAddedCompilerDetailsjsonObj: compilersSelectors.getIsFetchingCompilerDetailsjsonObj(state),
-    addedCompilerDetailsjsonObj: compilersSelectors.getCompilerDetailsjsonObj(state),
-    hasErroredFetchingAddedCompilerDetailsjsonObj: compilersSelectors.getHasErroredFetchingCompilerDetailsjsonObj(state),
+    isFetchingAddedCompilerDetailsjsonObj: compilersDetailsSelectors.getIsFetchingCompilerDetailsjsonObj(state),
+    addedCompilerDetailsjsonObj: compilersDetailsSelectors.getCompilerDetailsjsonObj(state),
+    hasErroredFetchingAddedCompilerDetailsjsonObj: compilersDetailsSelectors.getHasErroredFetchingCompilerDetailsjsonObj(state),
     
-    isFetchingAddedCompilerOptionsjsonObj: compilersSelectors.getIsFetchingCompilerOptionsjsonObj(state),
-    addedCompilerOptionsjsonObj: compilersSelectors.getCompilerOptionsjsonObj(state),
-    hasErroredFetchingAddedCompilerOptionsjsonObj: compilersSelectors.getHasErroredFetchingCompilerOptionsjsonObj(state),
+
+    isFetchingAddedCompilerAllOptionsjsonObj: compilersAllOptionsSelectors.getIsFetchingCompilerAllOptionsjsonObj(state),
+    addedCompilerAllOptionsjsonObj: compilersAllOptionsSelectors.getCompilerAllOptionsjsonObj(state),
+    hasErroredFetchingAddedAllCompilerOptionsjsonObj: compilersAllOptionsSelectors.getHasErroredFetchingCompilerAllOptionsjsonObj(state),
+    
+    isFetchingAddedCompilerCompilerOptionsjsonObj: compilersCompilerOptionsSelectors.getIsFetchingCompilerCompilerOptionsjsonObj(state),
+    addedCompilerCompilerOptionsjsonObj: compilersCompilerOptionsSelectors.getCompilerCompilerOptionsjsonObj(state),
+    hasErroredFetchingAddedCompilerCompilerOptionsjsonObj: compilersCompilerOptionsSelectors.getHasErroredFetchingCompilerCompilerOptionsjsonObj(state),
+    
+    isFetchingAddedCompilerDeveloperOptionsjsonObj: compilersDeveloperOptionsSelectors.getIsFetchingCompilerDeveloperOptionsjsonObj(state),
+    addedCompilerDeveloperOptionsjsonObj: compilersDeveloperOptionsSelectors.getCompilerDeveloperOptionsjsonObj(state),
+    hasErroredFetchingAddedCompilerDeveloperOptionsjsonObj: compilersDeveloperOptionsSelectors.getHasErroredFetchingCompilerDeveloperOptionsjsonObj(state),
+    
+    isFetchingAddedCompilerProjectOptionsjsonObj: compilersProjectOptionsSelectors.getIsFetchingCompilerProjectOptionsjsonObj(state),
+    addedCompilerProjectOptionsjsonObj: compilersProjectOptionsSelectors.getCompilerProjectOptionsjsonObj(state),
+    hasErroredFetchingAddedCompilerProjectOptionsjsonObj: compilersProjectOptionsSelectors.getHasErroredFetchingCompilerProjectOptionsjsonObj(state),
+
+    isFetchingAddedCompilerUserOptionsjsonObj: compilersUserOptionsSelectors.getIsFetchingCompilerUserOptionsjsonObj(state),
+    addedCompilerUserOptionsjsonObj: compilersUserOptionsSelectors.getCompilerUserOptionsjsonObj(state),
+    hasErroredFetchingAddedCompilerUserOptionsjsonObj: compilersUserOptionsSelectors.getHasErroredFetchingCompilerUserOptionsjsonObj(state),
 
 
     slideIndex: navigationSelectors.getSlideIndex(state),
