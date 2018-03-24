@@ -75,192 +75,9 @@ app.get('/api/compilers.names', cache(settings.CACHE_TTL), (req, res) => {
 
   console.log('/api/compilers.name was called!');
 
-  if (settings.USE_FAKE_DATE) {
-    setTimeout(() => {
-      console.log(`Querying compilers names from mscmc...`);
-      res.send([
-        {
-          value: 0,
-          name: 'COMPILERTest426723'
-        },
-        {
-          value: 1,
-          name: 'COMPILERTest4223'
-        },
-        {
-          value: 2,
-          name: 'COMPILERTest424323'
-        },
-        {
-          value: 3,
-          name: 'COMPILERTest4243523'
-        }
-      ])
-      
-    }, 45441);
-
-  } else {
-  
-    util.getLicensedCompilers((licensedCompilers) => {
-      res.json(licensedCompilers);
-    });
-
-  }
-
-});
-
-
-app.get('/api/compiler.details/:compilervalue', cache(settings.CACHE_TTL), (req, res) => {
-
-  // body parser lets us use the req.body
-  console.log(`/api/compilers.details was called for ${global.licensedCompilersjsonArr[req.params.compilervalue].name}!`);
-
-  if (settings.USE_FAKE_DATE) {
-
-    setTimeout(() => {
-
-    console.log(`Querying compilers details for...`);
-
-    switch (global.licensedCompilersjsonArr[req.params.compilervalue].name) {
-      case 'COMPILERTest426723':
-        res.send(
-          {
-            userGuidePDFPath: '/path/to/userGuide/COMPILERTest426723PDF',
-            process: 'exampleProcessCOMPILERTest426723',
-            compiler: 'exampleCompilerCOMPILERTest426723',
-            baseFileVersion: 'exampleBaseFileVersionCOMPILERTest426723',
-            columnOptions: [
-              {
-                title: 'rezaMem',
-                dataType: 'int'
-              },
-              {
-                title: 'rezaBytes',
-                dataType: 'int'
-              },
-              {
-                title: 'sli',
-                dataType: 'bool'
-              }
-            ]
-          },
-        )
-
-        break;
-
-      case 'COMPILERTest4223':
-        res.send(
-          {
-            userGuidePDFPath: '/path/to/userGuide/COMPILERTest4223PDF',
-            process: 'exampleProcessCOMPILERTest4223',
-            compiler: 'exampleCompilerCOMPILERTest4223',
-            baseFileVersion: 'exampleBaseFileVersionCOMPILERTest4223',
-            columnOptions: [
-              {  
-                title: 'rezaBits',
-                dataType: 'int'
-              },
-              {
-                title: 'rezaMem',
-                dataType: 'int'
-              },
-              {
-                title: 'sli',
-                dataType: 'bool'
-              }
-            ]
-          },
-        )
-
-        break;
-
-      case 'COMPILERTest424323':
-        res.send(
-          {
-            userGuidePDFPath: '/path/to/userGuide/COMPILERTest424323PDF',
-            process: 'exampleProcessCOMPILERTest424323',
-            compiler: 'exampleCompilerCOMPILERTest424323',
-            baseFileVersion: 'exampleBaseFileVersionCOMPILERTest424323',
-            columnOptions: [
-              {  
-                title: 'rezaLong',
-                dataType: 'int'
-              },
-              {
-                title: 'sli',
-                dataType: 'bool'
-              }
-            ]
-          },
-        )
-
-        break;
-
-
-      case 'COMPILERTest4243523':
-        res.send(
-          {
-            userGuidePDFPath: '/path/to/userGuide/COMPILERTest4243523PDF',
-            process: 'exampleProcessCOMPILERTest4243523',
-            compiler: 'exampleCompilerCOMPILERTest4243523',
-            baseFileVersion: 'exampleBaseFileVersionCOMPILERTest4243523',
-            columnOptions: [
-              {  
-                title: 'rezaBits',
-                dataType: 'int'
-              },
-              {
-                title: 'rezaBytes',
-                dataType: 'int'
-              },
-              {
-                title: 'sli',
-                dataType: 'bool'
-              }
-            ]
-          },
-        )
-
-        break;
-
-      
-      default:
-        res.send(
-          {
-            userGuidePDFPath: '/path/to/userGuide/DEFAULTPDF',
-            process: 'exampleProcessDEFAULT',
-            compiler: 'exampleCompilerDEFAULT',
-            baseFileVersion: 'exampleBaseFileVersionDEFAULT',
-            columnOptions: [
-              {  
-                title: 'rezaBits',
-                dataType: 'int'
-              },
-              {
-                title: 'rezaBytes',
-                dataType: 'int'
-              },
-              {
-                title: 'sli',
-                dataType: 'bool'
-              }
-            ]
-          },
-        )
-
-        break;
-
-      }
-
-    }, 20000);
-
-  } else {
-
-    util.getCompilerDetails(req.params.compilervalue, (compilerDetails) => {
-      res.send(compilerDetails);
-    });
-
-  }
+  util.getLicensedCompilers((licensedCompilers) => {
+    res.json(licensedCompilers);
+  });
 
 });
 
@@ -270,25 +87,9 @@ app.get('/api/compiler.options.user/:compilervalue', cache(settings.CACHE_TTL), 
   // body parser lets us use the req.body
   console.log(`/api/compilers.options.user was called for ${global.licensedCompilersjsonArr[req.params.compilervalue].name}!`);
 
-  if (settings.USE_FAKE_DATE) {
-
-    setTimeout(() => {
-      console.log(`Querying so called compilers options for...`);
-      res.send(
-        {
-          value: req.params.compilervalue,
-          name: util.licensedCompilersjsonArr[req.params.compilervalue].name
-        },
-      )
-    }, 20000);
-
-  } else {
-
-    util.getCompilerUserOptions(req.params.compilervalue, (compilerUserOptions) => {
-      res.send(compilerUserOptions);
-    });
-
-  }
+  util.getCompilerUserOptions(req.params.compilervalue, (compilerUserOptions) => {
+    res.send(compilerUserOptions);
+  });
 
 });
 
@@ -298,7 +99,7 @@ app.get('/api/compiler.options.project/:compilervalue', cache(settings.CACHE_TTL
   // body parser lets us use the req.body
   console.log(`/api/compilers.options.project was called for ${global.licensedCompilersjsonArr[req.params.compilervalue].name}!`);
 
-  if (settings.USE_FAKE_DATE) {
+  if (settings.USE_FAKE_DATA) {
 
     setTimeout(() => {
       console.log(`Querying so called compilers options for...`);
@@ -326,7 +127,7 @@ app.get('/api/compiler.options.developer/:compilervalue', cache(settings.CACHE_T
   // body parser lets us use the req.body
   console.log(`/api/compilers.options.developer was called for ${global.licensedCompilersjsonArr[req.params.compilervalue].name}!`);
 
-  if (settings.USE_FAKE_DATE) {
+  if (settings.USE_FAKE_DATA) {
 
     setTimeout(() => {
       console.log(`Querying so called compilers options for...`);
@@ -354,7 +155,7 @@ app.get('/api/compiler.options.compiler/:compilervalue', cache(settings.CACHE_TT
   // body parser lets us use the req.body
   console.log(`/api/compilers.options.compiler was called for ${global.licensedCompilersjsonArr[req.params.compilervalue].name}!`);
 
-  if (settings.USE_FAKE_DATE) {
+  if (settings.USE_FAKE_DATA) {
 
     setTimeout(() => {
       console.log(`Querying so called compilers options for...`);
@@ -382,7 +183,7 @@ app.get('/api/compiler.options.all/:compilervalue', cache(settings.CACHE_TTL), (
   // body parser lets us use the req.body
   console.log(`/api/compilers.options.all was called for ${global.licensedCompilersjsonArr[req.params.compilervalue].name}!`);
 
-  if (settings.USE_FAKE_DATE) {
+  if (settings.USE_FAKE_DATA) {
 
     setTimeout(() => {
       console.log(`Querying so called compilers options for...`);
