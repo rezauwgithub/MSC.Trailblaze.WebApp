@@ -124,8 +124,8 @@ module.exports.getCompilerUserOptions = (compilervalue, callback) => {
 
 
       var jsonStrArr = [];
-      console.log('stdout: ' + stdout)
-
+      console.log('stdout: ' + stdout);
+      
 
       callback(jsonStrArr);
   });

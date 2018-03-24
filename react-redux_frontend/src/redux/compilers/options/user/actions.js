@@ -51,7 +51,7 @@ export const fetchAddedCompilerUserOptions = (addedCompiler) => {
     dispatch(isFetchingAddedCompilerUserOptions(JSON.parse(`{ "value": ${addedCompiler.value}, "payload": true }`)));
     dispatch(addLog({ log: `Fetching added compiler (${addedCompiler.name}) user options from API backend...`, dateTime: Date() }));
     // Return a promise
-    return axios.post(`http://${window.location.hostname}:${settings.BACKEND_API_PORT_NUMBER}/api/compiler.options.user/${addedCompiler.value}`)
+    return axios.get(`http://${window.location.hostname}:${settings.BACKEND_API_PORT_NUMBER}/api/compiler.options.user/${addedCompiler.value}`)
     .then(res => {
       // Dispatch another action to consume data
       dispatch(addedCompilerUserOptionsFetched(JSON.parse(`{ "value": ${addedCompiler.value}, "payload": ${res.data} }`)));

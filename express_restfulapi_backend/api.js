@@ -13,12 +13,11 @@ let cache = (duration) => {
 
   return (req, res, next) => {
 
-
     let key = '__express__' + req.originalUrl || req.url;
     let cachedBody = mcache.get(key);
     if (cachedBody) {
 
-      console.log(`${chalk.blue('[cache]')} sending cached (memory-cache) version of ${req.originalUrl || req.url}.`); 
+      console.log(`${chalk.blue('[cache]')} ${chalk.yellow('sending cached (memory-cache) version')} of ${req.originalUrl || req.url}.`); 
 
       res.send(cachedBody);
 
@@ -27,9 +26,8 @@ let cache = (duration) => {
     } else {
 
       res.sendResponse = res.send;
+      console.log(`${chalk.blue('[cache]')} adding cache entry for "${req.originalUrl || req.url}" for TTL of ${settings.CACHE_TTL} seconds.`);
       res.send = (body) => {
-
-        console.log(`${chalk.blue('[cache]')} adding cache entry for "${req.originalUrl || req.url}" for TTL of ${settings.CACHE_TTL} seconds.`);
         mcache.put(key, body, duration * 1000, () => {
           console.log(`${chalk.red('[cache]')} cache entry "${req.originalUrl || req.url}" has expired!`);
         });
@@ -439,6 +437,8 @@ app.put('/api/createNewProject', (req, res) => {
 app.use((req, res) => {
   res.status(404).send('Oops... Where did that page go? Hmm...')
 });
+
+
 
 
 const server = app.listen(settings.LISTEN_ON_PORT_NUMBER, () => {

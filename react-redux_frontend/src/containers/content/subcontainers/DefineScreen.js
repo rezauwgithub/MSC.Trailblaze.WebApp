@@ -84,7 +84,7 @@ class DefineScreen extends Component {
       ));
 
       //this.props.dispatch(compilersActions.fetchAddedCompilerDetails(this.props.licensedCompilers[selectedCompiler]));
-      
+      this.props.dispatch(compilersUserOptionsActions.fetchAddedCompilerUserOptions(this.props.licensedCompilers[selectedCompiler]));
 
     });
   }
