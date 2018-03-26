@@ -113,7 +113,7 @@ module.exports.getCompilerUserOptions = (compilervalue, callback) => {
 
       exampleOptionsData.push('keep_diag_addr = true');
       exampleOptionsData.push('keep_diag_addr:datatype = boolean');
-      exampleOptionsData.psuh('keep_diag_addr:compiler = true');
+      exampleOptionsData.push('keep_diag_addr:compiler = true');
 
       exampleOptionsData.push('keep_expect_data = false');
       exampleOptionsData.push('keep_expect_data:datatype = boolean');
@@ -128,14 +128,38 @@ module.exports.getCompilerUserOptions = (compilervalue, callback) => {
       exampleOptionsData.push('verbose:compiler = false');
   
 
+      addedCompilerUserOptionsMap[compilervalue] = [];
 
 
+      let currentOption = null;
+      let currentjsonObj = {};
+      exampleOptionsData.forEach((element) => {
+        
+        let elementArr = element.split(" = ");
+        let leftElement = elementArr[0];
+        let rightElement = elementArr[1];
 
+        
+        let leftElementArr = leftElement.split(":")
+        if (leftElementArr[1] === undefined) {
+          if (currentOption !== null) {
+            addedCompilerUserOptionsMap[compilervalue].push(currentjsonObj);
+            currentjsonObj = {};
+          }
 
-      addedCompilerUserOptionsMap[compilervalue] = {};
-      addedCompilerUserOptionsMap[compilervalue][]
+          currentOption = leftElement;
+          currentjsonObj.option = currentOption;
+          currentjsonObj.placeholder = rightElement;
+
+        } else {
+          currentjsonObj[leftElementArr[1]] = rightElement;
+        }
+
+      });
+  
 
       console.log(JSON.stringify(addedCompilerUserOptionsMap));
+      callback(JSON.stringify(addedCompilerUserOptionsMap));
 
     }, 5441);
 
