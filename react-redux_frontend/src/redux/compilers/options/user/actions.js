@@ -8,6 +8,7 @@
 */
 
 import axios from 'axios';
+
 import * as types from './actionTypes';
 import { addLog } from '../../../logs/actions';
 
@@ -59,7 +60,7 @@ export const fetchAddedCompilerUserOptions = (addedCompiler) => {
       dispatch(addLog({ log: `Added compiler (${addedCompiler.name}) user options fetched!`, dateTime: Date() }));
     })
     .catch(err => {
-      dispatch(hasErroredFetchingAddedCompilerUserOptions(JSON.parse(`{ "value": ${addedCompiler.value}, payload: true }`)));
+      dispatch(hasErroredFetchingAddedCompilerUserOptions(JSON.parse(`{ "value": ${addedCompiler.value}, "payload": true }`)));
       dispatch(isFetchingAddedCompilerUserOptions(JSON.parse(`{ "value": ${addedCompiler.value}, "payload": false }`)));
       dispatch(addLog({ log: `Errored fetching added compiler (${addedCompiler.name}) user options from API backend...`, dateTime: Date() }));
       

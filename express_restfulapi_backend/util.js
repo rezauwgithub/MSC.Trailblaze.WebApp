@@ -5,6 +5,13 @@ const settings = require('./__backend_app_settings__');
 
 
 global.licensedCompilersjsonArr = [];
+global.addedCompilerDetailsMap = {};
+global.addedCompilerAllOptionsMap = {};
+global.addedCompilerCompilerOptionsMap = {};
+global.addedCompilerDeveloperOptionsMap = {};
+global.addedCompilerProjectOptionsMap = {};
+global.addedCompilerUserOptionsMap = {};
+
 
 
 module.exports.getLicensedCompilers = (callback) => {
@@ -17,14 +24,14 @@ module.exports.getLicensedCompilers = (callback) => {
 
 
   if (settings.USE_FAKE_DATA) {
-    console.log('[USING FAKE DATA]')
+    console.log('[USING FAKE DATA]');
 
     setTimeout(() => {
 
-      global.licensedCompilersjsonArr.push({ value: 0, name: 'BIST8584' });
-      global.licensedCompilersjsonArr.push({ value: 1, name: 'COMP852' });
-      global.licensedCompilersjsonArr.push({ value: 2, name: 'MEM84352' });
-      global.licensedCompilersjsonArr.push({ value: 3, name: 'RAM02910' });
+      global.licensedCompilersjsonArr.push({ value: 0, name: 'BIST180' });
+      global.licensedCompilersjsonArr.push({ value: 1, name: 'ROM-LV-TS55ULP' });
+      global.licensedCompilersjsonArr.push({ value: 2, name: 'SP-LVR-TS55EF' });
+      global.licensedCompilersjsonArr.push({ value: 3, name: 'RF1P-LV-GF28SLP' });
 
 
       callback(global.licensedCompilersjsonArr);
@@ -69,7 +76,72 @@ module.exports.getCompilerUserOptions = (compilervalue, callback) => {
   const command = `ssh reza@fusion15 mscmc -options user ${licensedCompilersjsonArr[compilervalue].name}`;
   console.log('Running command ' + command);
 
-  exec(command, (err, stdout, stderr) => {
+
+  if (settings.USE_FAKE_DATA) {
+    console.log('[USING FAKE DATA]');
+
+    setTimeout(() => {
+
+      exampleOptionsData = [];
+
+      exampleOptionsData.push('BISTName = NULL');
+      exampleOptionsData.push('BISTName:datatype = string');
+
+      exampleOptionsData.push('ID = 171');
+      exampleOptionsData.push('ID:datatype = integer');
+      exampleOptionsData.push('ID:compiler = 171');
+
+      exampleOptionsData.push('error_depth = 8');
+      exampleOptionsData.push('error_depth:datatype = integer');
+      exampleOptionsData.push('error_depth:compiler = 8');
+
+      exampleOptionsData.push('error_depth_extra = 0');
+      exampleOptionsData.push('error_depth_extra:datatype = integer');
+      exampleOptionsData.push('error_depth_extra:compiler = 0');
+
+      exampleOptionsData.push('instance_count = 1');
+      exampleOptionsData.push('instance_count:datatype = integer');
+      exampleOptionsData.push('instance_count:compiler = 1');
+
+      exampleOptionsData.push('instance_ids = auto::');
+      exampleOptionsData.push('instance_ids:datatype = list');
+      exampleOptionsData.push('instance_ids:compiler = auto::');
+
+      exampleOptionsData.push('instance_list = comma::seperated::list');
+      exampleOptionsData.push('instance_list:datatype = list');
+      exampleOptionsData.push('instance_list:compiler = comma::seperated::list');
+
+      exampleOptionsData.push('keep_diag_addr = true');
+      exampleOptionsData.push('keep_diag_addr:datatype = boolean');
+      exampleOptionsData.psuh('keep_diag_addr:compiler = true');
+
+      exampleOptionsData.push('keep_expect_data = false');
+      exampleOptionsData.push('keep_expect_data:datatype = boolean');
+      exampleOptionsData.push('keep_expect_data:compiler = false');
+
+      exampleOptionsData.push('march_depth = 40');
+      exampleOptionsData.push('march_depth:datatype = integer');
+      exampleOptionsData.push('march_depth:compiler = 40');
+
+      exampleOptionsData.push('verbose = false');
+      exampleOptionsData.push('verbose:datatype = boolean');
+      exampleOptionsData.push('verbose:compiler = false');
+  
+
+
+
+
+
+      addedCompilerUserOptionsMap[compilervalue] = {};
+      addedCompilerUserOptionsMap[compilervalue][]
+
+      console.log(JSON.stringify(addedCompilerUserOptionsMap));
+
+    }, 5441);
+
+  } else {
+
+    exec(command, (err, stdout, stderr) => {
       if (err) {
           console.error(`exec error: ${err}`);
           return;
@@ -80,8 +152,11 @@ module.exports.getCompilerUserOptions = (compilervalue, callback) => {
       console.log('stdout: ' + stdout);
       
 
-      callback(jsonStrArr);
-  });
+      callback(jsonObj);
+    });
+
+  }
+
 }
 
 
@@ -94,17 +169,17 @@ module.exports.getCompilerProjectOptions = (compilervalue, callback) => {
   console.log('Running command ' + command);
 
   exec(command, (err, stdout, stderr) => {
-      if (err) {
-          console.error(`exec error: ${err}`);
-          return;
-      }
+    if (err) {
+        console.error(`exec error: ${err}`);
+        return;
+    }
 
 
-      var jsonStrArr = [];
-      console.log('stdout: ' + stdout)
+    var jsonStrArr = [];
+    console.log('stdout: ' + stdout)
 
 
-      callback(jsonStrArr);
+    callback(jsonStrArr);
   });
 }
 

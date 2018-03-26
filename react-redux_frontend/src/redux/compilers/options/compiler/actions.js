@@ -48,7 +48,7 @@ export const fetchAddedCompilerCompilerOptions = (addedCompiler) => {
   // Returns a dispatcher function that dispatches an action at a later time.
   return (dispatch) => {
 
-    dispatch(isFetchingAddedCompilerCompilerOptions(JSON.parse(`{ "value": ${addedCompiler.value}, "payload": true }`)));
+    dispatch(isFetchingAddedCompilerCompilerOptions(JSON.parse(`{ "value": ${addedCompiler.value}, "": true }`)));
     dispatch(addLog({ log: `Fetching added compiler (${addedCompiler.name}) compiler options from API backend...`, dateTime: Date() }));
     // Return a promise
     return axios.post(`http://${window.location.hostname}:${settings.BACKEND_API_PORT_NUMBER}/api/compiler.options.compiler/${addedCompiler.value}`)
@@ -59,7 +59,7 @@ export const fetchAddedCompilerCompilerOptions = (addedCompiler) => {
       dispatch(addLog({ log: `Added compiler (${addedCompiler.name}) compiler options fetched!`, dateTime: Date() }));
     })
     .catch(err => {
-      dispatch(hasErroredFetchingAddedCompilerCompilerOptions(JSON.parse(`{ "value": ${addedCompiler.value}, payload: true }`)));
+      dispatch(hasErroredFetchingAddedCompilerCompilerOptions(JSON.parse(`{ "value": ${addedCompiler.value}, "payload": true }`)));
       dispatch(isFetchingAddedCompilerCompilerOptions(JSON.parse(`{ "value": ${addedCompiler.value}, "payload": false }`)));
       dispatch(addLog({ log: `Errored fetching added compiler (${addedCompiler.name}) compiler options from API backend...`, dateTime: Date() }));
       

@@ -100,13 +100,13 @@ export default function reduce(state = initialState, action = {}) {
 
 
 export const getIsFetchingCompilerProjectOptionsjsonObj = (state) => {
-  return state.compilers.isFetchingAddedCompilerProjectOptionsjsonObj;
+  return state.compilers.options.project.isFetchingAddedCompilerProjectOptionsjsonObj;
 }
 
 export const getCompilerProjectOptionsjsonObj = (state) => {
-  return state.compilers.addedCompilerProjectOptionsjsonObj;
+  return state.compilers.options.project.addedCompilerProjectOptionsjsonObj;
 }
 
 export const getHasErroredFetchingCompilerProjectOptionsjsonObj = (state) => {
-  return state.compilers.hasErroredFetchingAddedCompilerProjectOptionsjsonObj;
+  return state.compilers.options.project.hasErroredFetchingAddedCompilerProjectOptionsjsonObj;
 }

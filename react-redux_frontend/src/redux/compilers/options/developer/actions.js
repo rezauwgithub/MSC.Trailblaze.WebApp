@@ -59,7 +59,7 @@ export const fetchAddedCompilerDeveloperOptions = (addedCompiler) => {
       dispatch(addLog({ log: `Added compiler (${addedCompiler.name}) developer options fetched!`, dateTime: Date() }));
     })
     .catch(err => {
-      dispatch(hasErroredFetchingAddedCompilerDeveloperOptions(JSON.parse(`{ "value": ${addedCompiler.value}, payload: true }`)));
+      dispatch(hasErroredFetchingAddedCompilerDeveloperOptions(JSON.parse(`{ "value": ${addedCompiler.value}, "payload": true }`)));
       dispatch(isFetchingAddedCompilerDeveloperOptions(JSON.parse(`{ "value": ${addedCompiler.value}, "payload": false }`)));
       dispatch(addLog({ log: `Errored fetching added compiler (${addedCompiler.name}) developer options from API backend...`, dateTime: Date() }));
       
