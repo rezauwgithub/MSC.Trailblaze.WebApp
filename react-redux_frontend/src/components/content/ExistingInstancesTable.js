@@ -24,7 +24,7 @@ export default class ExistingInstancesTable extends Component {
           <TableHeader enableSelectAll={true}>
             <TableRow style={gunnarStyle}>
               {this.props.existingInstancesTableHeaderColumns.map((col, index) => (
-                <TableHeaderColumn key={index} style={gunnarStyle}>{col.title}</TableHeaderColumn>
+                <TableHeaderColumn key={index} style={gunnarStyle}>{col.option}</TableHeaderColumn>
               ))}
             </TableRow>            
           </TableHeader>

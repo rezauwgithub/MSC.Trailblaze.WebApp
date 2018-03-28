@@ -48,7 +48,6 @@ export default function reduce(state = initialState, action = {}) {
 
 
     case types.ADDED_COMPILER_USER_OPTIONS_FETCHED:
-
       if (state.addedCompilerUserOptionsjsonObj[action.payload.value] === undefined) {
         return {
           ...state,

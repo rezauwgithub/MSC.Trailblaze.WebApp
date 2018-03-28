@@ -42,13 +42,27 @@ export default function reduce(state = initialState, action = {}) {
         ...action.payload.payload
       }
 
+      if (state.addedCompilerCompilerOptionsjsonObj[action.payload.value] === undefined) {
+        return {
+          ...state,
+          addedCompilerCompilerOptionsjsonObj: {
+            ...state.addedCompilerCompilerOptionsjsonObj,
+            [action.payload.value]: action.payload
+          }
+        }
+      }
+
+      state.addedCompilerCompilerOptionsjsonObj[action.payload.value] = {
+        ...state.addedCompilerCompilerOptionsjsonObj[action.payload.value],
+        ...action.payload
+      }
+
       return {
         ...state
       }
 
 
     case types.ADDED_COMPILER_PROJECT_OPTIONS_FETCHED:
-
       if (state.addedCompilerProjectOptionsjsonObj[action.payload.value] === undefined) {
         return {
           ...state,
@@ -67,7 +81,7 @@ export default function reduce(state = initialState, action = {}) {
       return {
         ...state
       }
-
+      
 
     case types.ERRORED_FETCHING_ADDED_COMPILER_PROJECT_OPTIONS:
 

@@ -88,7 +88,7 @@ app.get('/api/compiler.options.user/:compilervalue', cache(settings.CACHE_TTL), 
   console.log(`/api/compilers.options.user was called for ${global.licensedCompilersjsonArr[req.params.compilervalue].name}!`);
 
   util.getCompilerUserOptions(req.params.compilervalue, (compilerUserOptions) => {
-    res.send(compilerUserOptions);
+    res.json(compilerUserOptions);
   });
 
 });

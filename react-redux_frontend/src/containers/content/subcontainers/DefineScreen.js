@@ -77,14 +77,16 @@ class DefineScreen extends Component {
   addInstancesToExistingInstancesTable = () => {
     this.state.selectedCompilers.forEach(selectedCompiler => {
 
+      this.props.dispatch(compilersUserOptionsActions.fetchAddedCompilerUserOptions(this.props.licensedCompilers[selectedCompiler]));
+      //this.props.dispatch(compilersActions.fetchAddedCompilerDetails(this.props.licensedCompilers[selectedCompiler]));
+
+
       this.props.dispatch(instancesActions.addDataToExistingInstancesTable(
         {
           compilerName: this.props.licensedCompilers[selectedCompiler].name
         }
       ));
 
-      //this.props.dispatch(compilersActions.fetchAddedCompilerDetails(this.props.licensedCompilers[selectedCompiler]));
-      this.props.dispatch(compilersUserOptionsActions.fetchAddedCompilerUserOptions(this.props.licensedCompilers[selectedCompiler]));
 
     });
   }
@@ -114,7 +116,8 @@ class DefineScreen extends Component {
             existingInstancesTableHeaderColumns={this.props.existingInstancesTableHeaderColumns} 
             existingInstancesTableData={this.props.existingInstancesTableData} 
             isFetchingAddedCompilerDetailsjsonObj={this.props.isFetchingAddedCompilerDetailsjsonObj} 
-            isFetchingAddedCompilerOptionsjsonObj={this.props.isFetchingAddedCompilerOptionsjsonObj} 
+            isFetchingAddedCompilerUserOptionsjsonObj={this.props.isFetchingAddedCompilerUserOptionsjsonObj}
+            addedCompilerUserOptionsjsonObj={this.props.addedCompilerUserOptionsjsonObj} 
           />
           </div>
           <div style={styles.slide}>
