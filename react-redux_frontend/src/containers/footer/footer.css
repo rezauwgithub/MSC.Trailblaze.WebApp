@@ -3,7 +3,6 @@
   left: 5px;
   right: 5px;
   bottom: 5px;
-  width: calc(100vh - left - right);
   height: 120px;
   border: solid black 1px;
   background-color: #ECEFF1;

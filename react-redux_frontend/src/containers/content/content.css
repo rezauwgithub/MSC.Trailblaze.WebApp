@@ -4,7 +4,6 @@
   bottom: 130px;
   left: 5px;
   right: 5px;
-  width: calc(100vh - left - right);
   border: solid black 1px;
   background-color: #ECEFF1;
   padding: 2px;

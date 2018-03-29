@@ -8,6 +8,8 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
+import TextField from 'material-ui/TextField';
+
 import CircularProgress from 'material-ui/CircularProgress';
 
 
@@ -26,13 +28,23 @@ export default class ExistingInstancesTable extends Component {
               {this.props.existingInstancesTableHeaderColumns.map((col, index) => (
                 <TableHeaderColumn key={index} style={gunnarStyle}>{col.option}</TableHeaderColumn>
               ))}
+              <TableRowColumn style={gunnarStyle}></TableRowColumn>
             </TableRow>            
           </TableHeader>
           <TableBody deselectOnClickaway={false}>
             {this.props.existingInstancesTableData.map((row, index) => (
               <TableRow key={index} style={gunnarStyle}>
                 <TableRowColumn style={gunnarStyle}>{row.compilerName}</TableRowColumn>
-
+                <TableRowColumn style={gunnarStyle}><TextField hintText="WTF?"></TextField></TableRowColumn>
+                <TableRowColumn style={gunnarStyle}>{row.compilerName}</TableRowColumn>
+                <TableRowColumn style={gunnarStyle}>{row.compilerName}</TableRowColumn>
+                <TableRowColumn style={gunnarStyle}>{row.compilerName}</TableRowColumn>
+                <TableRowColumn style={gunnarStyle}>{row.compilerName}</TableRowColumn>
+                <TableRowColumn style={gunnarStyle}>{row.compilerName}</TableRowColumn>
+                <TableRowColumn style={gunnarStyle}>{row.compilerName}</TableRowColumn>
+                <TableRowColumn style={gunnarStyle}>{row.compilerName}</TableRowColumn>
+                <TableRowColumn style={gunnarStyle}>{row.compilerName}</TableRowColumn>
+                <TableRowColumn style={gunnarStyle}>{row.compilerName}</TableRowColumn>
                 
                 <TableRowColumn style={gunnarStyle}><CircularProgress mode={ (this.props.isFetchingAddedCompilerDetailsjsonObj || this.props.isFetchingAddedCompilerOptionsjsonObj) ? "indeterminate" : "determinate" } /></TableRowColumn>
               </TableRow>
