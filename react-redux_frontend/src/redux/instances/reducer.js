@@ -11,12 +11,13 @@ import * as types from './actionTypes';
 
 
 const initialState = Immutable({
-  existingInstancesTableHeaderColumns: [
+  existingInstancesTableHeaderColumns: {
+    'Compiler Name':
     {
       option: 'Compiler Name',
-      dataType: 'string'
+      datatype: 'string'
     }
-  ],
+  },
   existingInstancesTableData: [],
 });
 
@@ -27,7 +28,7 @@ export default function reduce(state = initialState, action = {}) {
 
     case types.ADD_COLUMN_HEADER_TO_EXISTING_INSTANCES_TABLE:
       return state.merge({
-        existingInstancesTableHeaderColumns: state.existingInstancesTableHeaderColumns.concat(action.payload)
+        existingInstancesTableHeaderColumns: state.existingInstancesTableHeaderColumns
       });
     case types.ADD_DATA_TO_EXISTING_INSTANCES_TABLE:
       return state.merge({
