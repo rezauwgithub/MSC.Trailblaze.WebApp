@@ -1,0 +1,28 @@
+{
+  "name": "msc.trailblaze.webapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "express_restfulapi_backend": "cd express_restfulapi_backend && npm start",
+    "react-redux_frontend": "cd react-redux_frontend && npm start",
+    "start": "concurrently \"npm run express_restfulapi_backend\" \"npm run react-redux_frontend\" ",
+    "express_restfulapi_backendSetup": "cd express_restfulapi_backend && npm install",
+    "react-redux_frontendSetup": "cd react-redux_frontend && npm install",
+    "setup": "concurrently \"npm run express_restfulapi_backendSetup\" \"npm run react-redux_frontendSetup\" ",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rezauwgithub/MSC.Trailblaze.WebApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^3.5.1"
+  },
+  "bugs": {
+    "url": "https://github.com/rezauwgithub/MSC.Trailblaze.WebApp/issues"
+  },
+  "homepage": "https://github.com/rezauwgithub/MSC.Trailblaze.WebApp#readme"
+}

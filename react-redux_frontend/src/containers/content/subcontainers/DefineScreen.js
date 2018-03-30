@@ -83,11 +83,10 @@ class DefineScreen extends Component {
 
       this.props.dispatch(instancesActions.addDataToExistingInstancesTable(
         {
-          compilerName: this.props.licensedCompilers[selectedCompiler].name
+          compilerName: this.props.licensedCompilers[selectedCompiler].name,
+          datatype: 'string'
         }
       ));
-
-
     });
   }
 

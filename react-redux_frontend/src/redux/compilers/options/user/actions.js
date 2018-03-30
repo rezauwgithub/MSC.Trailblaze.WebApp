@@ -58,7 +58,7 @@ export const fetchAddedCompilerUserOptions = (addedCompiler) => {
       let addedCompilerUserOptionsjsonObj = JSON.parse(`{ "value": ${addedCompiler.value}, "payload": ${res.data} }`);
 
       dispatch(addedCompilerUserOptionsFetched(addedCompilerUserOptionsjsonObj));
-      dispatch(addHeaderColumnToExistingInstancesTable(addedCompilerUserOptionsjsonObj.payload))
+      dispatch(addHeaderColumnToExistingInstancesTable(addedCompilerUserOptionsjsonObj.payload));
       dispatch(isFetchingAddedCompilerUserOptions(JSON.parse(`{ "value": ${addedCompiler.value}, "payload": false }`)));
       dispatch(addLog({ log: `Added compiler (${addedCompiler.name}) user options fetched!`, dateTime: Date() }));
     })

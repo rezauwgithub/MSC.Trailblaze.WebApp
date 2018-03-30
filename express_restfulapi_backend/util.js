@@ -156,7 +156,7 @@ module.exports.getCompilerUserOptions = (compilervalue, callback) => {
         }
 
       });
-  
+      addedCompilerUserOptionsMap[compilervalue].push(currentjsonObj);
 
       console.log(JSON.stringify(addedCompilerUserOptionsMap[compilervalue]));
       callback(JSON.stringify(addedCompilerUserOptionsMap[compilervalue]));
