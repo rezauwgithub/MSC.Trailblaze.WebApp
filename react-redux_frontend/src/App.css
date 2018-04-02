@@ -1,0 +1,9 @@
+.App {
+  text-align: center;
+}
+
+
+th, td {
+  padding: 2px;
+  text-align: left;
+}

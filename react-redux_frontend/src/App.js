@@ -14,6 +14,9 @@ import ContentScreen from './containers/content/ContentScreen';
 import FooterScreen from './containers/footer/FooterScreen';
 
 
+import './App.css';
+
+
 // This replaces the textColor value on the palette
 // and then update the keys for each component that depends on it.
 // More on Colors: http://www.material-ui.com/#/customization/colors
