@@ -9,6 +9,8 @@
 import Immutable from 'seamless-immutable';
 import * as types from './actionTypes';
 
+import { addHeaderColumnToExistingInstancesTable } from './actions';
+
 
 const initialState = Immutable({
   existingInstancesTableHeaderColumns: [],
@@ -21,13 +23,9 @@ export default function reduce(state = initialState, action = {}) {
   switch (action.type) {
 
     case types.ADD_COLUMN_HEADER_TO_EXISTING_INSTANCES_TABLE:
-      if (state.existingInstancesTableHeaderColumns.findIndex(element => (element.option == action.option) !== -1)) {
-        return state.merge({
-          existingInstancesTableHeaderColumns: state.existingInstancesTableHeaderColumns.concat(action.payload)
-        });
-      }
-
-      return state;
+      return state.merge({
+        existingInstancesTableHeaderColumns: state.existingInstancesTableHeaderColumns.concat(action.payload)
+      });
 
     case types.ADD_DATA_TO_EXISTING_INSTANCES_TABLE:
       return state.merge({

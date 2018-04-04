@@ -1,5 +1,5 @@
 import React from 'react';
-import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import CircularProgress from 'material-ui/CircularProgress';
 
 
@@ -16,16 +16,6 @@ var fakeExistingInstancesTableHeaderColumns = [{
   datatype: "integer",
   option: "ID",
   placeholder: "171"
-}, {
-  compiler: "true",
-  datatype: "boolean",
-  option: "is_verified",
-  placeholder: "true",
-}, {
-  compiler: "1",
-  datatype: "integer",
-  option: "instance_count",
-  placeholder: "1"
 }];
 
 
@@ -41,48 +31,25 @@ var fakeExistingInstancesTableData = [{
 }];
 
 
-// validator function pass the user input value and should return true|false.
-function jobNameValidator(value){
-  if(!value){
-    return 'Job Name is required!'
-  }else if(value.length<10){
-    return 'Job Name length must great 10 char'
-  }
-  return true;
-}
-
-
-
 
 const cellEditProp = {
   mode: 'click'
 };
 
-
-const optionFormatter = (cell, row) => {
-
-  if (true) {
-    
-  }
-
-  return (<div>Jesus</div>);
-}
-
-
-const gunnarStyle = { whiteSpace: "normal", workWrap: "break-word" };
-
-
 const ExistingInstancesTable = (props) => (
-    <BootstrapTable data={ fakeExistingInstancesTableData } cellEdit={ cellEditProp }>
-      <TableHeaderColumn key={0} style={gunnarStyle} dataField='compilerValue' isKey>Compiler ID</TableHeaderColumn>
-      {props.existingInstancesTableHeaderColumns.map((column, index) => {
-        return (
-          <TableHeaderColumn key={index} style={gunnarStyle} dataField={column.option} dataFormat={optionFormatter}>{column.option}</TableHeaderColumn>
-        )
-      })}
 
-      
-    </BootstrapTable>
+  
+
+  <BootstrapTable data={fakeExistingInstancesTableData} keyField='compilerValue' cellEdit={ cellEditProp }>
+    <TableHeaderColumn dataField={'compilerValue'} editable={false}>Compiler Value</TableHeaderColumn>
+    <TableHeaderColumn dataField={'compilerName'} editable={false}>Compiler Name</TableHeaderColumn>
+    <TableHeaderColumn dataField={'instanceName'}>Instance Name</TableHeaderColumn>
+    {fakeExistingInstancesTableHeaderColumns.map((col, index) => {
+      return (
+        <TableHeaderColumn key={index} dataField={'option' + index}>{col.option}</TableHeaderColumn>
+      );
+    })}
+  </BootstrapTable>
 )
 
 export default ExistingInstancesTable;

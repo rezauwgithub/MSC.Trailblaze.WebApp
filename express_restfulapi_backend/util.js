@@ -53,7 +53,7 @@ module.exports.getLicensedCompilers = (callback) => {
       let value = 0;
       for (let i = 0; i < rStrLines.length; i++) {
         const compilerName = rStrLines[i].split(" =")[0];
-        if (compilerName !== "" || compilerName.startsWith(" ")) {
+        if (compilerName !== "") {
           console.log('compilerName: ' + compilerName);
           global.licensedCompilersjsonArr.push({ value: value++, name: compilerName });
         }
@@ -171,12 +171,48 @@ module.exports.getCompilerUserOptions = (compilervalue, callback) => {
           return;
       }
 
-
       var jsonStrArr = [];
       console.log('stdout: ' + stdout);
       
+      let new_stdoutArr = stdout.split("\t\t");
+      let optionsDataArr = new_stdoutArr[1].split("\n");
 
-      callback(jsonObj);
+
+      addedCompilerUserOptionsMap[compilervalue] = [];
+
+      let currentOption = null;
+      let currentjsonObj = {};
+      optionsDataArr.forEach((element) => {
+
+        if (element == "") {
+          return;
+        }
+
+        let elementArr = element.split(" = ");
+        let leftElement = elementArr[0];
+        let rightElement = elementArr[1];
+
+
+        let leftElementArr = leftElement.split(":")
+        if (leftElementArr[1] === undefined) {
+          if (currentOption !== null) {
+            addedCompilerUserOptionsMap[compilervalue].push(currentjsonObj);
+            currentjsonObj = {};
+          }
+
+          currentOption = leftElement;
+          currentjsonObj.option = currentOption;
+          currentjsonObj.placeholder = rightElement;
+
+        } else {
+          currentjsonObj[leftElementArr[1]] = rightElement;
+        }
+
+      });
+      addedCompilerUserOptionsMap[compilervalue].push(currentjsonObj);
+
+      console.log(JSON.stringify(addedCompilerUserOptionsMap[compilervalue]));
+      callback(JSON.stringify(addedCompilerUserOptionsMap[compilervalue]));
     });
 
   }

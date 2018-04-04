@@ -64,7 +64,9 @@ class DefineScreen extends Component {
     this.state = {
       selectedCompilers: []
     };
+
   }
+  
 
 
   setSelectedCompilers = ({selectedCompilers}) => {
@@ -80,7 +82,7 @@ class DefineScreen extends Component {
       this.props.dispatch(compilersUserOptionsActions.fetchAddedCompilerUserOptions(this.props.licensedCompilers[selectedCompiler]));
       //this.props.dispatch(compilersActions.fetchAddedCompilerDetails(this.props.licensedCompilers[selectedCompiler]));
 
-
+      
       this.props.dispatch(instancesActions.addDataToExistingInstancesTable(
         {
 
@@ -88,6 +90,7 @@ class DefineScreen extends Component {
           compilerName: this.props.licensedCompilers[selectedCompiler].name
         }
       ));
+
     });
   }
 
@@ -107,7 +110,7 @@ class DefineScreen extends Component {
                         status={(this.props.isFetchingLicensedCompilers) ? "loading" : "hide"} /></td>
                   <td><CompilersSelectField setSelectedCompilers={this.setSelectedCompilers} /></td>
                   <td><RaisedButton label="ADD" onClick={() => this.addInstancesToExistingInstancesTable()} disabled={this.state.selectedCompilers.length < 1} /></td>
-                  <td><RaisedButton label="REMOVE" onClick={() => alert('REMOVE clicked')} primary={true}/></td>
+                  <td><RaisedButton label="REMOVE" onClick={() => alert('REMOVE clicked')} primary={true} /></td>
                   <td><RaisedButton label="VALIDATE" onClick={() => alert('VALIDATE clicked')} secondary={true}/></td>
                 </tr>
               </tbody>
