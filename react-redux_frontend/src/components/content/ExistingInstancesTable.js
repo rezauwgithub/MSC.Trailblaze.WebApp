@@ -1,55 +1,102 @@
-import React from 'react';
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import React, { Component } from 'react';
+import ReactDataGrid from 'react-data-grid';
+import update from 'immutability-helper';
+
 import CircularProgress from 'material-ui/CircularProgress';
 
 
-import 'bootstrap/dist/css/bootstrap.css';
-import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
-
-
-var fakeExistingInstancesTableHeaderColumns = [{
-  datatype: "string",
-  option: "BISTName",
-  placeholder: "NULL"
-}, {
-  compiler: "171",
-  datatype: "integer",
-  option: "ID",
-  placeholder: "171"
-}];
-
-
-var fakeExistingInstancesTableData = [{
-  compilerValue: 0,
-  compilerName: "Compiler0",
-}, {
-  compilerValue: 1,
-  compilerName: "Compiler1",
-}, {
-  compilerValue: 2,
-  compilerName: "Compiler2",
-}];
-
-
-
-const cellEditProp = {
-  mode: 'click'
-};
-
-const ExistingInstancesTable = (props) => (
-
+class ExistingInstancesTable extends Component {
+    constructor(props, context) {
+      super(props, context);
+      this._columns = [
+        {
+          key: 'id',
+          name: 'ID',
+          width: 80
+        },
+        {
+          key: 'task',
+          name: 'Title',
+          editable: true
+        },
+        {
+          key: 'priority',
+          name: 'Priority',
+          editable: true
+        },
+        {
+          key: 'issueType',
+          name: 'Issue Type',
+          editable: true
+        },
+        {
+          key: 'complete',
+          name: '% Complete',
+          editable: true
+        },
+        {
+          key: 'startDate',
+          name: 'Start Date',
+          editable: true
+        },
+        {
+          key: 'completeDate',
+          name: 'Expected Complete',
+          editable: true
+        }
+      ];
   
+      this.state = { rows: this.createRows(1000) };
+    }
+  
+    getRandomDate = (start, end) => {
+      return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime())).toLocaleDateString();
+    };
+  
+    createRows = (numberOfRows) => {
+      let rows = [];
+      for (let i = 1; i < numberOfRows; i++) {
+        rows.push({
+          id: i,
+          task: 'Task ' + i,
+          complete: Math.min(100, Math.round(Math.random() * 110)),
+          priority: ['Critical', 'High', 'Medium', 'Low'][Math.floor((Math.random() * 3) + 1)],
+          issueType: ['Bug', 'Improvement', 'Epic', 'Story'][Math.floor((Math.random() * 3) + 1)],
+          startDate: this.getRandomDate(new Date(2015, 3, 1), new Date()),
+          completeDate: this.getRandomDate(new Date(), new Date(2016, 0, 1))
+        });
+      }
+      return rows;
+    };
+  
+    rowGetter = (i) => {
+      return this.state.rows[i];
+    };
+  
+    handleGridRowsUpdated = ({ fromRow, toRow, updated }) => {
+      let rows = this.state.rows.slice();
+  
+      for (let i = fromRow; i <= toRow; i++) {
+        let rowToUpdate = rows[i];
+        let updatedRow = update(rowToUpdate, {$merge: updated});
+        rows[i] = updatedRow;
+      }
+  
+      this.setState({ rows });
+    };
+  
+    render() {
+      return  (
+        <ReactDataGrid
+          enableCellSelect={true}
+          columns={this._columns}
+          rowGetter={this.rowGetter}
+          rowsCount={this.state.rows.length}
+          minHeight={400}
+          onGridRowsUpdated={this.handleGridRowsUpdated} />);
+    }
+  }
 
-  <BootstrapTable data={fakeExistingInstancesTableData} keyField='compilerValue' cellEdit={ cellEditProp }>
-    <TableHeaderColumn dataField={'compilerValue'} editable={false}>Compiler Value</TableHeaderColumn>
-    <TableHeaderColumn dataField={'compilerName'} editable={false}>Compiler Name</TableHeaderColumn>
-    <TableHeaderColumn dataField={'instanceName'}>Instance Name</TableHeaderColumn>
-    {fakeExistingInstancesTableHeaderColumns.map((col, index) => {
-      return (
-        <TableHeaderColumn key={index} dataField={'option' + index}>{col.option}</TableHeaderColumn>
-      );
-    })}
-  </BootstrapTable>
-)
 
-export default ExistingInstancesTable;
+  export default ExistingInstancesTable;
+
