@@ -19,7 +19,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "concurrently": "^3.5.1"
+    "concurrently": "^3.5.1",
+    "reactjs-bootstrap-table": "^1.0.12"
   },
   "bugs": {
     "url": "https://github.com/rezauwgithub/MSC.Trailblaze.WebApp/issues"
