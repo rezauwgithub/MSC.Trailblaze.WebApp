@@ -1,114 +1,102 @@
 import React, { Component } from 'react';
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import BootstrapTable, { TableHeaderColumn } from 'react-bootstrap-table-next';
+import cellEditFactory from 'react-bootstrap-table2-editor';
+
 import CircularProgress from 'material-ui/CircularProgress';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.css';
 
 
-export default class ExistingInstancesTable extends Component {
 
+const columns = [{
+  dataField: 'id',
+  text: 'User ID'
+}, {
+  dataField: 'name',
+  text: 'User Name'
+}, {
+  dataField: 'phone',
+  text: 'Phone'
+}, {
+  dataField: 'addressCity',
+  text: 'City'
+}, {
+  dataField: 'addressPostCode',
+  text: 'PostCode'
+}];
+
+
+
+var products = [{
+  id: 0,
+  name: 'Mac',
+  phone: '425-435-0588',
+  addressCity: 'Seattle',
+  addressPostCode: '98134'
+}];
+
+
+
+const RemoteCellEdit = (props) => {
+  const cellEdit = {
+    mode: 'click',
+    blurToSave: true,
+    errorMessage: props.errorMessage
+  };
+
+  return (
+    <div>
+      <BootstrapTable
+        remote={ { cellEdit: true } }
+        keyField="id"
+        data={ props.data }
+        columns={ columns }
+        cellEdit={ cellEditFactory(cellEdit) }
+        onTableChange={ props.onTableChange }
+      />
+    </div>
+  );
+};
+
+export default class ExistingInstancesTable extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state= {
-      products: []
-    }
-
-
-    this.addProducts(5000);
+    this.state = {
+      data: products,
+      errorMessage: null
+    };
   }
 
-
-  addProducts(quantity) {
-
-    const startId = this.state.products.length;
-    for (let i = 0; i < quantity; i++) {
-      const id = startId + i;
-  
-      this.state.products.push({
-        id: id,
-        name: 'Item name ' + id,
-        price: 2100 + i
+  handleTableChange = (type, { data, cellEdit: { rowId, dataField, newValue } }) => {
+    if (newValue === 'test' && dataField === 'name') {
+      this.setState(() => ({
+        data,
+        errorMessage: `Oops, product name shouldn't be "test"`
+      }));
+    } else {
+      const result = data.map((row) => {
+        if (row.id === rowId) {
+          const newRow = { ...row };
+          newRow[dataField] = newValue;
+          return newRow;
+        }
+        return row;
       });
+      this.setState(() => ({
+        data: result,
+        errorMessage: null
+      }));
     }
-  
   }
-  
-
-
-
-  onAfterSaveCell(row, cellName, cellValue) {
-
-    alert(`Save cell ${cellName} with value ${cellValue}`);
-  
-    let rowStr = '';
-    for (const prop in row) {
-      rowStr += prop + ': ' + row[prop] + '\n';
-    }
-  
-    
-    alert('The whole row :\n' + rowStr);
-  
-  }
-  
-
-
-
-  onBeforeSaveCell(row, cellName, cellValue) {
-    /* 
-      You can do any validation on here for editing value,
-      return false for reject the editing
-    */
-  
-    return true;
-  }  
-
-
-  onBeforeSaveCellAsync(row, cellName, cellValue, done) {
-    /*
-      If you validation is async, for example: you want to pop a confirm dialog
-      for user to confirm in this case, react-bootstrap-table passes a callback 
-      function back to you.
-  
-      You are suppose to call this callback function with a bool value to perform
-      if it is valid or not. In addition, you sould return 1 to tell react-bootstrap-table
-      this is a async operation.
-    */
-  
-    /*
-    // I use setTimeout to perform a async operation.
-    setTimeout(() => {
-  
-      done(true);   // it's ok to save :)
-      done(false);  // it's not ok to save :(
-  
-    }, 3000);
-  
-    
-    return 1;   // please return 1
-    */
-  
-  }
-
-
-
-  cellEditProp = {
-    mode: 'click',
-    blueToSave: true,
-    beforeSaveCell: this.onBeforeSaveCell,   // a hook for before saving cell
-    afterSaveCell: this.onAfterSaveCell,     // a hook for after saving cell
-  }
-
 
   render() {
     return (
-      <BootstrapTable data={ this.state.products } height={350} cellEdit={ this.cellEditProp }>
-        <TableHeaderColumn dataField='id' isKey={ true }>Product ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='name'>Product Name</TableHeaderColumn>
-        <TableHeaderColumn dataField='price'>Product Price</TableHeaderColumn>
-      </BootstrapTable>
+      <RemoteCellEdit
+        data={ this.state.data }
+        errorMessage={ this.state.errorMessage }
+        onTableChange={ this.handleTableChange }
+      />
     );
   }
-
 }
