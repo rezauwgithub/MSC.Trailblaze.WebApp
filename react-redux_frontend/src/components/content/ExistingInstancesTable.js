@@ -11,30 +11,21 @@ import 'react-bootstrap-table-next/dist/react-bootstrap-table2.css';
 
 const columns = [{
   dataField: 'id',
-  text: 'User ID'
+  text: 'ID',
 }, {
-  dataField: 'name',
-  text: 'User Name'
+  dataField: 'option',
+  text: 'Option'
 }, {
-  dataField: 'phone',
-  text: 'Phone'
+  dataField: 'placeholder',
+  text: 'Placeholder'
 }, {
-  dataField: 'addressCity',
-  text: 'City'
-}, {
-  dataField: 'addressPostCode',
-  text: 'PostCode'
+  dataField: 'datatype',
+  text: 'string'
 }];
 
 
 
-var products = [{
-  id: 0,
-  name: 'Mac',
-  phone: '425-435-0588',
-  addressCity: 'Seattle',
-  addressPostCode: '98134'
-}];
+var products = [];
 
 
 
@@ -44,6 +35,7 @@ const RemoteCellEdit = (props) => {
     blurToSave: true,
     errorMessage: props.errorMessage
   };
+
 
   return (
     <div>
@@ -63,7 +55,7 @@ export default class ExistingInstancesTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: products,
+      data: this.props.existingInstancesTableData,
       errorMessage: null
     };
   }

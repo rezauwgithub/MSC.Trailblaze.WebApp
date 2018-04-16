@@ -13,7 +13,16 @@ import { addHeaderColumnToExistingInstancesTable } from './actions';
 
 
 const initialState = Immutable({
-  existingInstancesTableHeaderColumns: [],
+  existingInstancesTableHeaderColumns: [
+    {
+      dataField: 'id',
+      text: 'ID'
+    },
+    {
+      dataField: 'CompilerName',
+      text: 'Compiler Name'
+    }
+  ],
   existingInstancesTableData: [],
 });
 

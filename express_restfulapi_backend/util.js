@@ -148,6 +148,8 @@ module.exports.getCompilerUserOptions = (compilervalue, callback) => {
           }
 
           currentOption = leftElement;
+          currentjsonObj.text = currentOption;
+          currentjsonObj.dataField = currentOption;
           currentjsonObj.option = currentOption;
           currentjsonObj.placeholder = rightElement;
 
