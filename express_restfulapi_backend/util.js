@@ -277,17 +277,17 @@ module.exports.getCompilerCompilerOptions = (compilervalue, callback) => {
   console.log('Running command ' + command);
 
   exec(command, (err, stdout, stderr) => {
-      if (err) {
-          console.error(`exec error: ${err}`);
-          return;
-      }
+    if (err) {
+        console.error(`exec error: ${err}`);
+        return;
+    }
 
 
-      var jsonStrArr = [];
-      console.log('stdout: ' + stdout)
+    var jsonStrArr = [];
+    console.log('stdout: ' + stdout)
 
 
-      callback(jsonStrArr);
+    callback(jsonStrArr);
   });
 }
 
@@ -301,17 +301,17 @@ module.exports.getCompilerAllOptions = (compilervalue, callback) => {
   console.log('Running command ' + command);
 
   exec(command, (err, stdout, stderr) => {
-      if (err) {
-          console.error(`exec error: ${err}`);
-          return;
-      }
+    if (err) {
+        console.error(`exec error: ${err}`);
+        return;
+    }
 
 
-      var jsonStrArr = [];
-      console.log('stdout: ' + stdout)
+    var jsonStrArr = [];
+    console.log('stdout: ' + stdout)
 
 
-      callback(jsonStrArr);
+    callback(jsonStrArr);
   });
 }
 

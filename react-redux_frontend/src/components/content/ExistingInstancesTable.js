@@ -51,7 +51,7 @@ const RemoteCellEdit = (props) => {
         remote={ { cellEdit: true } }
         keyField="id"
         data={ props.data }
-        columns={ columns }
+        columns={ props.columns }
         cellEdit={ cellEditFactory(cellEdit) }
         onTableChange={ props.onTableChange }
       />
@@ -93,6 +93,7 @@ export default class ExistingInstancesTable extends React.Component {
   render() {
     return (
       <RemoteCellEdit
+        columns={ this.props.existingInstancesTableHeaderColumns }
         data={ this.state.data }
         errorMessage={ this.state.errorMessage }
         onTableChange={ this.handleTableChange }
