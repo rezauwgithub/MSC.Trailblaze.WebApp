@@ -10,8 +10,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import HeaderScreen from './containers/header/HeaderScreen';
-import ContentScreen from './containers/content/ContentScreen';
-import FooterScreen from './containers/footer/FooterScreen';
+import ContentScreen from './components/content/ContentScreen';
+import FooterScreen from './components/footer/FooterScreen';
 
 
 import './App.css';

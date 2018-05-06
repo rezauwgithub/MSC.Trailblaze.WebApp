@@ -52,13 +52,28 @@ const RemoteCellEdit = (props) => {
 };
 
 export default class ExistingInstancesTable extends React.Component {
+
   constructor(props) {
     super(props);
+
     this.state = {
       data: this.props.existingInstancesTableData,
       errorMessage: null
     };
   }
+
+
+  static deriveStateFromProps(props, state, prevProps) {
+
+    if (prevProps === null || props.existingInstancesTableData !== prevProps.existingInstancesTableData) {
+      return {
+        existingInstancesTableData: props.existingInstancesTableData
+      }
+    }
+
+  }
+
+
 
   handleTableChange = (type, { data, cellEdit: { rowId, dataField, newValue } }) => {
     if (newValue === 'test' && dataField === 'name') {

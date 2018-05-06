@@ -19,7 +19,7 @@ const initialState = Immutable({
       text: 'ID'
     },
     {
-      dataField: 'CompilerName',
+      dataField: 'compilerName',
       text: 'Compiler Name'
     }
   ],
