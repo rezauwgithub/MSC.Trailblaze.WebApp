@@ -19,7 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "concurrently": "^3.5.1"
+    "concurrently": "3.6.0"
   },
   "bugs": {
     "url": "https://github.com/rezauwgithub/MSC.Trailblaze.WebApp/issues"
